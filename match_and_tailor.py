@@ -20,6 +20,7 @@ from typing import Dict, List, Any, Tuple, Optional
 ROOT_DIR = Path(__file__).parent
 sys.path.insert(0, str(ROOT_DIR))
 from db import get_connection, update_job_match, get_top_matches
+from resume_exporter import export_resume_docx, export_resume_pdf
 
 MASTER_RESUME_FILE = ROOT_DIR / "master_resume.md"
 RESUMES_DIR = ROOT_DIR / "outputs" / "resumes"
@@ -330,8 +331,10 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
         f"immediate impact for {company}'s {title} role with dependable, high-satisfaction technical support and defect triage."
     )
 
-    filename = f"{sanitize_filename(company)}_{sanitize_filename(title)}_resume.md"
-    filepath = RESUMES_DIR / filename
+    base_name = f"{sanitize_filename(company)}_{sanitize_filename(title)}_resume"
+    md_filepath = RESUMES_DIR / f"{base_name}.md"
+    docx_filepath = RESUMES_DIR / f"{base_name}.docx"
+    pdf_filepath = RESUMES_DIR / f"{base_name}.pdf"
 
     content = f"""# Robert Warren
 **Location:** Dayton, OH | **Phone:** (626) 872-4171 | **Email:** robertcwarren1@gmail.com | **LinkedIn:** linkedin.com/in/robert-c-warren
@@ -379,8 +382,31 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
 - **Associate of Science (AS), Computer Science** – Glendale Community College, Glendale, CA
 - **Certificate in Digital Systems & Audio Engineering** – Icon Collective, Los Angeles, CA
 """
-    filepath.write_text(content.strip(), encoding="utf-8")
-    return filepath
+
+    # Write Markdown
+    md_filepath.write_text(content.strip(), encoding="utf-8")
+
+    # Export Word Document (.docx)
+    export_resume_docx(
+        company=company,
+        title=title,
+        summary=summary,
+        competencies=[(name, desc) for name, desc, _ in scored_comp],
+        midmark_bullets=sorted_midmark_bullets,
+        output_docx_path=docx_filepath
+    )
+
+    # Export Adobe PDF (.pdf)
+    export_resume_pdf(
+        company=company,
+        title=title,
+        summary=summary,
+        competencies=[(name, desc) for name, desc, _ in scored_comp],
+        midmark_bullets=sorted_midmark_bullets,
+        output_pdf_path=pdf_filepath
+    )
+
+    return pdf_filepath, docx_filepath, md_filepath
 
 def generate_cold_outreach_email(job: Dict[str, Any], score: float) -> Path:
     """
@@ -475,18 +501,21 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
             status = "rejected"
             rejected_count += 1
             resume_path_str = ""
+            docx_path_str = ""
             email_path_str = ""
         else:
             status = "matched"
             matched_count += 1
             if score >= 75.0:
-                # Generate tailored assets
-                res_path = generate_tailored_resume(job, reasons)
+                # Generate tailored assets (PDF, Word Doc, Markdown)
+                pdf_path, docx_path, md_path = generate_tailored_resume(job, reasons)
                 email_path = generate_cold_outreach_email(job, score)
-                resume_path_str = str(res_path.relative_to(ROOT_DIR)).replace("\\", "/")
+                resume_path_str = str(pdf_path.relative_to(ROOT_DIR)).replace("\\", "/")
+                docx_path_str = str(docx_path.relative_to(ROOT_DIR)).replace("\\", "/")
                 email_path_str = str(email_path.relative_to(ROOT_DIR)).replace("\\", "/")
             else:
                 resume_path_str = ""
+                docx_path_str = ""
                 email_path_str = ""
 
         # Update database record
@@ -504,6 +533,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         job_copy["status"] = status
         job_copy["match_reasons"] = reasons_str
         job_copy["tailored_resume_path"] = resume_path_str
+        job_copy["docx_path"] = docx_path_str
         job_copy["cold_email_path"] = email_path_str
         evaluated_jobs.append(job_copy)
 
@@ -554,9 +584,14 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]]) -> None:
     ]
 
     for idx, j in enumerate(top_jobs, 1):
-        resume_link = f"[Tailored Resume]({j['tailored_resume_path']})" if j['tailored_resume_path'] else "N/A"
-        email_link = f"[Cold Email]({j['cold_email_path']})" if j['cold_email_path'] else "N/A"
-        assets_col = f"{resume_link} · {email_link}" if j['tailored_resume_path'] else "Below 75 threshold"
+        if j.get('tailored_resume_path'):
+            pdf_link = f"[PDF Resume]({j['tailored_resume_path']})"
+            docx_path_val = j.get('docx_path') or j['tailored_resume_path'].replace('.pdf', '.docx')
+            docx_link = f"[Word Doc]({docx_path_val})"
+            email_link = f"[Cold Email]({j['cold_email_path']})"
+            assets_col = f"{pdf_link} · {docx_link} · {email_link}"
+        else:
+            assets_col = "Below 75 threshold"
         salary = j.get('salary_range') or "Not specified"
         md.append(f"| {idx} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
 
@@ -575,8 +610,10 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]]) -> None:
         md.append(f"- **Compensation:** {j.get('salary_range', 'Not specified')}")
         md.append(f"- **ATS Relevance Score:** **{j['score']:.0f} / 100**")
         md.append(f"- **Match Justification:** {j.get('match_reasons', 'N/A')}")
-        if j['tailored_resume_path']:
-            md.append(f"- **Tailored Resume:** [{j['tailored_resume_path']}]({j['tailored_resume_path']})")
+        if j.get('tailored_resume_path'):
+            docx_path_val = j.get('docx_path') or j['tailored_resume_path'].replace('.pdf', '.docx')
+            md.append(f"- **PDF Resume:** [{j['tailored_resume_path']}]({j['tailored_resume_path']})")
+            md.append(f"- **Word Document (.docx):** [{docx_path_val}]({docx_path_val})")
             md.append(f"- **Cold Outreach Email:** [{j['cold_email_path']}]({j['cold_email_path']})")
         md.append("")
 
