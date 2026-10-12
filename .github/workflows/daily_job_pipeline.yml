@@ -1,0 +1,48 @@
+name: Daily Autonomous Job Engine
+
+on:
+  schedule:
+    # Runs daily at 13:00 UTC (9:00 AM EDT / 6:00 AM PDT)
+    - cron: '0 13 * * *'
+  workflow_dispatch: # Allows manual trigger anytime from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  run-job-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Job Pipeline
+        run: |
+          python run_pipeline.py
+
+      - name: Commit and Push Updated Matches and Assets
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add jobs.db daily_matches.md outputs/
+          # Only commit if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: automated daily job matches and tailored assets [skip ci]" && git push)
+
+      - name: Upload Daily Matches Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-job-matches
+          path: |
+            daily_matches.md
+            outputs/
