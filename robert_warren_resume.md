@@ -49,14 +49,10 @@ Education
 
 Glendale Community College
 Glendale, CA
-Associate of Science (AS), Computer Science
-
-
-
+Coursework in Computer Science (2 Years Completed)
 
 Icon Collective
 Los Angeles, CA
 Certificate in Digital Music Production
 2014 – 2015
-
 

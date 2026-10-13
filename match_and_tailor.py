@@ -20,7 +20,7 @@ from typing import Dict, List, Any, Tuple, Optional
 ROOT_DIR = Path(__file__).parent
 sys.path.insert(0, str(ROOT_DIR))
 from db import get_connection, update_job_match, get_top_matches
-from resume_exporter import export_resume_docx, export_resume_pdf
+from resume_exporter import export_resume_pdf
 
 MASTER_RESUME_FILE = ROOT_DIR / "master_resume.md"
 RESUMES_DIR = ROOT_DIR / "outputs" / "resumes"
@@ -332,71 +332,9 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
     )
 
     base_name = f"{sanitize_filename(company)}_{sanitize_filename(title)}_resume"
-    md_filepath = RESUMES_DIR / f"{base_name}.md"
-    docx_filepath = RESUMES_DIR / f"{base_name}.docx"
     pdf_filepath = RESUMES_DIR / f"{base_name}.pdf"
 
-    content = f"""# Robert Warren
-**Location:** Dayton, OH | **Phone:** (626) 872-4171 | **Email:** robertcwarren1@gmail.com | **LinkedIn:** linkedin.com/in/robert-c-warren
-**Target Role:** {title} at {company}
-
----
-
-## Professional Summary
-{summary}
-
----
-
-## Core Competencies & Technical Skills
-{comp_block}
-
----
-
-## Professional Experience
-
-### Midmark Corporation | Versailles, OH
-**Associate Technical Service Specialist** | *Jun 2024 – Sep 2026*
-{chr(10).join(['- ' + b for b in sorted_midmark_bullets])}
-
-### Quality Boat Salvage | Pasadena, CA
-**Data & Operations Systems Specialist** | *Mar 2023 – Jun 2024*
-- Architected automated inventory synchronization pipelines and data-handling scripts in Python, reducing sync cycle times by 20% while eliminating state desynchronization.
-- Administered cloud directory accounts, access controls, multi-factor authentication (MFA), and data integrity standards across operational tools and databases.
-- Authored operational runbooks, hardware maintenance guides, and system troubleshooting SOPs to standardize staff onboarding and operational technical procedures.
-
-### Pyramid Consulting, Inc. | Remote / Los Angeles, CA
-**IT Systems Engineer (Contract)** | *May 2022 – Nov 2022*
-- Delivered enterprise L2/L3 systems support for distributed Windows and macOS endpoints, corporate VPNs, and AWS identity/access configurations.
-- Triaged web application performance degradation, REST API failures, and runtime defects utilizing browser developer tools, HTTP request inspection, and server-side log output.
-- Maintained a 95%+ first-contact satisfaction rating handling escalated technical tickets within enterprise ServiceNow environments.
-
----
-
-## Technical Projects & Systems Engineering
-- **Portsy – Distributed File Synchronization & State Engine** *(Go, Wails, TypeScript, Firestore)*: Built lightweight desktop background synchronization utility in Go utilizing OS file-system event listeners; engineered conflict-resolution algorithms for concurrent writes, file locks, and offline resilience.
-- **EcoCommerce – Scalable Relational Data Platform & API Service** *(Node.js, TypeScript, React, Prisma, SQL)*: Designed full-stack platform with strictly typed relational schemas, query optimization, robust REST APIs, DNS management, and uptime monitoring.
-
----
-
-## Education & Certifications
-- **Associate of Science (AS), Computer Science** – Glendale Community College, Glendale, CA
-- **Certificate in Digital Systems & Audio Engineering** – Icon Collective, Los Angeles, CA
-"""
-
-    # Write Markdown
-    md_filepath.write_text(content.strip(), encoding="utf-8")
-
-    # Export Word Document (.docx)
-    export_resume_docx(
-        company=company,
-        title=title,
-        summary=summary,
-        competencies=[(name, desc) for name, desc, _ in scored_comp],
-        midmark_bullets=sorted_midmark_bullets,
-        output_docx_path=docx_filepath
-    )
-
-    # Export Adobe PDF (.pdf)
+    # Export clean, ATS-compliant PDF resume directly using ReportLab
     export_resume_pdf(
         company=company,
         title=title,
@@ -406,7 +344,7 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
         output_pdf_path=pdf_filepath
     )
 
-    return pdf_filepath, docx_filepath, md_filepath
+    return pdf_filepath
 
 def generate_cold_outreach_email(job: Dict[str, Any], score: float) -> Path:
     """
@@ -501,21 +439,18 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
             status = "rejected"
             rejected_count += 1
             resume_path_str = ""
-            docx_path_str = ""
             email_path_str = ""
         else:
             status = "matched"
             matched_count += 1
             if score >= 75.0:
-                # Generate tailored assets (PDF, Word Doc, Markdown)
-                pdf_path, docx_path, md_path = generate_tailored_resume(job, reasons)
+                # Generate tailored PDF resume and cold email
+                pdf_path = generate_tailored_resume(job, reasons)
                 email_path = generate_cold_outreach_email(job, score)
                 resume_path_str = str(pdf_path.relative_to(ROOT_DIR)).replace("\\", "/")
-                docx_path_str = str(docx_path.relative_to(ROOT_DIR)).replace("\\", "/")
                 email_path_str = str(email_path.relative_to(ROOT_DIR)).replace("\\", "/")
             else:
                 resume_path_str = ""
-                docx_path_str = ""
                 email_path_str = ""
 
         # Update database record
@@ -533,7 +468,6 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         job_copy["status"] = status
         job_copy["match_reasons"] = reasons_str
         job_copy["tailored_resume_path"] = resume_path_str
-        job_copy["docx_path"] = docx_path_str
         job_copy["cold_email_path"] = email_path_str
         evaluated_jobs.append(job_copy)
 
@@ -551,7 +485,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         title = j['title'][:35]
         loc = j['location'][:18]
         score_str = f"{j['score']:.0f}"
-        assets = "Resume & Email" if j['score'] >= 75.0 else ("Match (No assets)" if j['score'] >= 60 else "Filtered")
+        assets = "PDF Resume & Email" if j['score'] >= 75.0 else ("Match (No assets)" if j['score'] >= 60 else "Filtered")
         print(f"{idx:<5} | {comp:<18} | {title:<35} | {loc:<18} | {score_str:<5} | {assets}")
     print("-" * 105)
 
@@ -585,11 +519,9 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]]) -> None:
 
     for idx, j in enumerate(top_jobs, 1):
         if j.get('tailored_resume_path'):
-            pdf_link = f"[PDF Resume]({j['tailored_resume_path']})"
-            docx_path_val = j.get('docx_path') or j['tailored_resume_path'].replace('.pdf', '.docx')
-            docx_link = f"[Word Doc]({docx_path_val})"
+            pdf_link = f"[Tailored PDF Resume]({j['tailored_resume_path']})"
             email_link = f"[Cold Email]({j['cold_email_path']})"
-            assets_col = f"{pdf_link} · {docx_link} · {email_link}"
+            assets_col = f"{pdf_link} · {email_link}"
         else:
             assets_col = "Below 75 threshold"
         salary = j.get('salary_range') or "Not specified"
@@ -611,9 +543,7 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]]) -> None:
         md.append(f"- **ATS Relevance Score:** **{j['score']:.0f} / 100**")
         md.append(f"- **Match Justification:** {j.get('match_reasons', 'N/A')}")
         if j.get('tailored_resume_path'):
-            docx_path_val = j.get('docx_path') or j['tailored_resume_path'].replace('.pdf', '.docx')
-            md.append(f"- **PDF Resume:** [{j['tailored_resume_path']}]({j['tailored_resume_path']})")
-            md.append(f"- **Word Document (.docx):** [{docx_path_val}]({docx_path_val})")
+            md.append(f"- **Tailored PDF Resume:** [{j['tailored_resume_path']}]({j['tailored_resume_path']})")
             md.append(f"- **Cold Outreach Email:** [{j['cold_email_path']}]({j['cold_email_path']})")
         md.append("")
 

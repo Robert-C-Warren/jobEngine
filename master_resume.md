@@ -51,5 +51,5 @@ High-performing Systems & Technical Support Specialist with deep experience reso
 ---
 
 ## Education & Certifications
-- **Associate of Science (AS), Computer Science** – Glendale Community College, Glendale, CA
+- **Coursework in Computer Science (2 Years Completed)** – Glendale Community College, Glendale, CA
 - **Certificate in Digital Systems & Audio Engineering** – Icon Collective, Los Angeles, CA
