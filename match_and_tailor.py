@@ -111,7 +111,11 @@ TARGET_TITLES_ALIGNMENT = [
     "tier ii", "tier iii", "pacs support analyst", "imaging support specialist",
     "field service engineer", "implementation specialist", "implementation consultant",
     "solutions integration engineer", "technical escalations engineer",
-    "systems support specialist", "application support specialist", "customer support engineer"
+    "systems support specialist", "application support specialist", "customer support engineer",
+    "it support specialist", "it support analyst", "it support engineer", "desktop support",
+    "it systems engineer", "systems engineer", "technical operations", "solutions specialist",
+    "solutions engineer", "technical support", "support engineer", "support specialist",
+    "client support engineer", "client support specialist", "field technician"
 ]
 
 EXCLUSION_TERMS = [
