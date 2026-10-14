@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-14 12:15:51  
+**Generated:** 2026-10-14 17:59:38  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -13,10 +13,11 @@
 | 1 | **Samsara** | [Enterprise Core Implementation Consultant](https://www.samsara.com/company/careers/roles/8121318?gh_jid=8121318) | Remote - US | **72/100** | $88,979 — $134,590.91 USD | [Tailored PDF Resume](outputs/resumes/Samsara_Enterprise_Core_Implementation_Consultant_resume.pdf) · [Cold Email](outputs/emails/Samsara_Enterprise_Core_Implementation_Consultant_cold_email.md) |
 | 2 | **Samsara** | [Enterprise Implementation Consultant](https://www.samsara.com/company/careers/roles/8131784?gh_jid=8131784) | Remote - US | **72/100** | $66,261.36 — $100,227.27 USD | [Tailored PDF Resume](outputs/resumes/Samsara_Enterprise_Implementation_Consultant_resume.pdf) · [Cold Email](outputs/emails/Samsara_Enterprise_Implementation_Consultant_cold_email.md) |
 | 3 | **Flexport** | [Senior Systems Engineer (Identity and Access)](https://job-boards.greenhouse.io/flexport/jobs/8164901) | U.S. Remote | **68/100** | $130,000 — $172,000 USD | [Tailored PDF Resume](outputs/resumes/Flexport_Senior_Systems_Engineer_Identity_and_Access_resume.pdf) · [Cold Email](outputs/emails/Flexport_Senior_Systems_Engineer_Identity_and_Access_cold_email.md) |
-| 4 | **Flexport** | [Senior IT Systems Engineer](https://job-boards.greenhouse.io/flexport/jobs/8213955) | U.S. Remote | **68/100** | $130,000 — $172,000 USD | [Tailored PDF Resume](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md) |
-| 5 | **Gitlab** | [Support Engineer, U.S. Government Support](https://job-boards.greenhouse.io/gitlab/jobs/8859063002) | Remote, United States | **67/100** | $95,200 — $160,800 USD | Below 70 threshold |
-| 6 | **Koast.ai** | [Head of Technical Support @ Koast.ai](https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai) | Remote (US) | **64/100** | Not specified | Below 70 threshold |
-| 7 | **Upstart** | [Integration Engineer - Contract](https://careers.upstart.com/jobs?gh_jid=8275037) | United States | Remote | **63/100** | $47.98 — $66.35 USD | Below 70 threshold |
+| 4 | **Spreedly** | [Support Engineer](https://jobicy.com/jobs/155268-support-engineer-2) | USA | **68/100** | Not specified | Below 70 threshold |
+| 5 | **Flexport** | [Senior IT Systems Engineer](https://job-boards.greenhouse.io/flexport/jobs/8213955) | U.S. Remote | **68/100** | $130,000 — $172,000 USD | [Tailored PDF Resume](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md) |
+| 6 | **Gitlab** | [Support Engineer, U.S. Government Support](https://job-boards.greenhouse.io/gitlab/jobs/8859063002) | Remote, United States | **67/100** | $95,200 — $160,800 USD | Below 70 threshold |
+| 7 | **Koast.ai** | [Head of Technical Support @ Koast.ai](https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai) | Remote (US) | **64/100** | Not specified | Below 70 threshold |
+| 8 | **Upstart** | [Integration Engineer - Contract](https://careers.upstart.com/jobs?gh_jid=8275037) | United States | Remote | **63/100** | $47.98 — $66.35 USD | Below 70 threshold |
 
 ---
 
@@ -49,7 +50,14 @@
 - **Tailored PDF Resume:** [outputs/resumes/Flexport_Senior_Systems_Engineer_Identity_and_Access_resume.pdf](outputs/resumes/Flexport_Senior_Systems_Engineer_Identity_and_Access_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Flexport_Senior_Systems_Engineer_Identity_and_Access_cold_email.md](outputs/emails/Flexport_Senior_Systems_Engineer_Identity_and_Access_cold_email.md)
 
-### 4. Senior IT Systems Engineer – Flexport
+### 4. Support Engineer – Spreedly
+- **Direct Application URL:** [https://jobicy.com/jobs/155268-support-engineer-2](https://jobicy.com/jobs/155268-support-engineer-2)
+- **Location:** USA
+- **Compensation:** Not specified
+- **ATS Relevance Score:** **68 / 100**
+- **Match Justification:** Direct Title Match: 'Support Engineer' (+25) | Tier 2/3 RCA & Diagnostics (tier 2, tier 3) (+15) | Networking Protocols (routing) (+5) | ITSM Platforms (jira, zendesk) (+8) | Remote Target Location (+15)
+
+### 5. Senior IT Systems Engineer – Flexport
 - **Direct Application URL:** [https://job-boards.greenhouse.io/flexport/jobs/8213955](https://job-boards.greenhouse.io/flexport/jobs/8213955)
 - **Location:** U.S. Remote
 - **Compensation:** $130,000 — $172,000 USD
@@ -58,21 +66,21 @@
 - **Tailored PDF Resume:** [outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md)
 
-### 5. Support Engineer, U.S. Government Support – Gitlab
+### 6. Support Engineer, U.S. Government Support – Gitlab
 - **Direct Application URL:** [https://job-boards.greenhouse.io/gitlab/jobs/8859063002](https://job-boards.greenhouse.io/gitlab/jobs/8859063002)
 - **Location:** Remote, United States
 - **Compensation:** $95,200 — $160,800 USD
 - **ATS Relevance Score:** **67 / 100**
 - **Match Justification:** Direct Title Match: 'Support Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation, telemetry) (+15) | Scripting & Automation (scripting, automation, telemetry) (+12) | Remote Target Location (+15)
 
-### 6. Head of Technical Support @ Koast.ai – Koast.ai
+### 7. Head of Technical Support @ Koast.ai – Koast.ai
 - **Direct Application URL:** [https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai](https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai)
 - **Location:** Remote (US)
 - **Compensation:** Not specified
 - **ATS Relevance Score:** **64 / 100**
 - **Match Justification:** Direct Title Match: 'Technical Support' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (onboarding) (+8) | ITSM Platforms (jira, ticketing) (+8) | Remote Target Location (+15)
 
-### 7. Integration Engineer - Contract – Upstart
+### 8. Integration Engineer - Contract – Upstart
 - **Direct Application URL:** [https://careers.upstart.com/jobs?gh_jid=8275037](https://careers.upstart.com/jobs?gh_jid=8275037)
 - **Location:** United States | Remote
 - **Compensation:** $47.98 — $66.35 USD
