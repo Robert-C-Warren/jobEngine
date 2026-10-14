@@ -4,7 +4,7 @@ match_and_tailor.py - ATS Resume Matching, Scoring & Asset Generation Engine.
 Reads master_resume.md, evaluates unauthenticated scraped job listings in jobs.db,
 extracts key technical requirements, computes ATS match scores (0-100),
 filters roles, reorders resume bullets without fabricating experience,
-generates tailored resumes and 3-paragraph cold outreach emails for roles >= 70,
+generates tailored resumes and 3-paragraph cold outreach emails for roles >= 60,
 outputs a terminal summary table, and writes daily_matches.md.
 """
 
@@ -127,7 +127,7 @@ TARGET_TITLES_ALIGNMENT = [
     "technical support specialist", "technical support engineer", "tier 2", "tier 3",
     "tier ii", "tier iii", "pacs support analyst", "imaging support specialist",
     "field service engineer", "implementation specialist", "implementation consultant",
-    "solutions integration engineer", "technical escalations engineer",
+    "solutions integration engineer", "integration engineer", "technical escalations engineer",
     "systems support specialist", "application support specialist", "customer support engineer",
     "it support specialist", "it support analyst", "it support engineer", "desktop support",
     "it systems engineer", "systems engineer", "technical operations", "solutions specialist",
@@ -579,7 +579,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
     1. Evaluates listings in SQLite, updates scores with word boundaries & culture penalties.
     2. Builds fresh-only daily leaderboard (reported_date IS NULL).
     3. Enforces Max 2 Per Company cap on Top 10 slots.
-    4. Generates PDF resume and cold email for Top 10 matches >= 70.
+    4. Generates PDF resume and cold email for Top 10 matches >= 60.
     5. Marks Top 10 as reported today (YYYY-MM-DD).
     6. Appends 7-day archive table to daily_matches.md.
     """
@@ -671,7 +671,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         resume_path_str = j.get("tailored_resume_path") or ""
         email_path_str = j.get("cold_email_path") or ""
 
-        if j["score"] >= 70.0:
+        if j["score"] >= 60.0:
             needs_resume = not resume_path_str or not (ROOT_DIR / resume_path_str).exists()
             needs_email = not email_path_str or not (ROOT_DIR / email_path_str).exists()
 
@@ -706,9 +706,9 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         if j.get("reported_date") != today_str and j["job_id"] not in top_job_ids
     ]
 
-    # Ensure archived jobs with score >= 70 also have assets generated if previously omitted under old threshold
+    # Ensure archived jobs with score >= 60 also have assets generated if previously omitted under old threshold
     for j in archived_jobs:
-        if j["score"] >= 70.0:
+        if j["score"] >= 60.0:
             resume_path_str = j.get("tailored_resume_path") or ""
             email_path_str = j.get("cold_email_path") or ""
             needs_resume = not resume_path_str or not (ROOT_DIR / resume_path_str).exists()
@@ -740,7 +740,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         title = j['title'][:35]
         loc = j['location'][:18]
         score_str = f"{j['score']:.0f}"
-        assets = "PDF Resume & Email" if j['score'] >= 70.0 else "Match (No assets)"
+        assets = "PDF Resume & Email" if j['score'] >= 60.0 else "Match (No assets)"
         print(f"{idx:<5} | {comp:<18} | {title:<35} | {loc:<18} | {score_str:<5} | {assets}")
     print("-" * 105)
 
@@ -783,7 +783,7 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
                 email_link = f"[Cold Email]({j['cold_email_path']})"
                 assets_col = f"{pdf_link} · {email_link}"
             else:
-                assets_col = "Below 70 threshold"
+                assets_col = "Below 60 threshold"
             salary = j.get('salary_range') or "Not specified"
             md.append(f"| {idx} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
 
@@ -823,7 +823,7 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
             if j.get("tailored_resume_path"):
                 assets_col = f"[Resume]({j['tailored_resume_path']}) · [Email]({j['cold_email_path']})"
             else:
-                assets_col = "Below 70 threshold"
+                assets_col = "Below 60 threshold"
             md.append(f"| {rep_date} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
         md.append("")
 
