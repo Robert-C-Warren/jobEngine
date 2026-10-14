@@ -4,7 +4,7 @@ match_and_tailor.py - ATS Resume Matching, Scoring & Asset Generation Engine.
 Reads master_resume.md, evaluates unauthenticated scraped job listings in jobs.db,
 extracts key technical requirements, computes ATS match scores (0-100),
 filters roles, reorders resume bullets without fabricating experience,
-generates tailored resumes and 3-paragraph cold outreach emails for roles >= 75,
+generates tailored resumes and 3-paragraph cold outreach emails for roles >= 70,
 outputs a terminal summary table, and writes daily_matches.md.
 """
 
@@ -157,6 +157,54 @@ CULTURE_RED_FLAGS = [
     (re.compile(r"\bcall\s+center\b", re.IGNORECASE), "Call center environment")
 ]
 
+# Strict Ohio target locations (+20 pts)
+OHIO_TARGET_TERMS = ["dayton", "columbus", "cincinnati", "mason", "fairfield", "cleveland", "ohio"]
+
+# Explicit Remote target terms (+15 pts)
+REMOTE_TARGET_TERMS = ["remote", "anywhere", "work from home", "virtual", "distributed"]
+
+# Seniority cap patterns (-15 pts unless Tier 2/3 Support or Implementation role under $130k)
+SENIORITY_CAP_PATTERN = re.compile(r"\b(senior|principal|staff|director|iv)\b", re.IGNORECASE)
+SUPPORT_IMPL_PATTERN = re.compile(r"\b(tier\s*[23]|tier\s*(?:ii|iii)|support|implementation)\b", re.IGNORECASE)
+
+# Pre-sales vs. Technical Implementation patterns (-20 pts)
+STRONG_PRESALES_PATTERNS = [
+    (re.compile(r"\bpre-sales\b", re.IGNORECASE), "pre-sales"),
+    (re.compile(r"\bpresales\b", re.IGNORECASE), "presales"),
+    (re.compile(r"\baccount\s+executives?\b", re.IGNORECASE), "account executive"),
+    (re.compile(r"\bsales\s+cycles?\b", re.IGNORECASE), "sales cycle"),
+    (re.compile(r"\brfps?\b", re.IGNORECASE), "RFP")
+]
+GENERIC_PRESALES_PATTERNS = [
+    (re.compile(r"\bquotas?\b", re.IGNORECASE), "quota"),
+    (re.compile(r"\bcommissions?\b", re.IGNORECASE), "commission")
+]
+BOILERPLATE_PRESALES_PATTERNS = [
+    re.compile(r"\(for quota-based roles\)", re.IGNORECASE),
+    re.compile(r"bonus or commission", re.IGNORECASE),
+    re.compile(r"target commission amount", re.IGNORECASE),
+    re.compile(r"base salary and target commission", re.IGNORECASE),
+    re.compile(r"equal employment opportunity", re.IGNORECASE)
+]
+
+def parse_max_salary_for_scoring(salary_str: str) -> float:
+    """Extract maximum annual salary from salary_range string, normalizing hourly rates to annual."""
+    if not salary_str or salary_str == "Not specified":
+        return 0.0
+    nums = re.findall(r"\$?\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?)\b", salary_str)
+    vals = []
+    for n in nums:
+        clean_n = n.replace(",", "")
+        try:
+            val = float(clean_n)
+            # If hourly (< 500), convert to annual based on 2080 hours
+            if val < 500:
+                val = val * 2080
+            vals.append(val)
+        except ValueError:
+            pass
+    return max(vals) if vals else 0.0
+
 def load_master_resume(resume_path: Path = MASTER_RESUME_FILE) -> str:
     """Load text of master resume."""
     if not resume_path.exists():
@@ -283,21 +331,86 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
     total_score += min(55.0, domain_score)
 
     # 3. Location Alignment (Max 20 pts)
+    # Strict Location Rule:
+    # - +20 ONLY if explicitly contains Ohio targets (Dayton, Columbus, Cincinnati, Mason, Fairfield, OH, Ohio)
+    # - +15 ONLY if explicitly contains "Remote", "Anywhere", "Work from Home", "Virtual", or "Distributed" (and not excluding OH)
+    # - If role is on-site/hybrid in another state with no Remote tag: 0 location points and -25 Non-Local On-Site Penalty
     loc_lower = location.lower()
-    if any(re.search(r"\b" + loc + r"\b", loc_lower) for loc in ["dayton", "cincinnati", "columbus", "cleveland", "mason", "ohio", "oh"]) and "versailles" not in loc_lower:
-        total_score += 20.0
-        match_reasons.append("Local Ohio Target Market (Dayton/Cincinnati/Columbus/Mason) (+20)")
-    elif any(r in loc_lower for r in ["remote - us", "remote (us)", "united states", "usa", "us-remote", "remote, usa", "remote, us", "remote, united states", "us only"]):
-        total_score += 15.0
-        match_reasons.append("Remote / US Target Location (+15)")
-    elif "remote" in loc_lower:
-        total_score += 10.0
-        match_reasons.append("Remote Location Alignment (+10)")
-    else:
-        total_score += 5.0
-        match_reasons.append("US Location Alignment (+5)")
+    title_lower = title.lower()
 
-    # 4. Culture Red-Flag Penalty (-25 pts)
+    is_ohio = (
+        any(re.search(r"\b" + re.escape(loc) + r"\b", loc_lower) for loc in OHIO_TARGET_TERMS)
+        or bool(re.search(r"\boh\b", loc_lower))
+    ) and "versailles" not in loc_lower
+
+    is_remote = (
+        any(re.search(r"\b" + re.escape(term) + r"\b", loc_lower) for term in REMOTE_TARGET_TERMS)
+        or any(re.search(r"\b" + re.escape(term) + r"\b", title_lower) for term in REMOTE_TARGET_TERMS)
+    )
+    # Fallback: if location is generic US/USA, verify if description confirms remote work
+    if not is_remote and loc_lower.strip() in ["usa", "united states", "us"]:
+        if any(term in description.lower() for term in ["remote", "work from home", "virtual"]):
+            is_remote = True
+
+    excludes_ohio = bool(re.search(r"\b(?:except|excluding|excludes|not eligible in|not open to)\b[^\.\n]*(?:ohio|\boh\b)", combined_text, re.IGNORECASE))
+
+    if is_ohio:
+        total_score += 20.0
+        match_reasons.append("Local Ohio Target Market (Dayton/Columbus/Cincinnati/Mason/Fairfield/OH) (+20)")
+    elif is_remote and not excludes_ohio:
+        total_score += 15.0
+        match_reasons.append("Remote Target Location (+15)")
+    else:
+        # 0 location points and -25 Non-Local On-Site Penalty
+        total_score = max(0.0, total_score - 25.0)
+        match_reasons.append("Non-Local On-Site Penalty: Out-of-state role with no remote option (-25)")
+
+    # 4. Seniority Cap (-15 pts)
+    # If job title contains "Senior", "Principal", "Staff", "Director", or "IV",
+    # apply a -15 penalty unless it is a Tier 2/3 Support or Implementation role under $130k
+    if SENIORITY_CAP_PATTERN.search(title):
+        max_sal = parse_max_salary_for_scoring(job.get("salary_range", ""))
+        is_support_impl = bool(SUPPORT_IMPL_PATTERN.search(title))
+        is_exempt = is_support_impl and (0 < max_sal <= 130000)
+        if not is_exempt:
+            total_score = max(0.0, total_score - 15.0)
+            sal_note = f" (${int(max_sal):,})" if max_sal else ""
+            match_reasons.append(f"Seniority Cap Penalty: Senior/Principal/Staff/Director/IV role{sal_note} (-15)")
+        else:
+            match_reasons.append(f"Seniority Cap Exemption: Support/Implementation role under $130k (${int(max_sal):,})")
+
+    # 5. Pre-Sales Quota-Carrying Penalty (-20 pts)
+    # Heavy mention of pre-sales, quota, account executive, RFP, sales cycle, or commission
+    has_presales = False
+    presales_terms_found = []
+    if re.search(r"\b(pre-sales|presales)\b", title, re.IGNORECASE):
+        has_presales = True
+        presales_terms_found.append("Title Pre-Sales")
+    else:
+        for pat, name in STRONG_PRESALES_PATTERNS:
+            m = pat.findall(combined_text)
+            if m:
+                has_presales = True
+                presales_terms_found.append(f"{name} ({len(m)}x)")
+        if not has_presales:
+            cleaned_desc = description
+            for bp in BOILERPLATE_PRESALES_PATTERNS:
+                cleaned_desc = bp.sub("", cleaned_desc)
+            cleaned_text = f"{title} {cleaned_desc}"
+            gen_matches = []
+            for pat, name in GENERIC_PRESALES_PATTERNS:
+                m = pat.findall(cleaned_text)
+                if m:
+                    gen_matches.extend(m)
+            if len(gen_matches) >= 2:
+                has_presales = True
+                presales_terms_found.append(f"quota/commission ({len(gen_matches)}x)")
+
+    if has_presales:
+        total_score = max(0.0, total_score - 20.0)
+        match_reasons.append(f"Pre-Sales Quota-Carrying Penalty: Mentions {', '.join(presales_terms_found)} (-20)")
+
+    # 6. Culture Red-Flag Penalty (-25 pts)
     for flag_pat, flag_desc in CULTURE_RED_FLAGS:
         if flag_pat.search(combined_text):
             match_reasons.append(f"Culture Red-Flag Penalty: High-burnout / Call center cliches ({flag_desc}) (-25)")
@@ -466,7 +579,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
     1. Evaluates listings in SQLite, updates scores with word boundaries & culture penalties.
     2. Builds fresh-only daily leaderboard (reported_date IS NULL).
     3. Enforces Max 2 Per Company cap on Top 10 slots.
-    4. Generates PDF resume and cold email for Top 10 matches >= 75.
+    4. Generates PDF resume and cold email for Top 10 matches >= 70.
     5. Marks Top 10 as reported today (YYYY-MM-DD).
     6. Appends 7-day archive table to daily_matches.md.
     """
@@ -558,7 +671,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         resume_path_str = j.get("tailored_resume_path") or ""
         email_path_str = j.get("cold_email_path") or ""
 
-        if j["score"] >= 75.0:
+        if j["score"] >= 70.0:
             needs_resume = not resume_path_str or not (ROOT_DIR / resume_path_str).exists()
             needs_email = not email_path_str or not (ROOT_DIR / email_path_str).exists()
 
@@ -593,6 +706,30 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         if j.get("reported_date") != today_str and j["job_id"] not in top_job_ids
     ]
 
+    # Ensure archived jobs with score >= 70 also have assets generated if previously omitted under old threshold
+    for j in archived_jobs:
+        if j["score"] >= 70.0:
+            resume_path_str = j.get("tailored_resume_path") or ""
+            email_path_str = j.get("cold_email_path") or ""
+            needs_resume = not resume_path_str or not (ROOT_DIR / resume_path_str).exists()
+            needs_email = not email_path_str or not (ROOT_DIR / email_path_str).exists()
+            if needs_resume or needs_email:
+                pdf_path = generate_tailored_resume(j, j["match_reasons"].split(" | "))
+                email_path = generate_cold_outreach_email(j, j["score"])
+                resume_path_str = str(pdf_path.relative_to(ROOT_DIR)).replace("\\", "/")
+                email_path_str = str(email_path.relative_to(ROOT_DIR)).replace("\\", "/")
+                j["tailored_resume_path"] = resume_path_str
+                j["cold_email_path"] = email_path_str
+                with get_connection() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute("""
+                        UPDATE jobs
+                        SET tailored_resume_path = ?,
+                            cold_email_path = ?
+                        WHERE job_id = ?
+                    """, (resume_path_str, email_path_str, j["job_id"]))
+                    conn.commit()
+
     # Terminal Summary Table
     print("\n" + "-"*105)
     print(f"{'RANK':<5} | {'COMPANY':<18} | {'ROLE':<35} | {'LOCATION':<18} | {'SCORE':<5} | {'ASSETS'}")
@@ -603,7 +740,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         title = j['title'][:35]
         loc = j['location'][:18]
         score_str = f"{j['score']:.0f}"
-        assets = "PDF Resume & Email" if j['score'] >= 75.0 else "Match (No assets)"
+        assets = "PDF Resume & Email" if j['score'] >= 70.0 else "Match (No assets)"
         print(f"{idx:<5} | {comp:<18} | {title:<35} | {loc:<18} | {score_str:<5} | {assets}")
     print("-" * 105)
 
@@ -646,7 +783,7 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
                 email_link = f"[Cold Email]({j['cold_email_path']})"
                 assets_col = f"{pdf_link} · {email_link}"
             else:
-                assets_col = "Below 75 threshold"
+                assets_col = "Below 70 threshold"
             salary = j.get('salary_range') or "Not specified"
             md.append(f"| {idx} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
 
@@ -686,7 +823,7 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
             if j.get("tailored_resume_path"):
                 assets_col = f"[Resume]({j['tailored_resume_path']}) · [Email]({j['cold_email_path']})"
             else:
-                assets_col = "Below 75 threshold"
+                assets_col = "Below 70 threshold"
             md.append(f"| {rep_date} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
         md.append("")
 

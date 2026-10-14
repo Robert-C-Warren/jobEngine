@@ -2,9 +2,9 @@
 
 **To:** Hiring Manager / Technical Talent Acquisition at Samsara  
 **Subject:** Application & Introduction: Robert Warren – Implementation Consultant  
-**Direct Application Link:** [Samsara Job Posting](https://www.samsara.com/company/careers/roles/8143242?gh_jid=8143242)  
-**Target Location:** Remote - US  
-**ATS Relevance Match:** 83.5/100  
+**Direct Application Link:** [Samsara Job Posting](https://www.samsara.com/company/careers/roles/8236004?gh_jid=8236004)  
+**Target Location:** Remote - CA  
+**ATS Relevance Match:** 71.5/100  
 
 ---
 
