@@ -23,7 +23,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent))
-from db import init_db, insert_job, job_exists, generate_job_id
+from db import init_db, insert_job, job_exists, generate_job_id, get_connection
 
 # Target profile criteria
 TARGET_TITLE_PATTERNS = [
@@ -82,26 +82,31 @@ NON_US_PATTERNS = [
 # Curated high-relevance enterprise companies
 GREENHOUSE_COMPANIES = [
     # Clinical Imaging, HealthTech, Diagnostic Systems
-    "butterflynetwork", "komodohealth", "doximity", "heartflow", "benchling",
-    "flatiron", "hologic", "dexcom", "omnicell", "verily", "goodrx", "tempus",
+    "butterflynetwork", "tempus", "dexcom", "omadahealth", "zocdoc",
+    "komodohealth", "doximity", "heartflow", "benchling",
+    "flatiron", "hologic", "omnicell", "verily", "goodrx",
     "healthcatalyst", "medpace", "covermymeds",
-    # Enterprise Hardware, IoT, Physical Security, Sensors
-    "toast", "samsara", "verkada", "purestorage", "tanium",
+    # Enterprise Hardware, IoT, Physical Security, Sensors, Logistics & Robotics
+    "samsara", "verkada", "toast", "formlabs", "matterport", "skydio",
+    "locusrobotics", "symbotic", "anduril", "flockfreight", "flexport",
+    "purestorage", "tanium",
     # Enterprise Systems, Database, Infrastructure & Support
-    "relativity", "datadog", "elastic", "mongodb", "okta",
-    "canonical", "twilio", "stripe", "zscaler", "netskope",
-    "rubrik", "pagerduty", "cockroachlabs", "hashicorp", "sentry", "grafana",
-    "gitlab", "box", "notion", "airtable", "checkr", "plaid", "ramp", "remote",
-    "deel", "lattice", "rippling", "carta", "clearwave", "subsplash",
+    "cloudflare", "datadog", "tailscale", "1password", "okta", "crowdstrike",
+    "sentinelone", "rubrik", "braze", "plaid", "gusto",
+    "relativity", "elastic", "mongodb", "canonical", "twilio", "stripe",
+    "zscaler", "netskope", "pagerduty", "cockroachlabs", "hashicorp",
+    "sentry", "grafana", "gitlab", "box", "notion", "airtable", "checkr",
+    "ramp", "remote", "deel", "lattice", "rippling", "carta", "clearwave", "subsplash",
     # Support, Productivity & Developer Tooling
-    "zapier", "automattic", "intercom", "freshworks", "braze", "confluent",
-    "snowflake", "fastly", "cloudflare",
+    "zapier", "automattic", "intercom", "freshworks", "confluent",
+    "snowflake", "fastly",
     # Ohio-based & Remote Tech Leaders
-    "upstart", "klaviyo", "brex", "asana", "gusto", "figma", "rootinsurance"
+    "upstart", "klaviyo", "brex", "asana", "figma", "rootinsurance"
 ]
 
 LEVER_COMPANIES = [
-    "ro", "athenahealth", "modernizingmedicine", "symplr", "scriptdrop"
+    "heartbeathealth", "ro", "modernizingmedicine", "veeva", "shieldai",
+    "athenahealth", "symplr", "scriptdrop"
 ]
 
 WWR_FEEDS = [
@@ -147,22 +152,113 @@ def matches_target_profile(title: str) -> bool:
             return False
     return any(re.search(pat, t) for pat in TARGET_TITLE_PATTERNS)
 
-def is_valid_location(location: str, title: str = "") -> bool:
-    """Verify role is Remote, US-based, or within Ohio (Dayton, Cincinnati, Columbus). Strictly excludes Versailles."""
+def parse_and_validate_salary(text: str, fallback: str = "Not specified") -> str:
+    """
+    Extracts and sanitizes salary information:
+    - Never extracts funding metrics like $1M, $5B, ARR, ACV.
+    - If parsed salary is < $35 (and not clearly an hourly rate like $43.70/hr), returns 'Not specified'.
+    - Handles ranges with -, –, —, &mdash;, to.
+    """
+    candidate_str = ""
+    if fallback and fallback != "Not specified":
+        candidate_str = fallback
+    else:
+        candidate_str = text
+
+    if not candidate_str or candidate_str == "Not specified":
+        return "Not specified"
+
+    # 1. Salary ranges (e.g. $70,000 - $110,000 USD or $43.70 — $53.94 USD or $85,000 to $105,000)
+    range_regex = re.compile(
+        r"(\$[\d,]+(?:\.\d{2})?\s*(?:[-–—]|to|&mdash;)\s*\$[\d,]+(?:\.\d{2})?(?:\s*(?:USD|per year|annually|/yr|/year|/hr|/hour|per hour))?)",
+        re.IGNORECASE
+    )
+    for match in range_regex.finditer(candidate_str):
+        m_str = match.group(1).strip()
+        after = candidate_str[match.end():match.end()+15].lower()
+        if re.match(r"^\s*(m|b|million|billion|arr|acv)", after):
+            continue
+        nums = [float(x.replace(",", "")) for x in re.findall(r"\$([\d,]+(?:\.\d{2})?)", m_str)]
+        if not nums:
+            continue
+        is_hourly = any(h in m_str.lower() for h in ["/hr", "/hour", "per hour"]) or all(15 <= n <= 150 for n in nums)
+        min_val = min(nums)
+        if min_val < 35 and not is_hourly:
+            continue
+        if is_hourly and min_val < 15:
+            continue
+        return m_str
+
+    # 2. Single amount with time unit (e.g. $120,000/year, $45.00/hour, $144,000 USD)
+    single_unit_regex = re.compile(
+        r"(\$[\d,]+(?:\.\d{2})?\s*(?:USD|per year|annually|/yr|/year|/hr|/hour|per hour))",
+        re.IGNORECASE
+    )
+    for match in single_unit_regex.finditer(candidate_str):
+        m_str = match.group(1).strip()
+        after = candidate_str[match.end():match.end()+15].lower()
+        if re.match(r"^\s*(m|b|million|billion|arr|acv)", after):
+            continue
+        nums = [float(x.replace(",", "")) for x in re.findall(r"\$([\d,]+(?:\.\d{2})?)", m_str)]
+        if not nums:
+            continue
+        val = nums[0]
+        is_hourly = any(h in m_str.lower() for h in ["/hr", "/hour", "per hour"])
+        if val < 35 and not is_hourly:
+            continue
+        if is_hourly and val < 15:
+            continue
+        return m_str
+
+    # 3. Standalone 5-6 digit amount >= 35,000
+    standalone_regex = re.compile(r"(\$[\d,]{5,}(?:\.\d{2})?)")
+    for match in standalone_regex.finditer(candidate_str):
+        m_str = match.group(1).strip()
+        after = candidate_str[match.end():match.end()+15].lower()
+        if re.match(r"^\s*(m|b|million|billion|arr|acv|k\b)", after):
+            continue
+        nums = [float(x.replace(",", "")) for x in re.findall(r"\$([\d,]+(?:\.\d{2})?)", m_str)]
+        if nums and nums[0] >= 35000:
+            return m_str
+
+    if candidate_str != text and text:
+        return parse_and_validate_salary(text, "Not specified")
+
+    return "Not specified"
+
+def is_valid_location(location: str, title: str = "", description: str = "", salary: str = "") -> bool:
+    """
+    Verify role is Remote, US-based, or within Ohio (Dayton, Cincinnati, Columbus, Mason, OH).
+    Strictly excludes Versailles.
+    Strictly excludes listings where location is 'Worldwide' or 'Anywhere' UNLESS the listing
+    explicitly specifies US salary bands or 'US Only / North America'.
+    """
     comb = f"{location} {title}".lower()
-    
+
     # Explicitly exclude Versailles per candidate preference
     if re.search(r"\bversailles\b", comb):
         return False
 
+    # Check non-US locations
     for pat in NON_US_PATTERNS:
         if re.search(pat, comb):
             return False
 
+    loc_clean = location.strip().lower()
+    is_strictly_worldwide = bool(re.search(r"^(?:worldwide|anywhere|anywhere in the world)$", loc_clean)) or (
+        ("worldwide" in loc_clean or "anywhere" in loc_clean) and not any(us in loc_clean for us in ["us", "usa", "united states", "america", "ohio", "oh"])
+    )
+    if is_strictly_worldwide:
+        comb_full = f"{title} {description} {salary}".lower()
+        has_us_presence = bool(re.search(r"\b(us only|u\.s\. only|north america|united states only|usa only)\b", comb_full))
+        has_us_salary = bool(salary and salary != "Not specified" and ("$" in salary or "usd" in salary.lower())) or bool(re.search(r"\$[\d,]{4,}", description))
+        if not (has_us_presence or has_us_salary):
+            return False
+
     valid_patterns = [
         r"\bremote\b", r"\bunited states\b", r"\busa\b", r"\bus\b", r"\bnationwide\b",
-        r"\banywhere\b", r"\bohio\b", r"\boh\b", r"\bdayton\b", r"\bcincinnati\b",
-        r"\bcolumbus\b", r"\bcleveland\b", r"\bworldwide\b", r"\bamericas\b", r"\bnorth america\b"
+        r"\bohio\b", r"\boh\b", r"\bdayton\b", r"\bcincinnati\b",
+        r"\bcolumbus\b", r"\bcleveland\b", r"\bmason\b", r"\bamericas\b", r"\bnorth america\b"
     ]
     return any(re.search(p, comb) for p in valid_patterns)
 
@@ -186,22 +282,20 @@ def fetch_single_greenhouse_board(comp: str) -> List[Dict[str, Any]]:
 
                 if not matches_target_profile(title):
                     continue
-                if not is_valid_location(loc_name, title):
-                    continue
-                if is_excluded(desc_text + " " + title, comp):
-                    continue
 
                 metadata = j.get("metadata") or []
-                salary = "Not specified"
+                raw_meta_sal = "Not specified"
                 if isinstance(metadata, list):
                     for m in metadata:
                         if isinstance(m, dict) and "salary" in str(m.get("name", "")).lower():
-                            salary = str(m.get("value", "Not specified"))
+                            raw_meta_sal = str(m.get("value", "Not specified"))
 
-                if salary == "Not specified":
-                    sal_match = re.search(r"\$[\d,]+(?:\.\d{2})?(?:\s*(?:-|–|—|to)\s*\$[\d,]+(?:\.\d{2})?)?(?:\s*(?:USD|per year|annually|/yr|/year|/hr|/hour|per hour))?", desc_text)
-                    if sal_match:
-                        salary = sal_match.group(0).strip()
+                salary = parse_and_validate_salary(desc_text, raw_meta_sal)
+
+                if not is_valid_location(loc_name, title, desc_text, salary):
+                    continue
+                if is_excluded(desc_text + " " + title, comp):
+                    continue
 
                 date_posted = j.get("updated_at") or time.strftime("%Y-%m-%d")
 
@@ -250,13 +344,13 @@ def fetch_single_lever_board(comp: str) -> List[Dict[str, Any]]:
 
             if not matches_target_profile(title):
                 continue
-            if not is_valid_location(loc_name, title):
+
+            salary = parse_and_validate_salary(desc_plain)
+
+            if not is_valid_location(loc_name, title, desc_plain, salary):
                 continue
             if is_excluded(desc_plain + " " + title, comp):
                 continue
-
-            sal_match = re.search(r"\$[\d,]+(?:\s*-\s*\$[\d,]+)?(?:\s*(?:per year|annually|/yr|/year))?", desc_plain)
-            salary = sal_match.group(0) if sal_match else "Not specified"
 
             created_at = j.get("createdAt")
             date_posted = time.strftime("%Y-%m-%d", time.gmtime(created_at / 1000)) if created_at else time.strftime("%Y-%m-%d")
@@ -314,12 +408,15 @@ def fetch_remotive_jobs() -> List[Dict[str, Any]]:
 
                 if not matches_target_profile(title):
                     continue
-                if not is_valid_location(loc, title):
+
+                raw_sal = j.get("salary") or "Not specified"
+                salary = parse_and_validate_salary(desc, raw_sal)
+
+                if not is_valid_location(loc, title, desc, salary):
                     continue
                 if is_excluded(desc + " " + title, company):
                     continue
 
-                salary = j.get("salary") or "Not specified"
                 pub_date = j.get("publication_date", time.strftime("%Y-%m-%d"))
                 if pub_date and "T" in pub_date:
                     pub_date = pub_date.split("T")[0]
@@ -328,7 +425,7 @@ def fetch_remotive_jobs() -> List[Dict[str, Any]]:
                     "company": company.strip(),
                     "title": title.strip(),
                     "location": loc.strip() or "Remote",
-                    "salary_range": salary.strip() if salary else "Not specified",
+                    "salary_range": salary,
                     "url": url,
                     "description": desc,
                     "date_posted": pub_date or time.strftime("%Y-%m-%d"),
@@ -359,13 +456,13 @@ def fetch_arbeitnow_jobs() -> List[Dict[str, Any]]:
 
                 if not matches_target_profile(title):
                     continue
-                if not is_valid_location(loc, title):
+
+                salary = parse_and_validate_salary(desc)
+
+                if not is_valid_location(loc, title, desc, salary):
                     continue
                 if is_excluded(desc + " " + title, company):
                     continue
-
-                sal_match = re.search(r"\$[\d,]+(?:\s*-\s*\$[\d,]+)?(?:\s*(?:per year|annually|/yr|/year))?", desc)
-                salary = sal_match.group(0) if sal_match else "Not specified"
 
                 created_at = j.get("created_at")
                 if isinstance(created_at, int):
@@ -418,20 +515,23 @@ def fetch_jobicy_jobs() -> List[Dict[str, Any]]:
 
                 if not matches_target_profile(title):
                     continue
-                if not is_valid_location(loc, title):
-                    continue
-                if is_excluded(desc + " " + title, company):
-                    continue
 
                 min_sal = j.get("annualSalaryMin")
                 max_sal = j.get("annualSalaryMax")
                 currency = j.get("salaryCurrency", "USD")
                 if min_sal and max_sal:
-                    salary = f"${min_sal:,} - ${max_sal:,} {currency}"
+                    raw_sal = f"${min_sal:,} - ${max_sal:,} {currency}"
                 elif min_sal:
-                    salary = f"${min_sal:,}+ {currency}"
+                    raw_sal = f"${min_sal:,}+ {currency}"
                 else:
-                    salary = "Not specified"
+                    raw_sal = "Not specified"
+
+                salary = parse_and_validate_salary(desc, raw_sal)
+
+                if not is_valid_location(loc, title, desc, salary):
+                    continue
+                if is_excluded(desc + " " + title, company):
+                    continue
 
                 listings.append({
                     "company": company.strip(),
@@ -466,18 +566,20 @@ def fetch_remoteok_jobs() -> List[Dict[str, Any]]:
 
                     if not matches_target_profile(title):
                         continue
-                    if not is_valid_location(loc, title):
-                        continue
-                    if is_excluded(desc + " " + title, company):
-                        continue
 
                     sal_min = j.get("salary_min")
                     sal_max = j.get("salary_max")
                     if sal_min and sal_max:
-                        salary = f"${sal_min:,} - ${sal_max:,} USD"
+                        raw_sal = f"${sal_min:,} - ${sal_max:,} USD"
                     else:
-                        sal_match = re.search(r"\$[\d,]+(?:\s*-\s*\$[\d,]+)?(?:\s*(?:per year|annually|/yr|/year))?", desc)
-                        salary = sal_match.group(0) if sal_match else "Not specified"
+                        raw_sal = "Not specified"
+
+                    salary = parse_and_validate_salary(desc, raw_sal)
+
+                    if not is_valid_location(loc, title, desc, salary):
+                        continue
+                    if is_excluded(desc + " " + title, company):
+                        continue
 
                     listings.append({
                         "company": company.strip(),
@@ -514,13 +616,13 @@ def fetch_wwr_jobs() -> List[Dict[str, Any]]:
 
                 if not matches_target_profile(title):
                     continue
-                if not is_valid_location("Remote (US)", title):
+
+                salary = parse_and_validate_salary(raw_title + " " + desc)
+
+                if not is_valid_location("Remote (US)", title, desc, salary):
                     continue
                 if is_excluded(desc + " " + title, company):
                     continue
-
-                sal_match = re.search(r"\$[\d,]+(?:\s*-\s*\$[\d,]+)?(?:\s*(?:per year|annually|/yr|/year|\+ Benefits))?", raw_title + " " + desc)
-                salary = sal_match.group(0) if sal_match else "Not specified"
 
                 listings.append({
                     "company": company.strip(),
@@ -562,6 +664,19 @@ def aggregate_and_store_jobs() -> int:
                     new_inserted += 1
         except Exception as e:
             print(f"[!] Error in scraper {scraper.__name__}: {e}")
+
+    # Database cleanup: sanitize any legacy salaries stored in jobs.db
+    try:
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT job_id, salary_range, description FROM jobs WHERE salary_range IN ('$1', '$5', '$3', '$17')")
+            bad_salaries = cursor.fetchall()
+            for r in bad_salaries:
+                clean_sal = parse_and_validate_salary(r["description"], r["salary_range"])
+                cursor.execute("UPDATE jobs SET salary_range = ? WHERE job_id = ?", (clean_sal, r["job_id"]))
+            conn.commit()
+    except Exception as e:
+        print(f"[!] Note: Database salary sanitization error: {e}")
 
     print("\n" + "="*60)
     print(f"JOB SOURCING RUN COMPLETED")

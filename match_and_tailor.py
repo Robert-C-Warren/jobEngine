@@ -19,8 +19,12 @@ from typing import Dict, List, Any, Tuple, Optional
 # Add project root to path
 ROOT_DIR = Path(__file__).parent
 sys.path.insert(0, str(ROOT_DIR))
-from db import get_connection, update_job_match, get_top_matches
+from db import (
+    get_connection, update_job_match, get_top_matches,
+    init_db, mark_job_reported, get_recently_reported_jobs
+)
 from resume_exporter import export_resume_pdf
+from fetch_jobs import parse_and_validate_salary
 
 MASTER_RESUME_FILE = ROOT_DIR / "master_resume.md"
 RESUMES_DIR = ROOT_DIR / "outputs" / "resumes"
@@ -31,7 +35,7 @@ DAILY_MATCHES_FILE = ROOT_DIR / "daily_matches.md"
 RESUMES_DIR.mkdir(parents=True, exist_ok=True)
 EMAILS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Keyword taxonomies with priority weights
+# Keyword taxonomies with priority weights (Strict word boundaries)
 PRIORITY_KEYWORDS = {
     # Tier 1: PACS, DICOM, Imaging & Medical Device Hardware (Top Priority)
     "imaging_pacs": {
@@ -49,8 +53,9 @@ PRIORITY_KEYWORDS = {
             "tier 2", "tier 3", "tier ii", "tier iii", "l2", "l3", "escalation",
             "root cause", "root cause analysis", "rca", "sysinternals", "process explorer",
             "procmon", "event viewer", "windows event", "crash dump", "memory dump",
-            "fault isolation", "hardware diagnostics", "peripheral", "driver", "usb",
-            "libusbk", "registry tracing", "defect triage", "bug reproduction"
+            "fault isolation", "hardware diagnostics", "peripheral", "device driver",
+            "drivers", "firmware", "usb", "libusbk", "registry tracing", "defect triage",
+            "bug reproduction", "telemetry"
         ]
     },
     # Tier 3: Field Service, Implementation & Client Engineering
@@ -106,6 +111,18 @@ PRIORITY_KEYWORDS = {
     }
 }
 
+# Compile keywords with strict word boundaries
+COMPILED_PRIORITY_KEYWORDS = {
+    cat_name: {
+        "weight": cat_data["weight"],
+        "patterns": [
+            (term, re.compile(r"\b" + re.escape(term) + r"\b", re.IGNORECASE))
+            for term in cat_data["terms"]
+        ]
+    }
+    for cat_name, cat_data in PRIORITY_KEYWORDS.items()
+}
+
 TARGET_TITLES_ALIGNMENT = [
     "technical support specialist", "technical support engineer", "tier 2", "tier 3",
     "tier ii", "tier iii", "pacs support analyst", "imaging support specialist",
@@ -118,16 +135,31 @@ TARGET_TITLES_ALIGNMENT = [
     "client support engineer", "client support specialist", "field technician"
 ]
 
+# Sort titles by length descending so longer phrases match first, compiled with word boundaries
+SORTED_TARGET_TITLES = sorted(TARGET_TITLES_ALIGNMENT, key=len, reverse=True)
+COMPILED_TARGET_TITLES = [
+    (target, re.compile(r"\b" + re.escape(target) + r"\b", re.IGNORECASE))
+    for target in SORTED_TARGET_TITLES
+]
+
 EXCLUSION_TERMS = [
     "security clearance", "secret clearance", "top secret", "ts/sci", "ts-sci",
     "polygraph", "public trust", "dod", "department of defense", "defense contractor",
     "usajobs", "military clearance", "cleared professional", "clearance required"
 ]
 
+# Culture red-flags for customer-service burnout / call-center cliches (-25 pts)
+CULTURE_RED_FLAGS = [
+    (re.compile(r"\bnot\s+(?:at\s+)?customer\s+relations\s+this\s+is\s+not\s+your\s+role\b", re.IGNORECASE), "Not customer relations / not your role"),
+    (re.compile(r"\bthis\s+is\s+not\s+your\s+role\b", re.IGNORECASE), "This is not your role"),
+    (re.compile(r"\bsmile\s+on\s+the\s+phone\b", re.IGNORECASE), "Smile on the phone"),
+    (re.compile(r"\bcall\s+center\s+environment\b", re.IGNORECASE), "Call center environment"),
+    (re.compile(r"\bcall\s+center\b", re.IGNORECASE), "Call center environment")
+]
+
 def load_master_resume(resume_path: Path = MASTER_RESUME_FILE) -> str:
     """Load text of master resume."""
     if not resume_path.exists():
-        # Fallback to robert_warren_resume.md if master_resume.md not found
         fallback = ROOT_DIR / "robert_warren_resume.md"
         if fallback.exists():
             return fallback.read_text(encoding="utf-8")
@@ -135,14 +167,12 @@ def load_master_resume(resume_path: Path = MASTER_RESUME_FILE) -> str:
     return resume_path.read_text(encoding="utf-8")
 
 def extract_job_keywords(text: str) -> Dict[str, List[str]]:
-    """Extract matching technical keywords grouped by category from job text."""
-    text_lower = text.lower()
+    """Extract matching technical keywords grouped by category from job text using strict word boundaries."""
     matched_categories = {}
-    for cat_name, cat_data in PRIORITY_KEYWORDS.items():
+    for cat_name, cat_data in COMPILED_PRIORITY_KEYWORDS.items():
         found = []
-        for term in cat_data["terms"]:
-            pattern = r"\b" + re.escape(term) + r"\b"
-            if re.search(pattern, text_lower):
+        for term, pattern in cat_data["patterns"]:
+            if pattern.search(text):
                 found.append(term)
         if found:
             matched_categories[cat_name] = found
@@ -153,38 +183,51 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
     Compute ATS match score from 0 to 100 based on technical keyword overlap.
     Returns (score, list_of_matching_reasons).
     """
-    title = job.get("title", "").lower()
-    description = job.get("description", "").lower()
+    title = job.get("title", "")
+    description = job.get("description", "")
     combined_text = f"{title} {description}"
 
     # Strict Exclusion Check
     for ex in EXCLUSION_TERMS:
-        if re.search(r"\b" + re.escape(ex) + r"\b", combined_text):
+        if re.search(r"\b" + re.escape(ex) + r"\b", combined_text, re.IGNORECASE):
             return (0.0, [f"Disqualified: Security clearance / government restriction ({ex})"])
 
-    location = job.get("location", "").lower()
+    location = job.get("location", "")
     # Explicitly exclude Versailles per candidate preference
-    if re.search(r"\bversailles\b", location) or re.search(r"\bversailles\b", combined_text):
+    if re.search(r"\bversailles\b", location, re.IGNORECASE) or re.search(r"\bversailles\b", combined_text, re.IGNORECASE):
         return (0.0, ["Disqualified: Versailles location excluded per candidate preference"])
+
+    # Strict Worldwide/Anywhere offshore check: exclude unless explicit US salary or US presence
+    loc_clean = location.strip().lower()
+    is_strictly_worldwide = bool(re.search(r"^(?:worldwide|anywhere|anywhere in the world)$", loc_clean)) or (
+        ("worldwide" in loc_clean or "anywhere" in loc_clean) and not any(us in loc_clean for us in ["us", "usa", "united states", "america", "ohio", "oh"])
+    )
+    if is_strictly_worldwide:
+        salary_str = job.get("salary_range", "")
+        has_us_presence = bool(re.search(r"\b(us only|u\.s\. only|north america|united states only|usa only)\b", combined_text, re.IGNORECASE))
+        has_us_salary = bool(salary_str and salary_str != "Not specified" and ("$" in salary_str or "usd" in salary_str.lower())) or bool(re.search(r"\$[\d,]{4,}", description))
+        if not (has_us_presence or has_us_salary):
+            return (0.0, ["Disqualified: Strictly Worldwide/Anywhere offshore listing without US salary or presence"])
 
     match_reasons = []
     total_score = 0.0
 
-    # 1. Target Title Alignment (Max 25 pts)
+    # 1. Target Title Alignment (Max 25 pts) - strict word boundaries
     title_points = 0.0
-    for target in TARGET_TITLES_ALIGNMENT:
-        if target in title:
+    for target, pat in COMPILED_TARGET_TITLES:
+        if pat.search(title):
             title_points = 25.0
             match_reasons.append(f"Direct Title Match: '{target.title()}' (+25)")
             break
     if title_points == 0:
-        # Partial title match
-        if any(w in title for w in ["support", "specialist", "service", "implementation", "engineer", "analyst"]):
+        # Partial title match using strict word boundaries
+        partial_words = ["support", "specialist", "service", "implementation", "engineer", "analyst"]
+        if any(re.search(r"\b" + w + r"\b", title, re.IGNORECASE) for w in partial_words):
             title_points = 15.0
             match_reasons.append("Partial Title Alignment (+15)")
     total_score += title_points
 
-    # 2. Domain & Technical Keyword Overlap (Max 55 pts)
+    # 2. Domain & Technical Keyword Overlap (Max 55 pts) - strict word boundaries
     extracted = extract_job_keywords(combined_text)
     domain_score = 0.0
 
@@ -240,15 +283,26 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
     total_score += min(55.0, domain_score)
 
     # 3. Location Alignment (Max 20 pts)
-    if any(loc in location for loc in ["dayton", "cincinnati", "columbus", "cleveland", "ohio", "oh"]) and "versailles" not in location:
+    loc_lower = location.lower()
+    if any(re.search(r"\b" + loc + r"\b", loc_lower) for loc in ["dayton", "cincinnati", "columbus", "cleveland", "mason", "ohio", "oh"]) and "versailles" not in loc_lower:
         total_score += 20.0
-        match_reasons.append("Local Ohio Target Market (Dayton/Cincinnati/Columbus) (+20)")
-    elif any(r in location for r in ["remote", "us-remote", "remote (us)", "united states", "usa"]):
+        match_reasons.append("Local Ohio Target Market (Dayton/Cincinnati/Columbus/Mason) (+20)")
+    elif any(r in loc_lower for r in ["remote - us", "remote (us)", "united states", "usa", "us-remote", "remote, usa", "remote, us", "remote, united states", "us only"]):
         total_score += 15.0
         match_reasons.append("Remote / US Target Location (+15)")
-    else:
+    elif "remote" in loc_lower:
         total_score += 10.0
-        match_reasons.append("US Location Alignment (+10)")
+        match_reasons.append("Remote Location Alignment (+10)")
+    else:
+        total_score += 5.0
+        match_reasons.append("US Location Alignment (+5)")
+
+    # 4. Culture Red-Flag Penalty (-25 pts)
+    for flag_pat, flag_desc in CULTURE_RED_FLAGS:
+        if flag_pat.search(combined_text):
+            match_reasons.append(f"Culture Red-Flag Penalty: High-burnout / Call center cliches ({flag_desc}) (-25)")
+            total_score = max(0.0, total_score - 25.0)
+            break
 
     # Normalize to 0-100 range
     final_score = min(100.0, round(total_score, 1))
@@ -259,24 +313,25 @@ def sanitize_filename(text: str) -> str:
     clean = re.sub(r"[^\w\s-]", "", text)
     return re.sub(r"[-\s]+", "_", clean).strip("_")
 
+BULLET_WEIGHT_TERMS = {
+    "dicom": 10.0, "pacs": 10.0, "imaging": 8.0, "sensor": 6.0,
+    "sysinternals": 7.0, "windows event viewer": 7.0, "crash dump": 7.0,
+    "sql server": 6.0, "root cause": 6.0, "tier 2": 5.0, "tier 3": 5.0,
+    "powershell": 5.0, "python": 5.0, "active directory": 5.0, "sso": 5.0,
+    "vpn": 4.0, "networking": 4.0, "tcp/ip": 4.0, "servicenow": 4.0,
+    "runbooks": 4.0, "sop": 4.0, "defect": 4.0, "hardware": 4.0
+}
+
+COMPILED_BULLET_WEIGHTS = [
+    (term, re.compile(r"\b" + re.escape(term) + r"\b", re.IGNORECASE), w)
+    for term, w in BULLET_WEIGHT_TERMS.items()
+]
+
 def score_bullet_relevance(bullet: str, job_text: str) -> float:
-    """Calculate overlap score for a bullet point against the job requirements."""
-    b_lower = bullet.lower()
-    j_lower = job_text.lower()
+    """Calculate overlap score for a bullet point against the job requirements using strict word boundaries."""
     score = 0.0
-
-    # Key terms with high weighting
-    weights = {
-        "dicom": 10.0, "pacs": 10.0, "imaging": 8.0, "sensor": 6.0,
-        "sysinternals": 7.0, "windows event viewer": 7.0, "crash dump": 7.0,
-        "sql server": 6.0, "root cause": 6.0, "tier 2": 5.0, "tier 3": 5.0,
-        "powershell": 5.0, "python": 5.0, "active directory": 5.0, "sso": 5.0,
-        "vpn": 4.0, "networking": 4.0, "tcp/ip": 4.0, "servicenow": 4.0,
-        "runbooks": 4.0, "sop": 4.0, "defect": 4.0, "hardware": 4.0
-    }
-
-    for term, w in weights.items():
-        if term in j_lower and term in b_lower:
+    for term, pat, w in COMPILED_BULLET_WEIGHTS:
+        if pat.search(job_text) and pat.search(bullet):
             score += w
     return score
 
@@ -321,10 +376,6 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
         cat_score = score_bullet_relevance(cat_name + " " + cat_desc, full_job_context)
         scored_comp.append((cat_name, cat_desc, cat_score))
     scored_comp.sort(key=lambda x: x[2], reverse=True)
-
-    # Format competencies block
-    comp_lines = [f"- **{name}:** {desc}" for name, desc, _ in scored_comp]
-    comp_block = "\n".join(comp_lines)
 
     # Tailored Professional Summary focusing on target domain
     summary = (
@@ -411,13 +462,20 @@ Dear {company} Hiring Team,
 
 def run_match_and_tailor() -> List[Dict[str, Any]]:
     """
-    Main matching and tailoring pipeline.
-    Evaluates newly scraped listings in SQLite, updates scores, filters < 60,
-    generates tailored assets for >= 75, outputs terminal summary, and writes daily_matches.md.
+    Main matching and tailoring pipeline:
+    1. Evaluates listings in SQLite, updates scores with word boundaries & culture penalties.
+    2. Builds fresh-only daily leaderboard (reported_date IS NULL).
+    3. Enforces Max 2 Per Company cap on Top 10 slots.
+    4. Generates PDF resume and cold email for Top 10 matches >= 75.
+    5. Marks Top 10 as reported today (YYYY-MM-DD).
+    6. Appends 7-day archive table to daily_matches.md.
     """
     print("\n" + "="*80)
     print("RESUME MATCHING & ATS TAILORING PIPELINE")
     print("="*80)
+
+    # Initialize / migrate database schema
+    init_db()
 
     # Verify master resume exists
     master_resume_text = load_master_resume()
@@ -439,23 +497,21 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         score, reasons = calculate_match_score(job)
         reasons_str = " | ".join(reasons)
 
+        # Sanitize salary if needed
+        clean_sal = parse_and_validate_salary(job.get("description", ""), job.get("salary_range", "Not specified"))
+        if clean_sal != job.get("salary_range"):
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("UPDATE jobs SET salary_range = ? WHERE job_id = ?", (clean_sal, job["job_id"]))
+                conn.commit()
+            job["salary_range"] = clean_sal
+
         if score < 60.0:
             status = "rejected"
             rejected_count += 1
-            resume_path_str = ""
-            email_path_str = ""
         else:
             status = "matched"
             matched_count += 1
-            if score >= 75.0:
-                # Generate tailored PDF resume and cold email
-                pdf_path = generate_tailored_resume(job, reasons)
-                email_path = generate_cold_outreach_email(job, score)
-                resume_path_str = str(pdf_path.relative_to(ROOT_DIR)).replace("\\", "/")
-                email_path_str = str(email_path.relative_to(ROOT_DIR)).replace("\\", "/")
-            else:
-                resume_path_str = ""
-                email_path_str = ""
 
         # Update database record
         update_job_match(
@@ -463,73 +519,136 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
             score=score,
             status=status,
             match_reasons=reasons_str,
-            resume_path=resume_path_str if resume_path_str else None,
-            email_path=email_path_str if email_path_str else None
+            resume_path=job.get("tailored_resume_path"),
+            email_path=job.get("cold_email_path")
         )
 
         job_copy = dict(job)
         job_copy["score"] = score
         job_copy["status"] = status
         job_copy["match_reasons"] = reasons_str
-        job_copy["tailored_resume_path"] = resume_path_str
-        job_copy["cold_email_path"] = email_path_str
         evaluated_jobs.append(job_copy)
 
-    # Sort all by score descending
-    evaluated_jobs.sort(key=lambda x: x["score"], reverse=True)
+    today_str = time.strftime("%Y-%m-%d")
+
+    # 1. Fresh-Only Daily Leaderboard Candidates:
+    # Select jobs that have not been reported in past runs (or reported today in re-runs)
+    # Excludes any jobs reported on prior dates (< today_str)
+    fresh_candidates = [
+        j for j in evaluated_jobs
+        if (not j.get("reported_date") or j.get("reported_date") == today_str)
+        and j["score"] >= 60.0 and j["status"] != "rejected"
+    ]
+    fresh_candidates.sort(key=lambda x: (x["score"], x.get("created_at", "")), reverse=True)
+
+    # 2. Enforce "Max 2 Per Company" Cap:
+    top_matches = []
+    company_counts: Dict[str, int] = {}
+    for j in fresh_candidates:
+        comp = j["company"].strip()
+        count = company_counts.get(comp, 0)
+        if count < 2:
+            company_counts[comp] = count + 1
+            top_matches.append(j)
+            if len(top_matches) == 10:
+                break
+
+    # 3. Generate tailored assets and mark as reported for Top 10 matches
+    for j in top_matches:
+        resume_path_str = j.get("tailored_resume_path") or ""
+        email_path_str = j.get("cold_email_path") or ""
+
+        if j["score"] >= 75.0:
+            needs_resume = not resume_path_str or not (ROOT_DIR / resume_path_str).exists()
+            needs_email = not email_path_str or not (ROOT_DIR / email_path_str).exists()
+
+            if needs_resume or needs_email:
+                pdf_path = generate_tailored_resume(j, j["match_reasons"].split(" | "))
+                email_path = generate_cold_outreach_email(j, j["score"])
+                resume_path_str = str(pdf_path.relative_to(ROOT_DIR)).replace("\\", "/")
+                email_path_str = str(email_path.relative_to(ROOT_DIR)).replace("\\", "/")
+                j["tailored_resume_path"] = resume_path_str
+                j["cold_email_path"] = email_path_str
+
+        # Mark as reported today
+        mark_job_reported(j["job_id"], today_str)
+        j["reported_date"] = today_str
+
+        # Update DB with assets and reported_date
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE jobs
+                SET reported_date = ?,
+                    tailored_resume_path = ?,
+                    cold_email_path = ?
+                WHERE job_id = ?
+            """, (today_str, resume_path_str if resume_path_str else None, email_path_str if email_path_str else None, j["job_id"]))
+            conn.commit()
+
+    # 4. Fetch archive jobs (last 7 days from prior dates, excluding today's Top 10)
+    top_job_ids = {j["job_id"] for j in top_matches}
+    archived_jobs = [
+        j for j in get_recently_reported_jobs(days=7, min_score=60.0)
+        if j.get("reported_date") != today_str and j["job_id"] not in top_job_ids
+    ]
 
     # Terminal Summary Table
     print("\n" + "-"*105)
     print(f"{'RANK':<5} | {'COMPANY':<18} | {'ROLE':<35} | {'LOCATION':<18} | {'SCORE':<5} | {'ASSETS'}")
     print("-" * 105)
 
-    top_matches = evaluated_jobs[:10]
     for idx, j in enumerate(top_matches, 1):
         comp = j['company'][:18]
         title = j['title'][:35]
         loc = j['location'][:18]
         score_str = f"{j['score']:.0f}"
-        assets = "PDF Resume & Email" if j['score'] >= 75.0 else ("Match (No assets)" if j['score'] >= 60 else "Filtered")
+        assets = "PDF Resume & Email" if j['score'] >= 75.0 else "Match (No assets)"
         print(f"{idx:<5} | {comp:<18} | {title:<35} | {loc:<18} | {score_str:<5} | {assets}")
     print("-" * 105)
 
     # Write daily_matches.md
-    write_daily_matches_report(top_matches)
+    write_daily_matches_report(top_matches, archived_jobs)
 
     print(f"\n[+] Pipeline run complete:")
     print(f"    - Total Processed: {len(jobs)}")
-    print(f"    - Matched (Score >= 60): {matched_count}")
-    print(f"    - Filtered Out (Score < 60): {rejected_count}")
-    print(f"    - High Matches Tailored (Score >= 75): {sum(1 for j in evaluated_jobs if j['score'] >= 75.0)}")
+    print(f"    - Fresh Unreported Candidates: {len(fresh_candidates)}")
+    print(f"    - Top Fresh Matches Selected: {len(top_matches)} (Max 2 per company cap enforced)")
+    print(f"    - Previously Reported Archive Roles: {len(archived_jobs)}")
     print(f"    - Output Report: daily_matches.md\n")
 
     return top_matches
 
-def write_daily_matches_report(top_jobs: List[Dict[str, Any]]) -> None:
-    """Generate daily_matches.md markdown summary report."""
+def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Optional[List[Dict[str, Any]]] = None) -> None:
+    """Generate daily_matches.md markdown summary report with fresh Top 10 and 7-day archive."""
+    today_str = time.strftime('%Y-%m-%d %H:%M:%S')
     md = [
         "# Daily Job Matches & ATS Tailored Applications",
-        f"**Generated:** {time.strftime('%Y-%m-%d %H:%M:%S')}  ",
+        f"**Generated:** {today_str}  ",
         f"**Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  ",
         f"**Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  ",
+        f"**Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  ",
         "",
         "---",
         "",
-        "## Top 10 High-Relevance Opportunities",
+        "## Top 10 High-Relevance Opportunities (Fresh Matches)",
         "",
         "| Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |",
         "| :---: | :--- | :--- | :--- | :---: | :--- | :--- |"
     ]
 
-    for idx, j in enumerate(top_jobs, 1):
-        if j.get('tailored_resume_path'):
-            pdf_link = f"[Tailored PDF Resume]({j['tailored_resume_path']})"
-            email_link = f"[Cold Email]({j['cold_email_path']})"
-            assets_col = f"{pdf_link} · {email_link}"
-        else:
-            assets_col = "Below 75 threshold"
-        salary = j.get('salary_range') or "Not specified"
-        md.append(f"| {idx} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
+    if not top_jobs:
+        md.append("| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |")
+    else:
+        for idx, j in enumerate(top_jobs, 1):
+            if j.get('tailored_resume_path'):
+                pdf_link = f"[Tailored PDF Resume]({j['tailored_resume_path']})"
+                email_link = f"[Cold Email]({j['cold_email_path']})"
+                assets_col = f"{pdf_link} · {email_link}"
+            else:
+                assets_col = "Below 75 threshold"
+            salary = j.get('salary_range') or "Not specified"
+            md.append(f"| {idx} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
 
     md.extend([
         "",
@@ -551,8 +670,27 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]]) -> None:
             md.append(f"- **Cold Outreach Email:** [{j['cold_email_path']}]({j['cold_email_path']})")
         md.append("")
 
+    # Archive section
+    if archived_jobs:
+        md.extend([
+            "---",
+            "",
+            "## Previously Reported High-Score Roles (Last 7 Days)",
+            "",
+            "| Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |",
+            "| :---: | :--- | :--- | :--- | :---: | :--- | :--- |"
+        ])
+        for j in archived_jobs:
+            rep_date = j.get("reported_date", "Prior")
+            salary = j.get("salary_range") or "Not specified"
+            if j.get("tailored_resume_path"):
+                assets_col = f"[Resume]({j['tailored_resume_path']}) · [Email]({j['cold_email_path']})"
+            else:
+                assets_col = "Below 75 threshold"
+            md.append(f"| {rep_date} | **{j['company']}** | [{j['title']}]({j['url']}) | {j['location']} | **{j['score']:.0f}/100** | {salary} | {assets_col} |")
+        md.append("")
+
     DAILY_MATCHES_FILE.write_text("\n".join(md), encoding="utf-8")
 
 if __name__ == "__main__":
-    import time
     run_match_and_tailor()

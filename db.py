@@ -16,7 +16,7 @@ def get_connection(db_path: Path = DB_FILE) -> sqlite3.Connection:
     return conn
 
 def init_db(db_path: Path = DB_FILE) -> None:
-    """Initialize SQLite database schema."""
+    """Initialize SQLite database schema and apply safe migrations."""
     with get_connection(db_path) as conn:
         cursor = conn.cursor()
         cursor.execute("""
@@ -35,13 +35,21 @@ def init_db(db_path: Path = DB_FILE) -> None:
                 match_reasons TEXT,
                 tailored_resume_path TEXT,
                 cold_email_path TEXT,
+                reported_date TEXT DEFAULT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
+        # Safe migration for existing DBs
+        try:
+            cursor.execute("ALTER TABLE jobs ADD COLUMN reported_date TEXT DEFAULT NULL")
+        except sqlite3.OperationalError:
+            pass
+
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_jobs_status ON jobs(status)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_jobs_score ON jobs(score)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_jobs_company ON jobs(company)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_jobs_reported_date ON jobs(reported_date)")
         conn.commit()
 
 def generate_job_id(company: str, title: str, url: str) -> str:
@@ -83,11 +91,13 @@ def insert_job(job_data: Dict[str, Any], db_path: Path = DB_FILE) -> bool:
             INSERT INTO jobs (
                 job_id, company, title, location, salary_range,
                 url, description, date_posted, source, status,
-                score, match_reasons, tailored_resume_path, cold_email_path
+                score, match_reasons, tailored_resume_path, cold_email_path,
+                reported_date
             ) VALUES (
                 :job_id, :company, :title, :location, :salary_range,
                 :url, :description, :date_posted, :source, :status,
-                :score, :match_reasons, :tailored_resume_path, :cold_email_path
+                :score, :match_reasons, :tailored_resume_path, :cold_email_path,
+                :reported_date
             )
         """, {
             "job_id": job_id,
@@ -103,7 +113,8 @@ def insert_job(job_data: Dict[str, Any], db_path: Path = DB_FILE) -> bool:
             "score": job_data.get("score", 0.0),
             "match_reasons": job_data.get("match_reasons", ""),
             "tailored_resume_path": job_data.get("tailored_resume_path", ""),
-            "cold_email_path": job_data.get("cold_email_path", "")
+            "cold_email_path": job_data.get("cold_email_path", ""),
+            "reported_date": job_data.get("reported_date", None)
         })
         conn.commit()
     return True
@@ -146,6 +157,44 @@ def update_job_match(
         """, (score, status, match_reasons, resume_path, email_path, job_id))
         conn.commit()
 
+def mark_job_reported(job_id: str, reported_date: str, db_path: Path = DB_FILE) -> None:
+    """Mark a job with the date it was included in daily_matches.md."""
+    with get_connection(db_path) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE jobs
+            SET reported_date = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE job_id = ?
+        """, (reported_date, job_id))
+        conn.commit()
+
+def get_unreported_jobs(min_score: float = 60.0, db_path: Path = DB_FILE) -> List[Dict[str, Any]]:
+    """Retrieve fresh matched jobs that have not been reported yet."""
+    with get_connection(db_path) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT * FROM jobs
+            WHERE (reported_date IS NULL OR reported_date = '')
+              AND score >= ?
+            ORDER BY score DESC, created_at DESC
+        """, (min_score,))
+        return [dict(row) for row in cursor.fetchall()]
+
+def get_recently_reported_jobs(days: int = 7, min_score: float = 60.0, db_path: Path = DB_FILE) -> List[Dict[str, Any]]:
+    """Retrieve jobs reported in the last N days."""
+    with get_connection(db_path) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT * FROM jobs
+            WHERE reported_date IS NOT NULL
+              AND reported_date != ''
+              AND reported_date >= date('now', '-' || ? || ' days')
+              AND score >= ?
+            ORDER BY reported_date DESC, score DESC
+        """, (days, min_score))
+        return [dict(row) for row in cursor.fetchall()]
+
 def get_top_matches(limit: int = 10, min_score: float = 60.0, db_path: Path = DB_FILE) -> List[Dict[str, Any]]:
     """Retrieve top matched jobs with score >= min_score."""
     with get_connection(db_path) as conn:
@@ -160,4 +209,4 @@ def get_top_matches(limit: int = 10, min_score: float = 60.0, db_path: Path = DB
 
 if __name__ == "__main__":
     init_db()
-    print(f"Database initialized at {DB_FILE}")
+    print(f"Database initialized and schema migrated at {DB_FILE}")
