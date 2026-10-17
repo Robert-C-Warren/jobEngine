@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-16 17:23:40  
+**Generated:** 2026-10-17 16:23:04  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,30 +10,11 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Samsara** | [Enterprise Select Implementation Consultant (West)](https://www.samsara.com/company/careers/roles/8121327?gh_jid=8121327) | Remote - US | **72/100** | $100,406 — $151,875 USD | [Tailored PDF Resume](outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_West_resume.pdf) · [Cold Email](outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_West_cold_email.md) |
-| 2 | **Samsara** | [Strategic Implementation Consultant](https://www.samsara.com/company/careers/roles/8039126?gh_jid=8039126) | Remote - US | **72/100** | $100,406 — $153,409 USD | [Tailored PDF Resume](outputs/resumes/Samsara_Strategic_Implementation_Consultant_resume.pdf) · [Cold Email](outputs/emails/Samsara_Strategic_Implementation_Consultant_cold_email.md) |
+| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
-
-### 1. Enterprise Select Implementation Consultant (West) – Samsara
-- **Direct Application URL:** [https://www.samsara.com/company/careers/roles/8121327?gh_jid=8121327](https://www.samsara.com/company/careers/roles/8121327?gh_jid=8121327)
-- **Location:** Remote - US
-- **Compensation:** $100,406 — $151,875 USD
-- **ATS Relevance Score:** **72 / 100**
-- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Tier 2/3 RCA & Diagnostics (drivers) (+7) | Field Service & Implementation (implementation consultant, deployment, onboarding) (+24) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_West_resume.pdf](outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_West_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_West_cold_email.md](outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_West_cold_email.md)
-
-### 2. Strategic Implementation Consultant – Samsara
-- **Direct Application URL:** [https://www.samsara.com/company/careers/roles/8039126?gh_jid=8039126](https://www.samsara.com/company/careers/roles/8039126?gh_jid=8039126)
-- **Location:** Remote - US
-- **Compensation:** $100,406 — $153,409 USD
-- **ATS Relevance Score:** **72 / 100**
-- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Tier 2/3 RCA & Diagnostics (drivers) (+7) | Field Service & Implementation (implementation consultant, deployment, onboarding) (+24) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Samsara_Strategic_Implementation_Consultant_resume.pdf](outputs/resumes/Samsara_Strategic_Implementation_Consultant_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Samsara_Strategic_Implementation_Consultant_cold_email.md](outputs/emails/Samsara_Strategic_Implementation_Consultant_cold_email.md)
 
 ---
 
@@ -41,6 +22,8 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-10-16 | **Samsara** | [Strategic Implementation Consultant](https://www.samsara.com/company/careers/roles/8039126?gh_jid=8039126) | Remote - US | **72/100** | $100,406 — $153,409 USD | [Resume](outputs/resumes/Samsara_Strategic_Implementation_Consultant_resume.pdf) · [Email](outputs/emails/Samsara_Strategic_Implementation_Consultant_cold_email.md) |
+| 2026-10-16 | **Samsara** | [Enterprise Select Implementation Consultant (West)](https://www.samsara.com/company/careers/roles/8121327?gh_jid=8121327) | Remote - US | **72/100** | $100,406 — $151,875 USD | [Resume](outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_West_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_West_cold_email.md) |
 | 2026-10-15 | **6sense** | [IT Support Specialist](https://weworkremotely.com/remote-jobs/6sense-it-support-specialist) | Remote (US) | **84/100** | $73,577.25 - $103,913.30 | [Resume](outputs/resumes/6sense_IT_Support_Specialist_resume.pdf) · [Email](outputs/emails/6sense_IT_Support_Specialist_cold_email.md) |
 | 2026-10-15 | **Samsara** | [Enterprise Select Implementation Consultant (Central or East)](https://www.samsara.com/company/careers/roles/8121329?gh_jid=8121329) | Remote - US | **72/100** | $100,406 — $151,875 USD | [Resume](outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_Central_or_East_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_Central_or_East_cold_email.md) |
 | 2026-10-15 | **Samsara** | [Enterprise Implementation Consultant](https://www.samsara.com/company/careers/roles/8121332?gh_jid=8121332) | Remote - US | **72/100** | $88,979 — $134,590 USD | [Resume](outputs/resumes/Samsara_Enterprise_Implementation_Consultant_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Implementation_Consultant_cold_email.md) |
