@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-17 16:23:04  
+**Generated:** 2026-10-18 16:30:17  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,11 +10,20 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |
+| 1 | **6sense** | [IT Support Specialist](https://jobicy.com/jobs/155698-it-support-specialist-3) | USA | **84/100** | $73,577.25 - $103,913.30 | [Tailored PDF Resume](outputs/resumes/6sense_IT_Support_Specialist_resume.pdf) · [Cold Email](outputs/emails/6sense_IT_Support_Specialist_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
+
+### 1. IT Support Specialist – 6sense
+- **Direct Application URL:** [https://jobicy.com/jobs/155698-it-support-specialist-3](https://jobicy.com/jobs/155698-it-support-specialist-3)
+- **Location:** USA
+- **Compensation:** $73,577.25 - $103,913.30
+- **ATS Relevance Score:** **84 / 100**
+- **Match Justification:** Direct Title Match: 'It Support Specialist' (+25) | Tier 2/3 RCA & Diagnostics (tier 2) (+7) | Field Service & Implementation (onboarding) (+8) | Active Directory / SSO / IAM (entra id, sso, mfa) (+12) | Scripting & Automation (powershell, python, scripting) (+12) | ITSM Platforms (sla) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/6sense_IT_Support_Specialist_resume.pdf](outputs/resumes/6sense_IT_Support_Specialist_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/6sense_IT_Support_Specialist_cold_email.md](outputs/emails/6sense_IT_Support_Specialist_cold_email.md)
 
 ---
 
