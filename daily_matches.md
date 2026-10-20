@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-19 19:17:48  
+**Generated:** 2026-10-20 17:58:21  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,20 +10,11 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Alloy** | [Senior Technical Support Engineer](https://weworkremotely.com/remote-jobs/alloy-senior-technical-support-engineer) | Remote (US) | **72/100** | $90,000 - $110,000, | [Tailored PDF Resume](outputs/resumes/Alloy_Senior_Technical_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/Alloy_Senior_Technical_Support_Engineer_cold_email.md) |
+| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
-
-### 1. Senior Technical Support Engineer – Alloy
-- **Direct Application URL:** [https://weworkremotely.com/remote-jobs/alloy-senior-technical-support-engineer](https://weworkremotely.com/remote-jobs/alloy-senior-technical-support-engineer)
-- **Location:** Remote (US)
-- **Compensation:** $90,000 - $110,000,
-- **ATS Relevance Score:** **72 / 100**
-- **Match Justification:** Direct Title Match: 'Technical Support Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (onboarding) (+8) | Scripting & Automation (python, scripting, postman) (+12) | ITSM Platforms (zendesk) (+4) | Remote Target Location (+15) | Seniority Cap Exemption: Support/Implementation role under $130k ($110,000)
-- **Tailored PDF Resume:** [outputs/resumes/Alloy_Senior_Technical_Support_Engineer_resume.pdf](outputs/resumes/Alloy_Senior_Technical_Support_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Alloy_Senior_Technical_Support_Engineer_cold_email.md](outputs/emails/Alloy_Senior_Technical_Support_Engineer_cold_email.md)
 
 ---
 
@@ -31,6 +22,7 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-10-19 | **Alloy** | [Senior Technical Support Engineer](https://weworkremotely.com/remote-jobs/alloy-senior-technical-support-engineer) | Remote (US) | **72/100** | $90,000 - $110,000, | [Resume](outputs/resumes/Alloy_Senior_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Alloy_Senior_Technical_Support_Engineer_cold_email.md) |
 | 2026-10-18 | **6sense** | [IT Support Specialist](https://jobicy.com/jobs/155698-it-support-specialist-3) | USA | **84/100** | $73,577.25 - $103,913.30 | [Resume](outputs/resumes/6sense_IT_Support_Specialist_resume.pdf) · [Email](outputs/emails/6sense_IT_Support_Specialist_cold_email.md) |
 | 2026-10-16 | **Samsara** | [Strategic Implementation Consultant](https://www.samsara.com/company/careers/roles/8039126?gh_jid=8039126) | Remote - US | **72/100** | $100,406 — $153,409 USD | [Resume](outputs/resumes/Samsara_Strategic_Implementation_Consultant_resume.pdf) · [Email](outputs/emails/Samsara_Strategic_Implementation_Consultant_cold_email.md) |
 | 2026-10-16 | **Samsara** | [Enterprise Select Implementation Consultant (West)](https://www.samsara.com/company/careers/roles/8121327?gh_jid=8121327) | Remote - US | **72/100** | $100,406 — $151,875 USD | [Resume](outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_West_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_West_cold_email.md) |
