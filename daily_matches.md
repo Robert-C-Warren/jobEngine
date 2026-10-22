@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-21 18:00:54  
+**Generated:** 2026-10-22 17:58:09  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,11 +10,30 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |
+| 1 | **Vultr** | [RMA Systems Engineer](https://jobicy.com/jobs/156342-rma-systems-engineer) | USA | **66/100** | $75,000 - $90,000 | [Tailored PDF Resume](outputs/resumes/Vultr_RMA_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Vultr_RMA_Systems_Engineer_cold_email.md) |
+| 2 | **Cordance** | [Onboarding & Implementation Specialist](https://jobicy.com/jobs/156290-onboarding-implementation-specialist) | USA | **64/100** | $75 USD | [Tailored PDF Resume](outputs/resumes/Cordance_Onboarding_Implementation_Specialist_resume.pdf) · [Cold Email](outputs/emails/Cordance_Onboarding_Implementation_Specialist_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
+
+### 1. RMA Systems Engineer – Vultr
+- **Direct Application URL:** [https://jobicy.com/jobs/156342-rma-systems-engineer](https://jobicy.com/jobs/156342-rma-systems-engineer)
+- **Location:** USA
+- **Compensation:** $75,000 - $90,000
+- **ATS Relevance Score:** **66 / 100**
+- **Match Justification:** Direct Title Match: 'Systems Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation, root cause, firmware) (+22) | ITSM Platforms (jira) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Vultr_RMA_Systems_Engineer_resume.pdf](outputs/resumes/Vultr_RMA_Systems_Engineer_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Vultr_RMA_Systems_Engineer_cold_email.md](outputs/emails/Vultr_RMA_Systems_Engineer_cold_email.md)
+
+### 2. Onboarding & Implementation Specialist – Cordance
+- **Direct Application URL:** [https://jobicy.com/jobs/156290-onboarding-implementation-specialist](https://jobicy.com/jobs/156290-onboarding-implementation-specialist)
+- **Location:** USA
+- **Compensation:** $75 USD
+- **ATS Relevance Score:** **64 / 100**
+- **Match Justification:** Direct Title Match: 'Implementation Specialist' (+25) | Field Service & Implementation (implementation specialist, onboarding) (+16) | Scripting & Automation (automation) (+4) | ITSM Platforms (jira) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Cordance_Onboarding_Implementation_Specialist_resume.pdf](outputs/resumes/Cordance_Onboarding_Implementation_Specialist_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Cordance_Onboarding_Implementation_Specialist_cold_email.md](outputs/emails/Cordance_Onboarding_Implementation_Specialist_cold_email.md)
 
 ---
 
@@ -29,10 +48,3 @@
 | 2026-10-15 | **6sense** | [IT Support Specialist](https://weworkremotely.com/remote-jobs/6sense-it-support-specialist) | Remote (US) | **84/100** | $73,577.25 - $103,913.30 | [Resume](outputs/resumes/6sense_IT_Support_Specialist_resume.pdf) · [Email](outputs/emails/6sense_IT_Support_Specialist_cold_email.md) |
 | 2026-10-15 | **Samsara** | [Enterprise Select Implementation Consultant (Central or East)](https://www.samsara.com/company/careers/roles/8121329?gh_jid=8121329) | Remote - US | **72/100** | $100,406 — $151,875 USD | [Resume](outputs/resumes/Samsara_Enterprise_Select_Implementation_Consultant_Central_or_East_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Select_Implementation_Consultant_Central_or_East_cold_email.md) |
 | 2026-10-15 | **Samsara** | [Enterprise Implementation Consultant](https://www.samsara.com/company/careers/roles/8121332?gh_jid=8121332) | Remote - US | **72/100** | $88,979 — $134,590 USD | [Resume](outputs/resumes/Samsara_Enterprise_Implementation_Consultant_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Implementation_Consultant_cold_email.md) |
-| 2026-10-14 | **Upstart** | [Integration Engineer - Contract](https://careers.upstart.com/jobs?gh_jid=8275037) | United States | Remote | **73/100** | $47.98 — $66.35 USD | [Resume](outputs/resumes/Upstart_Integration_Engineer_Contract_resume.pdf) · [Email](outputs/emails/Upstart_Integration_Engineer_Contract_cold_email.md) |
-| 2026-10-14 | **Samsara** | [Enterprise Implementation Consultant](https://www.samsara.com/company/careers/roles/8131784?gh_jid=8131784) | Remote - US | **72/100** | $66,261.36 — $100,227.27 USD | [Resume](outputs/resumes/Samsara_Enterprise_Implementation_Consultant_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Implementation_Consultant_cold_email.md) |
-| 2026-10-14 | **Samsara** | [Enterprise Core Implementation Consultant](https://www.samsara.com/company/careers/roles/8121318?gh_jid=8121318) | Remote - US | **72/100** | $88,979 — $134,590.91 USD | [Resume](outputs/resumes/Samsara_Enterprise_Core_Implementation_Consultant_resume.pdf) · [Email](outputs/emails/Samsara_Enterprise_Core_Implementation_Consultant_cold_email.md) |
-| 2026-10-14 | **Flexport** | [Senior Systems Engineer (Identity and Access)](https://job-boards.greenhouse.io/flexport/jobs/8164901) | U.S. Remote | **68/100** | $130,000 — $172,000 USD | [Resume](outputs/resumes/Flexport_Senior_Systems_Engineer_Identity_and_Access_resume.pdf) · [Email](outputs/emails/Flexport_Senior_Systems_Engineer_Identity_and_Access_cold_email.md) |
-| 2026-10-14 | **Flexport** | [Senior IT Systems Engineer](https://job-boards.greenhouse.io/flexport/jobs/8213955) | U.S. Remote | **68/100** | $130,000 — $172,000 USD | [Resume](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md) |
-| 2026-10-14 | **Gitlab** | [Support Engineer, U.S. Government Support](https://job-boards.greenhouse.io/gitlab/jobs/8859063002) | Remote, United States | **67/100** | $95,200 — $160,800 USD | [Resume](outputs/resumes/Gitlab_Support_Engineer_US_Government_Support_resume.pdf) · [Email](outputs/emails/Gitlab_Support_Engineer_US_Government_Support_cold_email.md) |
-| 2026-10-14 | **Koast.ai** | [Head of Technical Support @ Koast.ai](https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai) | Remote (US) | **64/100** | Not specified | [Resume](outputs/resumes/Koastai_Head_of_Technical_Support_Koastai_resume.pdf) · [Email](outputs/emails/Koastai_Head_of_Technical_Support_Koastai_cold_email.md) |
