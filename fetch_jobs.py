@@ -27,25 +27,28 @@ from db import init_db, insert_job, job_exists, generate_job_id, get_connection
 
 # Target profile criteria
 TARGET_TITLE_PATTERNS = [
-    r"\btechnical support\b", r"\btier 2\b", r"\btier 3\b", r"\btier ii\b", r"\btier iii\b",
-    r"\bpacs\b", r"\bimaging support\b", r"\bfield service\b", r"\bfield engineer\b",
-    r"\bimplementation specialist\b", r"\bimplementation consultant\b",
-    r"\bsupport engineer\b", r"\bsolutions integration engineer\b",
-    r"\bintegration engineer\b", r"\btechnical escalation\b", r"\bescalation[s]? engineer\b",
-    r"\bapplication support\b", r"\bsystems support\b", r"\bl2 support\b", r"\bl3 support\b",
-    r"\bclinical support\b", r"\btechnical support engineer\b",
-    r"\bcustomer support engineer\b", r"\bclient support engineer\b", r"\bsupport analyst\b",
-    r"\bit support\b", r"\bit support specialist\b", r"\bit support analyst\b",
-    r"\bit support engineer\b", r"\bdesktop support\b", r"\bsystems engineer\b",
-    r"\bit systems engineer\b", r"\btechnical operations\b", r"\boperations systems\b",
-    r"\bsolutions specialist\b", r"\bsolutions engineer\b", r"\bfield technician\b",
-    r"\bservice engineer\b", r"\bclient support specialist\b", r"\bcustomer support specialist\b"
+    r"\bforward deployed\b", r"\bfde\b", r"\bdeployment engineer\b", r"\bdeployment strategist\b",
+    r"\bsolutions engineer\b", r"\bsolutions architect\b", r"\bsolutions consultant\b",
+    r"\bsolutions integration\b", r"\bsolutions specialist\b",
+    r"\bintegration engineer\b", r"\bintegrations engineer\b", r"\bintegration specialist\b",
+    r"\bimplementation engineer\b", r"\bimplementation specialist\b", r"\bimplementation consultant\b",
+    r"\btechnical account manager\b", r"\btam\b", r"\bcustomer engineer\b", r"\bpartner engineer\b",
+    r"\btechnical support\b", r"\bsupport engineer\b", r"\bapplication support\b",
+    r"\bsystems support\b", r"\bsystems engineer\b", r"\bit systems engineer\b",
+    r"\btechnical escalation\b", r"\bescalation[s]? engineer\b",
+    r"\btier 2\b", r"\btier 3\b", r"\btier ii\b", r"\btier iii\b", r"\bl2 support\b", r"\bl3 support\b",
+    r"\bpacs\b", r"\bimaging support\b", r"\bclinical support\b", r"\bclinical systems\b",
+    r"\bfield service\b", r"\bfield engineer\b", r"\bservice engineer\b",
+    r"\btechnical operations\b", r"\boperations engineer\b", r"\bsite reliability\b", r"\bsre\b",
+    r"\bonboarding engineer\b", r"\btechnical onboarding\b"
 ]
 
 NON_TECH_PATTERNS = [
     r"\baccount executive\b", r"\brecruiter\b", r"\btalent acquisition\b",
     r"\bproduct designer\b", r"\bpayroll specialist\b", r"\bcontent writer\b",
-    r"\blegal counsel\b", r"\bhuman resources business partner\b", r"\bgraphic designer\b"
+    r"\blegal counsel\b", r"\bhuman resources\b", r"\bgraphic designer\b",
+    r"\bmechanical\b", r"\bstructural\b", r"\bcivil\b", r"\bintern\b", r"\binternship\b",
+    r"\buniversity graduate\b", r"\bnew grad\b"
 ]
 
 # Strict negative keywords - Zero government or security clearance roles
@@ -69,7 +72,7 @@ NON_US_PATTERNS = [
     r"\bindia\b", r"\bind\b", r"\bbangalore\b", r"\bbengaluru\b", r"\bchennai\b", r"\bmumbai\b",
     r"\bpune\b", r"\bgurgaon\b", r"\bnoida\b", r"\bmohali\b", r"\bphilippines\b", r"\bmanila\b",
     r"\bsingapore\b", r"\bsgp\b", r"\bjapan\b", r"\btokyo\b", r"\bkorea\b", r"\bseoul\b",
-    r"\baustralia\b", r"\bsydney\b", r"\bmelbourne\b", r"\buk\b", r"\blondon\b", r"\bireland\b",
+    r"\baustralia\b", r"\bsydney\b", r"\bmelbourne\b", r"\buk\b", r"\bunited kingdom\b", r"\bgreat britain\b", r"\blondon\b", r"\bireland\b",
     r"\bdublin\b", r"\bgermany\b", r"\bberlin\b", r"\bmunich\b", r"\bfrance\b", r"\bparis\b",
     r"\bspain\b", r"\bmadrid\b", r"\bbarcelona\b", r"\bcanada\b", r"\btoronto\b", r"\bvancouver\b",
     r"\bmontreal\b", r"\bmexico\b", r"\bcdmx\b", r"\bbrazil\b", r"\bcolombia\b", r"\bbogota\b",
@@ -101,12 +104,18 @@ GREENHOUSE_COMPANIES = [
     "zapier", "automattic", "intercom", "freshworks", "confluent",
     "snowflake", "fastly",
     # Ohio-based & Remote Tech Leaders
-    "upstart", "klaviyo", "brex", "asana", "figma", "rootinsurance"
+    "upstart", "klaviyo", "brex", "asana", "figma", "rootinsurance",
+    # Forward Deployed, Integration & Data Targets
+    "databricks", "palantir", "scaleai", "anthropic", "fivetran", "dbt",
+    "airbyte", "temporal", "launchdarkly", "postman", "workato", "mulesoft",
+    "boomi", "trayio", "segment", "amplitude", "mixpanel", "linear",
+    "redox", "zushealth", "canvasmedical", "iteratively"
 ]
 
 LEVER_COMPANIES = [
     "heartbeathealth", "ro", "modernizingmedicine", "veeva", "shieldai",
-    "athenahealth", "symplr", "scriptdrop"
+    "athenahealth", "symplr", "scriptdrop",
+    "palantir", "color", "includedhealth", "nominal", "kopperfield"
 ]
 
 WWR_FEEDS = [
@@ -227,26 +236,28 @@ def parse_and_validate_salary(text: str, fallback: str = "Not specified") -> str
     return "Not specified"
 
 def is_valid_location(location: str, title: str = "", description: str = "", salary: str = "") -> bool:
-    """
-    Verify role is Remote, US-based, or within Ohio (Dayton, Cincinnati, Columbus, Mason, OH).
-    Strictly excludes Versailles.
-    Strictly excludes listings where location is 'Worldwide' or 'Anywhere' UNLESS the listing
-    explicitly specifies US salary bands or 'US Only / North America'.
-    """
-    comb = f"{location} {title}".lower()
+    comb_loc_title = f"{location} {title}".lower()
 
-    # Explicitly exclude Versailles per candidate preference
-    if re.search(r"\bversailles\b", comb):
+    # Explicitly exclude Versailles
+    if re.search(r"\bversailles\b", comb_loc_title):
         return False
 
-    # Check non-US locations
+    explicit_us_markers = [
+        r"\bunited states\b", r"\busa\b", r"\bu\.s\.\b", r"\bus\b", r"\bnationwide\b",
+        r"\bohio\b", r"\boh\b", r"\bdayton\b", r"\bcincinnati\b",
+        r"\bcolumbus\b", r"\bcleveland\b", r"\bmason\b", r"\bamericas\b", r"\bnorth america\b"
+    ]
+    has_explicit_us = any(re.search(p, comb_loc_title) for p in explicit_us_markers)
+
+    # Only reject on NON_US_PATTERNS if the location doesn't ALSO explicitly include US/North America
     for pat in NON_US_PATTERNS:
-        if re.search(pat, comb):
-            return False
+        if re.search(pat, comb_loc_title):
+            if not has_explicit_us:
+                return False
 
     loc_clean = location.strip().lower()
     is_strictly_worldwide = bool(re.search(r"^(?:worldwide|anywhere|anywhere in the world)$", loc_clean)) or (
-        ("worldwide" in loc_clean or "anywhere" in loc_clean) and not any(us in loc_clean for us in ["us", "usa", "united states", "america", "ohio", "oh"])
+        ("worldwide" in loc_clean or "anywhere" in loc_clean) and not has_explicit_us
     )
     if is_strictly_worldwide:
         comb_full = f"{title} {description} {salary}".lower()
@@ -255,12 +266,16 @@ def is_valid_location(location: str, title: str = "", description: str = "", sal
         if not (has_us_presence or has_us_salary):
             return False
 
-    valid_patterns = [
-        r"\bremote\b", r"\bunited states\b", r"\busa\b", r"\bus\b", r"\bnationwide\b",
-        r"\bohio\b", r"\boh\b", r"\bdayton\b", r"\bcincinnati\b",
-        r"\bcolumbus\b", r"\bcleveland\b", r"\bmason\b", r"\bamericas\b", r"\bnorth america\b"
-    ]
-    return any(re.search(p, comb) for p in valid_patterns)
+    if has_explicit_us or re.search(r"\bremote\b", comb_loc_title):
+        return True
+
+    # Fallback: check description body for explicit US Remote eligibility when location header only lists hub cities
+    if description:
+        desc_lower = description.lower()
+        if re.search(r"\b(remotely in the united states|remote in the u\.?s\.?|u\.?s\.? remote|remote - us|remote \(us\)|work remotely from anywhere in the u\.?s\.?)\b", desc_lower):
+            return True
+
+    return False
 
 def fetch_single_greenhouse_board(comp: str) -> List[Dict[str, Any]]:
     """Fetch matching jobs for a single Greenhouse board."""
@@ -377,6 +392,61 @@ def fetch_lever_jobs() -> List[Dict[str, Any]]:
         for res in executor.map(fetch_single_lever_board, LEVER_COMPANIES):
             listings.extend(res)
     print(f"    -> Extracted {len(listings)} matching roles from Lever boards.")
+    return listings
+
+ASHBY_COMPANIES = [
+    "cohere", "linear", "vanta", "retool", "posthog", "clay", "elevenlabs",
+    "langchain", "pinecone", "supabase", "modal", "baseten", "anyscale",
+    "replicate", "perplexity", "harvey", "glean", "decagon", "sardine",
+    "middesk", "column", "unit", "merge", "paragon", "workos", "onebrief",
+    "copia", "ramp", "abridge", "hippocraticai", "anterior", "ambiencehealthcare"
+]
+
+def fetch_single_ashby_board(comp: str) -> List[Dict[str, Any]]:
+    url = f"https://api.ashbyhq.com/posting-api/job-board/{comp.strip()}?includeCompensation=true"
+    listings = []
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=6)
+        if r.status_code != 200:
+            return listings
+        jobs = r.json().get("jobs", [])
+        for j in jobs:
+            title = j.get("title", "")
+            if not matches_target_profile(title):
+                continue
+            loc_name = j.get("location", "Remote") or "Remote"
+            if j.get("isRemote") and "remote" not in loc_name.lower():
+                loc_name = f"{loc_name} (Remote)"
+            desc_plain = j.get("descriptionPlain", "") or clean_html(j.get("descriptionHtml", ""))
+            comp_data = j.get("compensation") or {}
+            raw_sal = comp_data.get("compensationTierSummary") or "Not specified"
+            salary = parse_and_validate_salary(desc_plain, raw_sal)
+            if not is_valid_location(loc_name, title, desc_plain, salary):
+                continue
+            if is_excluded(desc_plain + " " + title, comp):
+                continue
+            pub_date = str(j.get("publishedAt") or time.strftime("%Y-%m-%d"))[:10]
+            listings.append({
+                "company": comp.strip().title(),
+                "title": title.strip(),
+                "location": loc_name.strip() or "Remote",
+                "salary_range": salary,
+                "url": j.get("jobUrl", ""),
+                "description": desc_plain,
+                "date_posted": pub_date,
+                "source": f"Ashby ({comp.strip()})"
+            })
+    except Exception:
+        pass
+    return listings
+
+def fetch_ashby_jobs() -> List[Dict[str, Any]]:
+    listings = []
+    print(f"[*] Querying {len(ASHBY_COMPANIES)} Ashby company boards in parallel...")
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        for res in executor.map(fetch_single_ashby_board, ASHBY_COMPANIES):
+            listings.extend(res)
+    print(f"    -> Extracted {len(listings)} matching roles from Ashby boards.")
     return listings
 
 def fetch_remotive_jobs() -> List[Dict[str, Any]]:
@@ -648,6 +718,7 @@ def aggregate_and_store_jobs() -> int:
     sources = [
         fetch_greenhouse_jobs,
         fetch_lever_jobs,
+        fetch_ashby_jobs,
         fetch_remotive_jobs,
         fetch_jobicy_jobs,
         fetch_arbeitnow_jobs,

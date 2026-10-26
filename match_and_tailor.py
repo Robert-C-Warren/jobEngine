@@ -24,7 +24,7 @@ from db import (
     init_db, mark_job_reported, get_recently_reported_jobs
 )
 from resume_exporter import export_resume_pdf
-from fetch_jobs import parse_and_validate_salary
+from fetch_jobs import parse_and_validate_salary, is_valid_location
 
 MASTER_RESUME_FILE = ROOT_DIR / "master_resume.md"
 RESUMES_DIR = ROOT_DIR / "outputs" / "resumes"
@@ -108,6 +108,15 @@ PRIORITY_KEYWORDS = {
             "servicenow", "jira", "zendesk", "oracle ticketing", "ticketing",
             "incident resolution", "sla", "csat"
         ]
+    },
+    # Tier 9: Integration, APIs & Data Pipelines (FDE / Integration Primitives)
+    "integration_data_pipeline": {
+        "weight": 20,
+        "terms": [
+            "rest api", "restful", "webhook", "webhooks", "json", "data mapping",
+            "data pipeline", "etl", "hl7", "fhir", "dicom", "pacs", "sftp",
+            "postman", "workato", "mulesoft", "ipaas", "sdk", "llm", "agentic"
+        ]
     }
 }
 
@@ -124,15 +133,25 @@ COMPILED_PRIORITY_KEYWORDS = {
 }
 
 TARGET_TITLES_ALIGNMENT = [
-    "technical support specialist", "technical support engineer", "tier 2", "tier 3",
-    "tier ii", "tier iii", "pacs support analyst", "imaging support specialist",
-    "field service engineer", "implementation specialist", "implementation consultant",
-    "solutions integration engineer", "integration engineer", "technical escalations engineer",
-    "systems support specialist", "application support specialist", "customer support engineer",
+    "forward deployed engineer", "forward deployed", "fde",
+    "deployment engineer", "deployment strategist",
+    "solutions integration engineer", "solutions integration",
+    "solutions engineer", "solutions architect", "solutions consultant", "solutions specialist",
+    "integration engineer", "integrations engineer", "integration specialist",
+    "implementation engineer", "implementation specialist", "implementation consultant",
+    "technical account manager", "tam", "customer engineer", "partner engineer",
+    "technical support specialist", "technical support engineer", "technical support",
+    "support engineer", "support specialist", "application support specialist", "application support",
+    "systems support specialist", "systems support", "systems engineer", "it systems engineer",
     "it support specialist", "it support analyst", "it support engineer", "desktop support",
-    "it systems engineer", "systems engineer", "technical operations", "solutions specialist",
-    "solutions engineer", "technical support", "support engineer", "support specialist",
-    "client support engineer", "client support specialist", "field technician"
+    "technical escalations engineer", "technical escalation", "escalations engineer", "escalation engineer",
+    "tier 2", "tier 3", "tier ii", "tier iii", "l2 support", "l3 support",
+    "pacs support analyst", "pacs", "imaging support specialist", "imaging support",
+    "clinical support", "clinical systems",
+    "field service engineer", "field service", "field engineer", "field technician", "service engineer",
+    "technical operations", "operations engineer", "site reliability engineer", "site reliability", "sre",
+    "onboarding engineer", "technical onboarding",
+    "customer support engineer", "customer support specialist", "client support engineer", "client support specialist"
 ]
 
 # Sort titles by length descending so longer phrases match first, compiled with word boundaries
@@ -163,9 +182,8 @@ OHIO_TARGET_TERMS = ["dayton", "columbus", "cincinnati", "mason", "fairfield", "
 # Explicit Remote target terms (+15 pts)
 REMOTE_TARGET_TERMS = ["remote", "anywhere", "work from home", "virtual", "distributed"]
 
-# Seniority cap patterns (-15 pts unless Tier 2/3 Support or Implementation role under $130k)
-SENIORITY_CAP_PATTERN = re.compile(r"\b(senior|principal|staff|director|iv)\b", re.IGNORECASE)
-SUPPORT_IMPL_PATTERN = re.compile(r"\b(tier\s*[23]|tier\s*(?:ii|iii)|support|implementation)\b", re.IGNORECASE)
+# Seniority cap patterns (-15 pts for executive/staff level or > $195k salary ceiling)
+EXECUTIVE_SENIORITY_PATTERN = re.compile(r"\b(principal|staff|director|vp|head\s+of)\b", re.IGNORECASE)
 
 # Pre-sales vs. Technical Implementation patterns (-20 pts)
 STRONG_PRESALES_PATTERNS = [
@@ -241,21 +259,9 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
             return (0.0, [f"Disqualified: Security clearance / government restriction ({ex})"])
 
     location = job.get("location", "")
-    # Explicitly exclude Versailles per candidate preference
-    if re.search(r"\bversailles\b", location, re.IGNORECASE) or re.search(r"\bversailles\b", combined_text, re.IGNORECASE):
-        return (0.0, ["Disqualified: Versailles location excluded per candidate preference"])
-
-    # Strict Worldwide/Anywhere offshore check: exclude unless explicit US salary or US presence
-    loc_clean = location.strip().lower()
-    is_strictly_worldwide = bool(re.search(r"^(?:worldwide|anywhere|anywhere in the world)$", loc_clean)) or (
-        ("worldwide" in loc_clean or "anywhere" in loc_clean) and not any(us in loc_clean for us in ["us", "usa", "united states", "america", "ohio", "oh"])
-    )
-    if is_strictly_worldwide:
-        salary_str = job.get("salary_range", "")
-        has_us_presence = bool(re.search(r"\b(us only|u\.s\. only|north america|united states only|usa only)\b", combined_text, re.IGNORECASE))
-        has_us_salary = bool(salary_str and salary_str != "Not specified" and ("$" in salary_str or "usd" in salary_str.lower())) or bool(re.search(r"\$[\d,]{4,}", description))
-        if not (has_us_presence or has_us_salary):
-            return (0.0, ["Disqualified: Strictly Worldwide/Anywhere offshore listing without US salary or presence"])
+    salary_str = job.get("salary_range", "")
+    if not is_valid_location(location, title, description, salary_str):
+        return (0.0, ["Disqualified: Non-US, Versailles, or offshore location without US presence"])
 
     match_reasons = []
     total_score = 0.0
@@ -269,7 +275,7 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
             break
     if title_points == 0:
         # Partial title match using strict word boundaries
-        partial_words = ["support", "specialist", "service", "implementation", "engineer", "analyst"]
+        partial_words = ["support", "specialist", "service", "implementation", "integration", "solutions", "deployment", "engineer", "analyst", "onboarding"]
         if any(re.search(r"\b" + w + r"\b", title, re.IGNORECASE) for w in partial_words):
             title_points = 15.0
             match_reasons.append("Partial Title Alignment (+15)")
@@ -284,6 +290,12 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
         pts = min(35.0, len(extracted["imaging_pacs"]) * 12.0)
         domain_score += pts
         match_reasons.append(f"Imaging/PACS Keywords ({', '.join(extracted['imaging_pacs'][:4])}) (+{int(pts)})")
+
+    # Integration, API & Data Pipelines (Up to +20 pts)
+    if "integration_data_pipeline" in extracted:
+        pts = min(20.0, len(extracted["integration_data_pipeline"]) * 5.0)
+        domain_score += pts
+        match_reasons.append(f"Integration & Data Pipelines ({', '.join(extracted['integration_data_pipeline'][:4])}) (+{int(pts)})")
 
     # Tier 2/3 Escalations & Diagnostics (up to +30 pts)
     if "escalations_diagnostics" in extracted:
@@ -333,24 +345,39 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
     # 3. Location Alignment (Max 20 pts)
     # Strict Location Rule:
     # - +20 ONLY if explicitly contains Ohio targets (Dayton, Columbus, Cincinnati, Mason, Fairfield, OH, Ohio)
-    # - +15 ONLY if explicitly contains "Remote", "Anywhere", "Work from Home", "Virtual", or "Distributed" (and not excluding OH)
-    # - If role is on-site/hybrid in another state with no Remote tag: 0 location points and -25 Non-Local On-Site Penalty
+    # - +15 ONLY if explicitly contains remote indicators in location or description (and not excluding OH)
+    # - Before applying Non-Local On-Site Penalty, inspect location AND description for remote indicators.
     loc_lower = location.lower()
     title_lower = title.lower()
+    desc_lower = description.lower()
 
     is_ohio = (
         any(re.search(r"\b" + re.escape(loc) + r"\b", loc_lower) for loc in OHIO_TARGET_TERMS)
         or bool(re.search(r"\boh\b", loc_lower))
     ) and "versailles" not in loc_lower
 
+    remote_indicators_loc = [
+        r"\bremote\b", r"\bremotely\b", r"\bwork from home\b", r"\bvirtual\b",
+        r"\bdistributed\b", r"\bdigital-first\b", r"\b#li-remote\b", r"\bwork from anywhere\b"
+    ]
+    remote_indicators_desc = [
+        r"\bremote\b", r"\bremotely in the united states\b", r"\bremote in the u\.?s\.?\b",
+        r"\bu\.?s\.? remote\b", r"\bremote - us\b", r"\bremote \(us\)\b",
+        r"\bwork remotely from anywhere\b",
+        r"\bwork from anywhere in the us\b", r"\bwork from anywhere in the u\.?s\.?\b",
+        r"\bdigital-first\b", r"\b#li-remote\b", r"\bwork from home\b", r"\bvirtual\b",
+        r"\b(?:fully\s+distributed|100%\s+distributed|distributed\s+(?:team|workforce|company|first|organization|culture))\b"
+    ]
     is_remote = (
-        any(re.search(r"\b" + re.escape(term) + r"\b", loc_lower) for term in REMOTE_TARGET_TERMS)
-        or any(re.search(r"\b" + re.escape(term) + r"\b", title_lower) for term in REMOTE_TARGET_TERMS)
+        any(re.search(pat, loc_lower) for pat in remote_indicators_loc)
+        or any(re.search(pat, title_lower) for pat in remote_indicators_loc)
+        or any(re.search(pat, desc_lower) for pat in remote_indicators_desc)
     )
-    # Fallback: if location is generic US/USA, verify if description confirms remote work
-    if not is_remote and loc_lower.strip() in ["usa", "united states", "us"]:
-        if any(term in description.lower() for term in ["remote", "work from home", "virtual"]):
-            is_remote = True
+    # If the role explicitly requires on-site presence without a remote option, do not treat as remote
+    if is_remote and not any(re.search(pat, loc_lower) for pat in [r"\bremote\b", r"\bvirtual\b", r"\bwork from home\b"]):
+        if re.search(r"\b(?:onsite\s+\d+\s+days|onsite\s+three\s+days|hybrid\s+role\s+\(onsite|must\s+be\s+onsite|in-office\s+(?:tuesday|monday|wednesday|\d+\s+days))\b", desc_lower):
+            if not re.search(r"\b(or\s+remote|remote\s+option|eligible\s+for\s+remote)\b", desc_lower):
+                is_remote = False
 
     excludes_ohio = bool(re.search(r"\b(?:except|excluding|excludes|not eligible in|not open to)\b[^\.\n]*(?:ohio|\boh\b)", combined_text, re.IGNORECASE))
 
@@ -366,49 +393,52 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
         match_reasons.append("Non-Local On-Site Penalty: Out-of-state role with no remote option (-25)")
 
     # 4. Seniority Cap (-15 pts)
-    # If job title contains "Senior", "Principal", "Staff", "Director", or "IV",
-    # apply a -15 penalty unless it is a Tier 2/3 Support or Implementation role under $130k
-    if SENIORITY_CAP_PATTERN.search(title):
-        max_sal = parse_max_salary_for_scoring(job.get("salary_range", ""))
-        is_support_impl = bool(SUPPORT_IMPL_PATTERN.search(title))
-        is_exempt = is_support_impl and (0 < max_sal <= 130000)
-        if not is_exempt:
-            total_score = max(0.0, total_score - 15.0)
-            sal_note = f" (${int(max_sal):,})" if max_sal else ""
-            match_reasons.append(f"Seniority Cap Penalty: Senior/Principal/Staff/Director/IV role{sal_note} (-15)")
-        else:
-            match_reasons.append(f"Seniority Cap Exemption: Support/Implementation role under $130k (${int(max_sal):,})")
+    # Salary ceiling increased to $195,000 to accommodate CA/NYC upper pay bands.
+    # Only trigger title-based seniority penalties on Principal, Staff, Director, VP, or Head of.
+    # Do NOT penalize III, IV, or Senior on Support/Implementation/Integration/Solutions roles.
+    max_sal = parse_max_salary_for_scoring(job.get("salary_range", ""))
+    if EXECUTIVE_SENIORITY_PATTERN.search(title):
+        total_score = max(0.0, total_score - 15.0)
+        sal_note = f" (${int(max_sal):,})" if max_sal else ""
+        match_reasons.append(f"Seniority Cap Penalty: Principal/Staff/Director/VP/Head of role{sal_note} (-15)")
+    elif max_sal > 195000:
+        total_score = max(0.0, total_score - 15.0)
+        match_reasons.append(f"Seniority Cap Penalty: Salary ceiling exceeds $195k (${int(max_sal):,}) (-15)")
+    elif re.search(r"\b(senior|iii|iv)\b", title, re.IGNORECASE):
+        sal_str = f" (${int(max_sal):,})" if max_sal else ""
+        match_reasons.append(f"Seniority Cap Exemption: Senior/III/IV technical role within band{sal_str}")
 
-    # 5. Pre-Sales Quota-Carrying Penalty (-20 pts)
-    # Heavy mention of pre-sales, quota, account executive, RFP, sales cycle, or commission
-    has_presales = False
-    presales_terms_found = []
+    # 5. Pre-Sales Quota-Carrying Penalty (-15 pts)
+    # Only apply if description explicitly requires carrying a direct sales quota,
+    # "exceed our sales targets", or "quota-carrying".
+    # Do NOT penalize simply because text mentions "account executive" (e.g. post-sales handoff).
+    quota_patterns = [
+        re.compile(r"\bquota-carrying\b", re.IGNORECASE),
+        re.compile(r"\bcarry(?:ing)?\s+(?:a\s+)?(?:direct\s+)?(?:sales\s+)?quota\b", re.IGNORECASE),
+        re.compile(r"\bdirect\s+sales\s+quota\b", re.IGNORECASE),
+        re.compile(r"\bassigned\s+(?:sales\s+)?quota\b", re.IGNORECASE),
+        re.compile(r"\bexceed\s+(?:our\s+)?sales\s+targets\b", re.IGNORECASE),
+        re.compile(r"\bmeet\s+or\s+exceed\s+(?:our\s+)?sales\s+(?:targets|quotas?)\b", re.IGNORECASE)
+    ]
+    has_quota_penalty = False
+    quota_reason = ""
     if re.search(r"\b(pre-sales|presales)\b", title, re.IGNORECASE):
-        has_presales = True
-        presales_terms_found.append("Title Pre-Sales")
+        has_quota_penalty = True
+        quota_reason = "Title Pre-Sales"
     else:
-        for pat, name in STRONG_PRESALES_PATTERNS:
-            m = pat.findall(combined_text)
+        cleaned_desc = description
+        for bp in BOILERPLATE_PRESALES_PATTERNS:
+            cleaned_desc = bp.sub("", cleaned_desc)
+        for q_pat in quota_patterns:
+            m = q_pat.search(cleaned_desc)
             if m:
-                has_presales = True
-                presales_terms_found.append(f"{name} ({len(m)}x)")
-        if not has_presales:
-            cleaned_desc = description
-            for bp in BOILERPLATE_PRESALES_PATTERNS:
-                cleaned_desc = bp.sub("", cleaned_desc)
-            cleaned_text = f"{title} {cleaned_desc}"
-            gen_matches = []
-            for pat, name in GENERIC_PRESALES_PATTERNS:
-                m = pat.findall(cleaned_text)
-                if m:
-                    gen_matches.extend(m)
-            if len(gen_matches) >= 2:
-                has_presales = True
-                presales_terms_found.append(f"quota/commission ({len(gen_matches)}x)")
+                has_quota_penalty = True
+                quota_reason = m.group(0)
+                break
 
-    if has_presales:
-        total_score = max(0.0, total_score - 20.0)
-        match_reasons.append(f"Pre-Sales Quota-Carrying Penalty: Mentions {', '.join(presales_terms_found)} (-20)")
+    if has_quota_penalty:
+        total_score = max(0.0, total_score - 15.0)
+        match_reasons.append(f"Pre-Sales Quota Penalty: Requires direct sales quota / targets ({quota_reason}) (-15)")
 
     # 6. Culture Red-Flag Penalty (-25 pts)
     for flag_pat, flag_desc in CULTURE_RED_FLAGS:
