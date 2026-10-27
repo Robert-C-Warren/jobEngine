@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-27 13:07:57  
+**Generated:** 2026-10-27 18:41:32  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -14,12 +14,12 @@
 | 2 | **Sardine** | [Solutions Architect, Integrations - Public Sector (US/CA)](https://jobs.ashbyhq.com/sardine/ed4eb772-6485-4125-895b-f3dca08cbcdd) | Washington, DC | **93/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Sardine_Solutions_Architect_Integrations_Public_Sector_USCA_resume.pdf) · [Cold Email](outputs/emails/Sardine_Solutions_Architect_Integrations_Public_Sector_USCA_cold_email.md) |
 | 3 | **Upsun** | [Senior IT Systems Engineer](https://weworkremotely.com/remote-jobs/upsun-senior-it-systems-engineer) | Remote (US) | **86/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Upsun_Senior_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Upsun_Senior_IT_Systems_Engineer_cold_email.md) |
 | 4 | **Pagerduty** | [Forward Deployed Engineer (SDEV)](https://job-boards.greenhouse.io/pagerduty/jobs/6216870004) | Remote (USA - New York City, NY) | **74/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Pagerduty_Forward_Deployed_Engineer_SDEV_resume.pdf) · [Cold Email](outputs/emails/Pagerduty_Forward_Deployed_Engineer_SDEV_cold_email.md) |
-| 5 | **Posthog** | [Site Reliability Engineer (US - Pacific time)](https://jobs.ashbyhq.com/posthog/1464036f-94d5-4dbd-aef8-fe99246a26d4) | San Francisco, CA | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Posthog_Site_Reliability_Engineer_US_Pacific_time_resume.pdf) · [Cold Email](outputs/emails/Posthog_Site_Reliability_Engineer_US_Pacific_time_cold_email.md) |
-| 6 | **Sardine** | [Support Engineer](https://jobs.ashbyhq.com/sardine/9755bee1-3e57-4de0-905d-c6f2c144ca57) | United Arab Emirates (Remote) | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Sardine_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/Sardine_Support_Engineer_cold_email.md) |
-| 7 | **Fivetran** | [Senior  Staff Systems Engineer, Data & Integrations](https://www.fivetran.com/careers/job?gh_jid=8004964003) | Oakland, California, United States, AMER | **72/100** | $202,787 — $253,483.50 USD | [Tailored PDF Resume](outputs/resumes/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_resume.pdf) · [Cold Email](outputs/emails/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_cold_email.md) |
-| 8 | **Baseten** | [IT Systems Engineer](https://jobs.ashbyhq.com/baseten/64bdba5c-8cf6-473f-814c-1e86c8c66681) | Remote | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Baseten_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Baseten_IT_Systems_Engineer_cold_email.md) |
-| 9 | **Samsara** | [Senior Enterprise Implementation Consultant](https://www.samsara.com/company/careers/roles/8121968?gh_jid=8121968) | Remote - US | **72/100** | $100,406 — $153,409 USD | [Tailored PDF Resume](outputs/resumes/Samsara_Senior_Enterprise_Implementation_Consultant_resume.pdf) · [Cold Email](outputs/emails/Samsara_Senior_Enterprise_Implementation_Consultant_cold_email.md) |
-| 10 | **Samsara** | [Senior Strategic Implementation Consultant](https://www.samsara.com/company/careers/roles/8104151?gh_jid=8104151) | Remote - US | **72/100** | $109,480 — $165,600 USD | [Tailored PDF Resume](outputs/resumes/Samsara_Senior_Strategic_Implementation_Consultant_resume.pdf) · [Cold Email](outputs/emails/Samsara_Senior_Strategic_Implementation_Consultant_cold_email.md) |
+| 5 | **Socket** | [Technical Account Manager, Commercial](https://jobicy.com/jobs/157387-technical-account-manager-commercial) | Canada,  USA | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Socket_Technical_Account_Manager_Commercial_resume.pdf) · [Cold Email](outputs/emails/Socket_Technical_Account_Manager_Commercial_cold_email.md) |
+| 6 | **Socket** | [Technical Account Manager, Enterprise](https://jobicy.com/jobs/157384-technical-account-manager-enterprise) | Canada,  USA | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Socket_Technical_Account_Manager_Enterprise_resume.pdf) · [Cold Email](outputs/emails/Socket_Technical_Account_Manager_Enterprise_cold_email.md) |
+| 7 | **Posthog** | [Site Reliability Engineer (US - Pacific time)](https://jobs.ashbyhq.com/posthog/1464036f-94d5-4dbd-aef8-fe99246a26d4) | San Francisco, CA | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Posthog_Site_Reliability_Engineer_US_Pacific_time_resume.pdf) · [Cold Email](outputs/emails/Posthog_Site_Reliability_Engineer_US_Pacific_time_cold_email.md) |
+| 8 | **Sardine** | [Support Engineer](https://jobs.ashbyhq.com/sardine/9755bee1-3e57-4de0-905d-c6f2c144ca57) | United Arab Emirates (Remote) | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Sardine_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/Sardine_Support_Engineer_cold_email.md) |
+| 9 | **Fivetran** | [Senior  Staff Systems Engineer, Data & Integrations](https://www.fivetran.com/careers/job?gh_jid=8004964003) | Oakland, California, United States, AMER | **72/100** | $202,787 — $253,483.50 USD | [Tailored PDF Resume](outputs/resumes/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_resume.pdf) · [Cold Email](outputs/emails/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_cold_email.md) |
+| 10 | **Baseten** | [IT Systems Engineer](https://jobs.ashbyhq.com/baseten/64bdba5c-8cf6-473f-814c-1e86c8c66681) | Remote | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Baseten_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Baseten_IT_Systems_Engineer_cold_email.md) |
 
 ---
 
@@ -61,7 +61,25 @@
 - **Tailored PDF Resume:** [outputs/resumes/Pagerduty_Forward_Deployed_Engineer_SDEV_resume.pdf](outputs/resumes/Pagerduty_Forward_Deployed_Engineer_SDEV_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Pagerduty_Forward_Deployed_Engineer_SDEV_cold_email.md](outputs/emails/Pagerduty_Forward_Deployed_Engineer_SDEV_cold_email.md)
 
-### 5. Site Reliability Engineer (US - Pacific time) – Posthog
+### 5. Technical Account Manager, Commercial – Socket
+- **Direct Application URL:** [https://jobicy.com/jobs/157387-technical-account-manager-commercial](https://jobicy.com/jobs/157387-technical-account-manager-commercial)
+- **Location:** Canada,  USA
+- **Compensation:** Not specified
+- **ATS Relevance Score:** **72 / 100**
+- **Match Justification:** Direct Title Match: 'Technical Account Manager' (+25) | Integration & Data Pipelines (webhooks) (+5) | Tier 2/3 RCA & Diagnostics (telemetry) (+7) | Field Service & Implementation (onboarding) (+8) | Scripting & Automation (python, telemetry) (+8) | ITSM Platforms (zendesk) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Socket_Technical_Account_Manager_Commercial_resume.pdf](outputs/resumes/Socket_Technical_Account_Manager_Commercial_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Socket_Technical_Account_Manager_Commercial_cold_email.md](outputs/emails/Socket_Technical_Account_Manager_Commercial_cold_email.md)
+
+### 6. Technical Account Manager, Enterprise – Socket
+- **Direct Application URL:** [https://jobicy.com/jobs/157384-technical-account-manager-enterprise](https://jobicy.com/jobs/157384-technical-account-manager-enterprise)
+- **Location:** Canada,  USA
+- **Compensation:** Not specified
+- **ATS Relevance Score:** **72 / 100**
+- **Match Justification:** Direct Title Match: 'Technical Account Manager' (+25) | Integration & Data Pipelines (webhooks) (+5) | Tier 2/3 RCA & Diagnostics (telemetry) (+7) | Field Service & Implementation (onboarding) (+8) | Scripting & Automation (python, telemetry) (+8) | ITSM Platforms (zendesk) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Socket_Technical_Account_Manager_Enterprise_resume.pdf](outputs/resumes/Socket_Technical_Account_Manager_Enterprise_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Socket_Technical_Account_Manager_Enterprise_cold_email.md](outputs/emails/Socket_Technical_Account_Manager_Enterprise_cold_email.md)
+
+### 7. Site Reliability Engineer (US - Pacific time) – Posthog
 - **Direct Application URL:** [https://jobs.ashbyhq.com/posthog/1464036f-94d5-4dbd-aef8-fe99246a26d4](https://jobs.ashbyhq.com/posthog/1464036f-94d5-4dbd-aef8-fe99246a26d4)
 - **Location:** San Francisco, CA
 - **Compensation:** Not specified
@@ -70,7 +88,7 @@
 - **Tailored PDF Resume:** [outputs/resumes/Posthog_Site_Reliability_Engineer_US_Pacific_time_resume.pdf](outputs/resumes/Posthog_Site_Reliability_Engineer_US_Pacific_time_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Posthog_Site_Reliability_Engineer_US_Pacific_time_cold_email.md](outputs/emails/Posthog_Site_Reliability_Engineer_US_Pacific_time_cold_email.md)
 
-### 6. Support Engineer – Sardine
+### 8. Support Engineer – Sardine
 - **Direct Application URL:** [https://jobs.ashbyhq.com/sardine/9755bee1-3e57-4de0-905d-c6f2c144ca57](https://jobs.ashbyhq.com/sardine/9755bee1-3e57-4de0-905d-c6f2c144ca57)
 - **Location:** United Arab Emirates (Remote)
 - **Compensation:** Not specified
@@ -79,7 +97,7 @@
 - **Tailored PDF Resume:** [outputs/resumes/Sardine_Support_Engineer_resume.pdf](outputs/resumes/Sardine_Support_Engineer_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Sardine_Support_Engineer_cold_email.md](outputs/emails/Sardine_Support_Engineer_cold_email.md)
 
-### 7. Senior  Staff Systems Engineer, Data & Integrations – Fivetran
+### 9. Senior  Staff Systems Engineer, Data & Integrations – Fivetran
 - **Direct Application URL:** [https://www.fivetran.com/careers/job?gh_jid=8004964003](https://www.fivetran.com/careers/job?gh_jid=8004964003)
 - **Location:** Oakland, California, United States, AMER
 - **Compensation:** $202,787 — $253,483.50 USD
@@ -88,7 +106,7 @@
 - **Tailored PDF Resume:** [outputs/resumes/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_resume.pdf](outputs/resumes/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_cold_email.md](outputs/emails/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_cold_email.md)
 
-### 8. IT Systems Engineer – Baseten
+### 10. IT Systems Engineer – Baseten
 - **Direct Application URL:** [https://jobs.ashbyhq.com/baseten/64bdba5c-8cf6-473f-814c-1e86c8c66681](https://jobs.ashbyhq.com/baseten/64bdba5c-8cf6-473f-814c-1e86c8c66681)
 - **Location:** Remote
 - **Compensation:** Not specified
@@ -96,24 +114,6 @@
 - **Match Justification:** Direct Title Match: 'It Systems Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Active Directory / SSO / IAM (sso, saml, mfa) (+12) | Scripting & Automation (powershell, python, scripting) (+12) | Remote Target Location (+15)
 - **Tailored PDF Resume:** [outputs/resumes/Baseten_IT_Systems_Engineer_resume.pdf](outputs/resumes/Baseten_IT_Systems_Engineer_resume.pdf)
 - **Cold Outreach Email:** [outputs/emails/Baseten_IT_Systems_Engineer_cold_email.md](outputs/emails/Baseten_IT_Systems_Engineer_cold_email.md)
-
-### 9. Senior Enterprise Implementation Consultant – Samsara
-- **Direct Application URL:** [https://www.samsara.com/company/careers/roles/8121968?gh_jid=8121968](https://www.samsara.com/company/careers/roles/8121968?gh_jid=8121968)
-- **Location:** Remote - US
-- **Compensation:** $100,406 — $153,409 USD
-- **ATS Relevance Score:** **72 / 100**
-- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Tier 2/3 RCA & Diagnostics (drivers) (+7) | Field Service & Implementation (implementation consultant, deployment, onboarding) (+24) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band ($153,409)
-- **Tailored PDF Resume:** [outputs/resumes/Samsara_Senior_Enterprise_Implementation_Consultant_resume.pdf](outputs/resumes/Samsara_Senior_Enterprise_Implementation_Consultant_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Samsara_Senior_Enterprise_Implementation_Consultant_cold_email.md](outputs/emails/Samsara_Senior_Enterprise_Implementation_Consultant_cold_email.md)
-
-### 10. Senior Strategic Implementation Consultant – Samsara
-- **Direct Application URL:** [https://www.samsara.com/company/careers/roles/8104151?gh_jid=8104151](https://www.samsara.com/company/careers/roles/8104151?gh_jid=8104151)
-- **Location:** Remote - US
-- **Compensation:** $109,480 — $165,600 USD
-- **ATS Relevance Score:** **72 / 100**
-- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Tier 2/3 RCA & Diagnostics (drivers) (+7) | Field Service & Implementation (implementation consultant, deployment, onboarding) (+24) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band ($165,600)
-- **Tailored PDF Resume:** [outputs/resumes/Samsara_Senior_Strategic_Implementation_Consultant_resume.pdf](outputs/resumes/Samsara_Senior_Strategic_Implementation_Consultant_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Samsara_Senior_Strategic_Implementation_Consultant_cold_email.md](outputs/emails/Samsara_Senior_Strategic_Implementation_Consultant_cold_email.md)
 
 ---
 
