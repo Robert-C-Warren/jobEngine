@@ -2,8 +2,8 @@
 
 **To:** Hiring Manager / Technical Talent Acquisition at Harvey  
 **Subject:** Application & Introduction: Robert Warren – Sr. Systems Engineer, Client Engineering  
-**Direct Application Link:** [Harvey Job Posting](https://jobs.ashbyhq.com/harvey/02005c77-4871-4100-8030-27aa08ed7aa7)  
-**Target Location:** New York (Remote)  
+**Direct Application Link:** [Harvey Job Posting](https://jobs.ashbyhq.com/harvey/d926b184-364b-49f5-a269-bef158c1c408)  
+**Target Location:** San Francisco (Remote)  
 **ATS Relevance Match:** 73.5/100  
 
 ---
