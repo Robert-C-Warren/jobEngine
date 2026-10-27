@@ -22,8 +22,8 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent))
 from db import init_db, insert_job, job_exists, generate_job_id, get_connection
+from evaluator import evaluate_job_description
 
 # Target profile criteria
 TARGET_TITLE_PATTERNS = [
@@ -731,9 +731,31 @@ def aggregate_and_store_jobs() -> int:
             jobs = scraper()
             total_found += len(jobs)
             for j in jobs:
+                # Pre-generate stable job_id to verify existence before calling LLM
+                job_id = j.get("job_id") or generate_job_id(
+                    j.get("company", ""),
+                    j.get("title", ""),
+                    j.get("url", "")
+                )
+                j["job_id"] = job_id
+
+                # Only evaluate fresh listings to conserve API quota and avoid re-evaluating known duplicates
+                if not job_exists(job_id):
+                    desc = j.get("description", "")
+                    if desc and desc.strip():
+                        try:
+                            eval_res = evaluate_job_description(desc)
+                            j["evaluation"] = eval_res.model_dump() if eval_res else None
+                        except Exception as eval_err:
+                            print(f"[!] Evaluation failed for '{j.get('title', 'Unknown')}' ({j.get('company', 'Unknown')}): {eval_err}. Continuing with raw job.")
+                            j["evaluation"] = None
+                    else:
+                        j["evaluation"] = None
+
                 if insert_job(j):
                     new_inserted += 1
         except Exception as e:
+
             print(f"[!] Error in scraper {scraper.__name__}: {e}")
 
     # Database cleanup: sanitize any legacy salaries stored in jobs.db

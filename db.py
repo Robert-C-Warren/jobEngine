@@ -36,6 +36,7 @@ def init_db(db_path: Path = DB_FILE) -> None:
                 tailored_resume_path TEXT,
                 cold_email_path TEXT,
                 reported_date TEXT DEFAULT NULL,
+                evaluation TEXT DEFAULT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
@@ -43,6 +44,11 @@ def init_db(db_path: Path = DB_FILE) -> None:
         # Safe migration for existing DBs
         try:
             cursor.execute("ALTER TABLE jobs ADD COLUMN reported_date TEXT DEFAULT NULL")
+        except sqlite3.OperationalError:
+            pass
+
+        try:
+            cursor.execute("ALTER TABLE jobs ADD COLUMN evaluation TEXT DEFAULT NULL")
         except sqlite3.OperationalError:
             pass
 
@@ -73,15 +79,26 @@ def insert_job(job_data: Dict[str, Any], db_path: Path = DB_FILE) -> bool:
     )
     job_data["job_id"] = job_id
 
+    # Format evaluation to JSON string if present
+    eval_val = job_data.get("evaluation")
+    if eval_val is not None and not isinstance(eval_val, str):
+        if hasattr(eval_val, "model_dump_json"):
+            eval_val = eval_val.model_dump_json()
+        elif isinstance(eval_val, dict):
+            import json
+            eval_val = json.dumps(eval_val)
+        else:
+            eval_val = str(eval_val)
+
     if job_exists(job_id, db_path):
         new_sal = job_data.get("salary_range", "Not specified")
         if new_sal and new_sal != "Not specified":
             with get_connection(db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    UPDATE jobs SET salary_range = ?, description = ?
+                    UPDATE jobs SET salary_range = ?, description = ?, evaluation = COALESCE(?, evaluation)
                     WHERE job_id = ? AND (salary_range = 'Not specified' OR LENGTH(?) > LENGTH(salary_range))
-                """, (new_sal, job_data.get("description", ""), job_id, new_sal))
+                """, (new_sal, job_data.get("description", ""), eval_val, job_id, new_sal))
                 conn.commit()
         return False
 
@@ -92,12 +109,12 @@ def insert_job(job_data: Dict[str, Any], db_path: Path = DB_FILE) -> bool:
                 job_id, company, title, location, salary_range,
                 url, description, date_posted, source, status,
                 score, match_reasons, tailored_resume_path, cold_email_path,
-                reported_date
+                reported_date, evaluation
             ) VALUES (
                 :job_id, :company, :title, :location, :salary_range,
                 :url, :description, :date_posted, :source, :status,
                 :score, :match_reasons, :tailored_resume_path, :cold_email_path,
-                :reported_date
+                :reported_date, :evaluation
             )
         """, {
             "job_id": job_id,
@@ -114,10 +131,12 @@ def insert_job(job_data: Dict[str, Any], db_path: Path = DB_FILE) -> bool:
             "match_reasons": job_data.get("match_reasons", ""),
             "tailored_resume_path": job_data.get("tailored_resume_path", ""),
             "cold_email_path": job_data.get("cold_email_path", ""),
-            "reported_date": job_data.get("reported_date", None)
+            "reported_date": job_data.get("reported_date", None),
+            "evaluation": eval_val
         })
         conn.commit()
     return True
+
 
 def get_jobs_by_status(status: str, db_path: Path = DB_FILE) -> List[Dict[str, Any]]:
     """Retrieve jobs matching a given status."""
