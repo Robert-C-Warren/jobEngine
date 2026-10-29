@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-28 18:50:27  
+**Generated:** 2026-10-29 18:57:43  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,110 +10,110 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Fivetran** | [Customer Solutions Architect (Austin)](https://www.fivetran.com/careers/job?gh_jid=7796439003) | USA - Austin (dbt) | **83/100** | $155,000 — $175,000 USD | [Tailored PDF Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_Austin_resume.pdf) · [Cold Email](outputs/emails/Fivetran_Customer_Solutions_Architect_Austin_cold_email.md) |
-| 2 | **Fivetran** | [Customer Solutions Architect (Denver)](https://www.fivetran.com/careers/job?gh_jid=8047327003) | Denver, Colorado, United States, AMER | **83/100** | $155,000 — $175,000 USD | [Tailored PDF Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_Denver_resume.pdf) · [Cold Email](outputs/emails/Fivetran_Customer_Solutions_Architect_Denver_cold_email.md) |
-| 3 | **Sardine** | [Support Engineer Europe](https://jobs.ashbyhq.com/sardine/cd94c5a4-6ad8-469a-b4cd-6ac5368800bd) | Europe (Remote) | **72/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Sardine_Support_Engineer_Europe_resume.pdf) · [Cold Email](outputs/emails/Sardine_Support_Engineer_Europe_cold_email.md) |
-| 4 | **Elevenlabs** | [IT Support Engineer](https://jobs.ashbyhq.com/elevenlabs/750a8325-7ce1-45ea-b0b1-61dab78a456e) | New York (Remote) | **69/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Elevenlabs_IT_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/Elevenlabs_IT_Support_Engineer_cold_email.md) |
-| 5 | **Tailscale** | [Senior Solutions Engineer, Enterprise](https://job-boards.greenhouse.io/tailscale/jobs/4741470005) | Remote (United States) | **69/100** | $250,000 — $300,000 USD | [Tailored PDF Resume](outputs/resumes/Tailscale_Senior_Solutions_Engineer_Enterprise_resume.pdf) · [Cold Email](outputs/emails/Tailscale_Senior_Solutions_Engineer_Enterprise_cold_email.md) |
-| 6 | **Zscaler** | [Senior Enterprise Platforms & AI Systems Engineer](https://job-boards.greenhouse.io/zscaler/jobs/5167475007) | Denver, Colorado, USA; San Jose, California, USA | **69/100** | $124,000 — $155,000 USD | [Tailored PDF Resume](outputs/resumes/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_cold_email.md) |
-| 7 | **Langchain** | [Senior Technical Support Engineer](https://jobs.ashbyhq.com/langchain/8aa63e71-b431-49d7-ab4a-bf4b3630d8e6) | San Francisco, CA (Remote) | **68/100** | $130,000 - $195,000 USD | [Tailored PDF Resume](outputs/resumes/Langchain_Senior_Technical_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/Langchain_Senior_Technical_Support_Engineer_cold_email.md) |
-| 8 | **ExtraHop** | [Sr Solutions Architect](https://remoteOK.com/remote-jobs/remote-sr-solutions-architect-extrahop-1137394) | Remote | **68/100** | Not specified | [Tailored PDF Resume](outputs/resumes/ExtraHop_Sr_Solutions_Architect_resume.pdf) · [Cold Email](outputs/emails/ExtraHop_Sr_Solutions_Architect_cold_email.md) |
-| 9 | **Databricks** | [Specialist Solutions Architect - AWS Infrastructure & AI Platform](https://databricks.com/company/careers/open-positions/job?gh_jid=8739506002) | United States | **68/100** | $180,000 — $247,500 USD | [Tailored PDF Resume](outputs/resumes/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_resume.pdf) · [Cold Email](outputs/emails/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_cold_email.md) |
-| 10 | **Databricks** | [Specialist Solutions Architect - Azure Infrastructure & AI Platform](https://databricks.com/company/careers/open-positions/job?gh_jid=8739507002) | United States | **68/100** | $180,000 — $247,500 USD | [Tailored PDF Resume](outputs/resumes/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_resume.pdf) · [Cold Email](outputs/emails/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_cold_email.md) |
+| 1 | **Fivetran** | [Customer Solutions Architect (NYC)](https://www.fivetran.com/careers/job?gh_jid=8047340003) | USA - New York (dbt) | **83/100** | $165,000 — $190,000 USD | [Tailored PDF Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_NYC_resume.pdf) · [Cold Email](outputs/emails/Fivetran_Customer_Solutions_Architect_NYC_cold_email.md) |
+| 2 | **Gitlab** | [Support Engineer, U.S. Government Support (SHIFT)](https://job-boards.greenhouse.io/gitlab/jobs/8859063002) | Remote, United States | **72/100** | $95,200 — $160,800 USD | [Tailored PDF Resume](outputs/resumes/Gitlab_Support_Engineer_US_Government_Support_SHIFT_resume.pdf) · [Cold Email](outputs/emails/Gitlab_Support_Engineer_US_Government_Support_SHIFT_cold_email.md) |
+| 3 | **Brex** | [Implementation Consultant, Commercial](https://www.brex.com/careers/8536968002?gh_jid=8536968002) | San Francisco, California, United States | **68/100** | $119,328 - $149,160 USD | [Tailored PDF Resume](outputs/resumes/Brex_Implementation_Consultant_Commercial_resume.pdf) · [Cold Email](outputs/emails/Brex_Implementation_Consultant_Commercial_cold_email.md) |
+| 4 | **Brex** | [Implementation Consultant, Commercial](https://www.brex.com/careers/8536985002?gh_jid=8536985002) | Seattle, Washington, United States | **68/100** | $119,328 - $149,160 USD | [Tailored PDF Resume](outputs/resumes/Brex_Implementation_Consultant_Commercial_resume.pdf) · [Cold Email](outputs/emails/Brex_Implementation_Consultant_Commercial_cold_email.md) |
+| 5 | **New Law Business Model** | [Solutions Engineer - Customer Success](https://weworkremotely.com/remote-jobs/new-law-business-model-solutions-engineer-customer-success) | Remote (US) | **68/100** | $40.87–$45.67 | [Tailored PDF Resume](outputs/resumes/New_Law_Business_Model_Solutions_Engineer_Customer_Success_resume.pdf) · [Cold Email](outputs/emails/New_Law_Business_Model_Solutions_Engineer_Customer_Success_cold_email.md) |
+| 6 | **Zocdoc** | [Senior Site Reliability Engineer](https://job-boards.greenhouse.io/zocdoc/jobs/8227742) | New York, NY; USA Remote | **68/100** | $180,000 — $220,000 USD | [Tailored PDF Resume](outputs/resumes/Zocdoc_Senior_Site_Reliability_Engineer_resume.pdf) · [Cold Email](outputs/emails/Zocdoc_Senior_Site_Reliability_Engineer_cold_email.md) |
+| 7 | **Cloudflare** | [Senior Customer Engineer, Named - Cincinnati, OH](https://boards.greenhouse.io/cloudflare/jobs/7954702?gh_jid=7954702) | Distributed | **68/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_resume.pdf) · [Cold Email](outputs/emails/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_cold_email.md) |
+| 8 | **Figma** | [Data & Integration Engineer, Business Systems](https://boards.greenhouse.io/figma/jobs/6233040004?gh_jid=6233040004) | San Francisco, CA • New York, NY • United States | **67/100** | $153,000 — $296,000 USD | [Tailored PDF Resume](outputs/resumes/Figma_Data_Integration_Engineer_Business_Systems_resume.pdf) · [Cold Email](outputs/emails/Figma_Data_Integration_Engineer_Business_Systems_cold_email.md) |
+| 9 | **Ramp** | [Software Engineer, Forward Deployed AI Solutions](https://jobs.ashbyhq.com/ramp/b614563f-3ce6-4dca-b5ba-0e5a6c8bda27) | New York, NY (HQ) (Remote) | **65/100** | $10,000 per year | [Tailored PDF Resume](outputs/resumes/Ramp_Software_Engineer_Forward_Deployed_AI_Solutions_resume.pdf) · [Cold Email](outputs/emails/Ramp_Software_Engineer_Forward_Deployed_AI_Solutions_cold_email.md) |
+| 10 | **Anthropic** | [IT Systems Engineer, Client Platform Engineer, ChromeOS](https://job-boards.greenhouse.io/anthropic/jobs/5456018008) | Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC | **65/100** | $325,000 — $360,000 USD | [Tailored PDF Resume](outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_resume.pdf) · [Cold Email](outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
 
-### 1. Customer Solutions Architect (Austin) – Fivetran
-- **Direct Application URL:** [https://www.fivetran.com/careers/job?gh_jid=7796439003](https://www.fivetran.com/careers/job?gh_jid=7796439003)
-- **Location:** USA - Austin (dbt)
-- **Compensation:** $155,000 — $175,000 USD
+### 1. Customer Solutions Architect (NYC) – Fivetran
+- **Direct Application URL:** [https://www.fivetran.com/careers/job?gh_jid=8047340003](https://www.fivetran.com/careers/job?gh_jid=8047340003)
+- **Location:** USA - New York (dbt)
+- **Compensation:** $165,000 — $190,000 USD
 - **ATS Relevance Score:** **83 / 100**
 - **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (etl) (+5) | Field Service & Implementation (deployment, onboarding) (+16) | Database/SQL Server Diagnostics (sql server, sql) (+10) | Scripting & Automation (powershell, python, automation) (+12) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Fivetran_Customer_Solutions_Architect_Austin_resume.pdf](outputs/resumes/Fivetran_Customer_Solutions_Architect_Austin_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Fivetran_Customer_Solutions_Architect_Austin_cold_email.md](outputs/emails/Fivetran_Customer_Solutions_Architect_Austin_cold_email.md)
+- **Tailored PDF Resume:** [outputs/resumes/Fivetran_Customer_Solutions_Architect_NYC_resume.pdf](outputs/resumes/Fivetran_Customer_Solutions_Architect_NYC_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Fivetran_Customer_Solutions_Architect_NYC_cold_email.md](outputs/emails/Fivetran_Customer_Solutions_Architect_NYC_cold_email.md)
 
-### 2. Customer Solutions Architect (Denver) – Fivetran
-- **Direct Application URL:** [https://www.fivetran.com/careers/job?gh_jid=8047327003](https://www.fivetran.com/careers/job?gh_jid=8047327003)
-- **Location:** Denver, Colorado, United States, AMER
-- **Compensation:** $155,000 — $175,000 USD
-- **ATS Relevance Score:** **83 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (etl) (+5) | Field Service & Implementation (deployment, onboarding) (+16) | Database/SQL Server Diagnostics (sql server, sql) (+10) | Scripting & Automation (powershell, python, automation) (+12) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Fivetran_Customer_Solutions_Architect_Denver_resume.pdf](outputs/resumes/Fivetran_Customer_Solutions_Architect_Denver_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Fivetran_Customer_Solutions_Architect_Denver_cold_email.md](outputs/emails/Fivetran_Customer_Solutions_Architect_Denver_cold_email.md)
-
-### 3. Support Engineer Europe – Sardine
-- **Direct Application URL:** [https://jobs.ashbyhq.com/sardine/cd94c5a4-6ad8-469a-b4cd-6ac5368800bd](https://jobs.ashbyhq.com/sardine/cd94c5a4-6ad8-469a-b4cd-6ac5368800bd)
-- **Location:** Europe (Remote)
-- **Compensation:** Not specified
+### 2. Support Engineer, U.S. Government Support (SHIFT) – Gitlab
+- **Direct Application URL:** [https://job-boards.greenhouse.io/gitlab/jobs/8859063002](https://job-boards.greenhouse.io/gitlab/jobs/8859063002)
+- **Location:** Remote, United States
+- **Compensation:** $95,200 — $160,800 USD
 - **ATS Relevance Score:** **72 / 100**
-- **Match Justification:** Direct Title Match: 'Support Engineer' (+25) | Integration & Data Pipelines (rest api, postman, agentic) (+15) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (rest api, postman) (+8) | ITSM Platforms (ticketing) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Sardine_Support_Engineer_Europe_resume.pdf](outputs/resumes/Sardine_Support_Engineer_Europe_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Sardine_Support_Engineer_Europe_cold_email.md](outputs/emails/Sardine_Support_Engineer_Europe_cold_email.md)
+- **Match Justification:** Direct Title Match: 'Support Engineer' (+25) | Integration & Data Pipelines (llm) (+5) | Tier 2/3 RCA & Diagnostics (escalation, telemetry) (+15) | Scripting & Automation (scripting, automation, telemetry) (+12) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Gitlab_Support_Engineer_US_Government_Support_SHIFT_resume.pdf](outputs/resumes/Gitlab_Support_Engineer_US_Government_Support_SHIFT_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Gitlab_Support_Engineer_US_Government_Support_SHIFT_cold_email.md](outputs/emails/Gitlab_Support_Engineer_US_Government_Support_SHIFT_cold_email.md)
 
-### 4. IT Support Engineer – Elevenlabs
-- **Direct Application URL:** [https://jobs.ashbyhq.com/elevenlabs/750a8325-7ce1-45ea-b0b1-61dab78a456e](https://jobs.ashbyhq.com/elevenlabs/750a8325-7ce1-45ea-b0b1-61dab78a456e)
-- **Location:** New York (Remote)
+### 3. Implementation Consultant, Commercial – Brex
+- **Direct Application URL:** [https://www.brex.com/careers/8536968002?gh_jid=8536968002](https://www.brex.com/careers/8536968002?gh_jid=8536968002)
+- **Location:** San Francisco, California, United States
+- **Compensation:** $119,328 - $149,160 USD
+- **ATS Relevance Score:** **68 / 100**
+- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Field Service & Implementation (implementation consultant, deployment, onboarding) (+24) | Scripting & Automation (automation) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Brex_Implementation_Consultant_Commercial_resume.pdf](outputs/resumes/Brex_Implementation_Consultant_Commercial_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Brex_Implementation_Consultant_Commercial_cold_email.md](outputs/emails/Brex_Implementation_Consultant_Commercial_cold_email.md)
+
+### 4. Implementation Consultant, Commercial – Brex
+- **Direct Application URL:** [https://www.brex.com/careers/8536985002?gh_jid=8536985002](https://www.brex.com/careers/8536985002?gh_jid=8536985002)
+- **Location:** Seattle, Washington, United States
+- **Compensation:** $119,328 - $149,160 USD
+- **ATS Relevance Score:** **68 / 100**
+- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Field Service & Implementation (implementation consultant, deployment, onboarding) (+24) | Scripting & Automation (automation) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Brex_Implementation_Consultant_Commercial_resume.pdf](outputs/resumes/Brex_Implementation_Consultant_Commercial_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Brex_Implementation_Consultant_Commercial_cold_email.md](outputs/emails/Brex_Implementation_Consultant_Commercial_cold_email.md)
+
+### 5. Solutions Engineer - Customer Success – New Law Business Model
+- **Direct Application URL:** [https://weworkremotely.com/remote-jobs/new-law-business-model-solutions-engineer-customer-success](https://weworkremotely.com/remote-jobs/new-law-business-model-solutions-engineer-customer-success)
+- **Location:** Remote (US)
+- **Compensation:** $40.87–$45.67
+- **ATS Relevance Score:** **68 / 100**
+- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (webhooks, json, data mapping) (+15) | Networking Protocols (dns) (+5) | Scripting & Automation (python, automation) (+8) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/New_Law_Business_Model_Solutions_Engineer_Customer_Success_resume.pdf](outputs/resumes/New_Law_Business_Model_Solutions_Engineer_Customer_Success_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/New_Law_Business_Model_Solutions_Engineer_Customer_Success_cold_email.md](outputs/emails/New_Law_Business_Model_Solutions_Engineer_Customer_Success_cold_email.md)
+
+### 6. Senior Site Reliability Engineer – Zocdoc
+- **Direct Application URL:** [https://job-boards.greenhouse.io/zocdoc/jobs/8227742](https://job-boards.greenhouse.io/zocdoc/jobs/8227742)
+- **Location:** New York, NY; USA Remote
+- **Compensation:** $180,000 — $220,000 USD
+- **ATS Relevance Score:** **68 / 100**
+- **Match Justification:** Direct Title Match: 'Site Reliability Engineer' (+25) | Tier 2/3 RCA & Diagnostics (telemetry) (+7) | Field Service & Implementation (deployment) (+8) | Networking Protocols (tcp/ip, dns, routing) (+15) | Scripting & Automation (python, automation, telemetry) (+12) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($220,000) (-15)
+- **Tailored PDF Resume:** [outputs/resumes/Zocdoc_Senior_Site_Reliability_Engineer_resume.pdf](outputs/resumes/Zocdoc_Senior_Site_Reliability_Engineer_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Zocdoc_Senior_Site_Reliability_Engineer_cold_email.md](outputs/emails/Zocdoc_Senior_Site_Reliability_Engineer_cold_email.md)
+
+### 7. Senior Customer Engineer, Named - Cincinnati, OH – Cloudflare
+- **Direct Application URL:** [https://boards.greenhouse.io/cloudflare/jobs/7954702?gh_jid=7954702](https://boards.greenhouse.io/cloudflare/jobs/7954702?gh_jid=7954702)
+- **Location:** Distributed
 - **Compensation:** Not specified
-- **ATS Relevance Score:** **69 / 100**
-- **Match Justification:** Direct Title Match: 'It Support Engineer' (+25) | Integration & Data Pipelines (agentic) (+5) | Field Service & Implementation (onboarding) (+8) | Active Directory / SSO / IAM (sso, mfa) (+8) | Scripting & Automation (scripting, automation) (+8) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Elevenlabs_IT_Support_Engineer_resume.pdf](outputs/resumes/Elevenlabs_IT_Support_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Elevenlabs_IT_Support_Engineer_cold_email.md](outputs/emails/Elevenlabs_IT_Support_Engineer_cold_email.md)
-
-### 5. Senior Solutions Engineer, Enterprise – Tailscale
-- **Direct Application URL:** [https://job-boards.greenhouse.io/tailscale/jobs/4741470005](https://job-boards.greenhouse.io/tailscale/jobs/4741470005)
-- **Location:** Remote (United States)
-- **Compensation:** $250,000 — $300,000 USD
-- **ATS Relevance Score:** **69 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (llm) (+5) | Networking Protocols (tcp/ip, dns, vpn) (+15) | Active Directory / SSO / IAM (sso, saml, iam) (+12) | Scripting & Automation (python, scripting, automation) (+12) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($300,000) (-15)
-- **Tailored PDF Resume:** [outputs/resumes/Tailscale_Senior_Solutions_Engineer_Enterprise_resume.pdf](outputs/resumes/Tailscale_Senior_Solutions_Engineer_Enterprise_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Tailscale_Senior_Solutions_Engineer_Enterprise_cold_email.md](outputs/emails/Tailscale_Senior_Solutions_Engineer_Enterprise_cold_email.md)
-
-### 6. Senior Enterprise Platforms & AI Systems Engineer – Zscaler
-- **Direct Application URL:** [https://job-boards.greenhouse.io/zscaler/jobs/5167475007](https://job-boards.greenhouse.io/zscaler/jobs/5167475007)
-- **Location:** Denver, Colorado, USA; San Jose, California, USA
-- **Compensation:** $124,000 — $155,000 USD
-- **ATS Relevance Score:** **69 / 100**
-- **Match Justification:** Direct Title Match: 'Systems Engineer' (+25) | Integration & Data Pipelines (agentic) (+5) | Field Service & Implementation (onboarding) (+8) | Active Directory / SSO / IAM (iam, access control, user provisioning) (+12) | Scripting & Automation (scripting) (+4) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band ($155,000)
-- **Tailored PDF Resume:** [outputs/resumes/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_resume.pdf](outputs/resumes/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_cold_email.md](outputs/emails/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_cold_email.md)
-
-### 7. Senior Technical Support Engineer – Langchain
-- **Direct Application URL:** [https://jobs.ashbyhq.com/langchain/8aa63e71-b431-49d7-ab4a-bf4b3630d8e6](https://jobs.ashbyhq.com/langchain/8aa63e71-b431-49d7-ab4a-bf4b3630d8e6)
-- **Location:** San Francisco, CA (Remote)
-- **Compensation:** $130,000 - $195,000 USD
 - **ATS Relevance Score:** **68 / 100**
-- **Match Justification:** Direct Title Match: 'Technical Support Engineer' (+25) | Integration & Data Pipelines (llm) (+5) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (deployment) (+8) | Scripting & Automation (python) (+4) | ITSM Platforms (csat) (+4) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band ($195,000)
-- **Tailored PDF Resume:** [outputs/resumes/Langchain_Senior_Technical_Support_Engineer_resume.pdf](outputs/resumes/Langchain_Senior_Technical_Support_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Langchain_Senior_Technical_Support_Engineer_cold_email.md](outputs/emails/Langchain_Senior_Technical_Support_Engineer_cold_email.md)
+- **Match Justification:** Direct Title Match: 'Customer Engineer' (+25) | Integration & Data Pipelines (llm) (+5) | Tier 2/3 RCA & Diagnostics (telemetry) (+7) | Field Service & Implementation (onboarding) (+8) | Networking Protocols (dns, routing) (+10) | Scripting & Automation (python, scripting, automation) (+12) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band | Pre-Sales Quota Penalty: Requires direct sales quota / targets (quota-carrying) (-15)
+- **Tailored PDF Resume:** [outputs/resumes/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_resume.pdf](outputs/resumes/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_cold_email.md](outputs/emails/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_cold_email.md)
 
-### 8. Sr Solutions Architect – ExtraHop
-- **Direct Application URL:** [https://remoteOK.com/remote-jobs/remote-sr-solutions-architect-extrahop-1137394](https://remoteOK.com/remote-jobs/remote-sr-solutions-architect-extrahop-1137394)
-- **Location:** Remote
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **68 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (rest api) (+5) | Tier 2/3 RCA & Diagnostics (root cause, root cause analysis) (+15) | Scripting & Automation (python, rest api) (+8) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/ExtraHop_Sr_Solutions_Architect_resume.pdf](outputs/resumes/ExtraHop_Sr_Solutions_Architect_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/ExtraHop_Sr_Solutions_Architect_cold_email.md](outputs/emails/ExtraHop_Sr_Solutions_Architect_cold_email.md)
+### 8. Data & Integration Engineer, Business Systems – Figma
+- **Direct Application URL:** [https://boards.greenhouse.io/figma/jobs/6233040004?gh_jid=6233040004](https://boards.greenhouse.io/figma/jobs/6233040004?gh_jid=6233040004)
+- **Location:** San Francisco, CA • New York, NY • United States
+- **Compensation:** $153,000 — $296,000 USD
+- **ATS Relevance Score:** **67 / 100**
+- **Match Justification:** Direct Title Match: 'Integration Engineer' (+25) | Integration & Data Pipelines (mulesoft) (+5) | Field Service & Implementation (deployment, onboarding, integration engineer) (+24) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (python, automation) (+8) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($296,000) (-15)
+- **Tailored PDF Resume:** [outputs/resumes/Figma_Data_Integration_Engineer_Business_Systems_resume.pdf](outputs/resumes/Figma_Data_Integration_Engineer_Business_Systems_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Figma_Data_Integration_Engineer_Business_Systems_cold_email.md](outputs/emails/Figma_Data_Integration_Engineer_Business_Systems_cold_email.md)
 
-### 9. Specialist Solutions Architect - AWS Infrastructure & AI Platform – Databricks
-- **Direct Application URL:** [https://databricks.com/company/careers/open-positions/job?gh_jid=8739506002](https://databricks.com/company/careers/open-positions/job?gh_jid=8739506002)
-- **Location:** United States
-- **Compensation:** $180,000 — $247,500 USD
-- **ATS Relevance Score:** **68 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (llm) (+5) | Field Service & Implementation (deployment) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Networking Protocols (routing) (+5) | Active Directory / SSO / IAM (saml, identity management, iam) (+12) | Scripting & Automation (python, automation) (+8) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($247,500) (-15)
-- **Tailored PDF Resume:** [outputs/resumes/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_resume.pdf](outputs/resumes/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_cold_email.md](outputs/emails/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_cold_email.md)
+### 9. Software Engineer, Forward Deployed AI Solutions – Ramp
+- **Direct Application URL:** [https://jobs.ashbyhq.com/ramp/b614563f-3ce6-4dca-b5ba-0e5a6c8bda27](https://jobs.ashbyhq.com/ramp/b614563f-3ce6-4dca-b5ba-0e5a6c8bda27)
+- **Location:** New York, NY (HQ) (Remote)
+- **Compensation:** $10,000 per year
+- **ATS Relevance Score:** **65 / 100**
+- **Match Justification:** Direct Title Match: 'Forward Deployed' (+25) | Integration & Data Pipelines (llm) (+5) | Field Service & Implementation (deployment, rollout) (+16) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Ramp_Software_Engineer_Forward_Deployed_AI_Solutions_resume.pdf](outputs/resumes/Ramp_Software_Engineer_Forward_Deployed_AI_Solutions_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Ramp_Software_Engineer_Forward_Deployed_AI_Solutions_cold_email.md](outputs/emails/Ramp_Software_Engineer_Forward_Deployed_AI_Solutions_cold_email.md)
 
-### 10. Specialist Solutions Architect - Azure Infrastructure & AI Platform – Databricks
-- **Direct Application URL:** [https://databricks.com/company/careers/open-positions/job?gh_jid=8739507002](https://databricks.com/company/careers/open-positions/job?gh_jid=8739507002)
-- **Location:** United States
-- **Compensation:** $180,000 — $247,500 USD
-- **ATS Relevance Score:** **68 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (llm) (+5) | Field Service & Implementation (deployment) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Networking Protocols (routing) (+5) | Active Directory / SSO / IAM (entra id, saml, identity management) (+12) | Scripting & Automation (python, automation) (+8) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($247,500) (-15)
-- **Tailored PDF Resume:** [outputs/resumes/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_resume.pdf](outputs/resumes/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_cold_email.md](outputs/emails/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_cold_email.md)
+### 10. IT Systems Engineer, Client Platform Engineer, ChromeOS – Anthropic
+- **Direct Application URL:** [https://job-boards.greenhouse.io/anthropic/jobs/5456018008](https://job-boards.greenhouse.io/anthropic/jobs/5456018008)
+- **Location:** Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC
+- **Compensation:** $325,000 — $360,000 USD
+- **ATS Relevance Score:** **65 / 100**
+- **Match Justification:** Direct Title Match: 'It Systems Engineer' (+25) | Integration & Data Pipelines (sdk) (+5) | Tier 2/3 RCA & Diagnostics (usb, telemetry) (+15) | Field Service & Implementation (rollout) (+8) | Scripting & Automation (python, scripting, telemetry) (+12) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($360,000) (-15)
+- **Tailored PDF Resume:** [outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_resume.pdf](outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_cold_email.md](outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_cold_email.md)
 
 ---
 
@@ -121,6 +121,16 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-10-28 | **Fivetran** | [Customer Solutions Architect (Denver)](https://www.fivetran.com/careers/job?gh_jid=8047327003) | Denver, Colorado, United States, AMER | **83/100** | $155,000 — $175,000 USD | [Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_Denver_resume.pdf) · [Email](outputs/emails/Fivetran_Customer_Solutions_Architect_Denver_cold_email.md) |
+| 2026-10-28 | **Fivetran** | [Customer Solutions Architect (Austin)](https://www.fivetran.com/careers/job?gh_jid=7796439003) | USA - Austin (dbt) | **83/100** | $155,000 — $175,000 USD | [Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_Austin_resume.pdf) · [Email](outputs/emails/Fivetran_Customer_Solutions_Architect_Austin_cold_email.md) |
+| 2026-10-28 | **Sardine** | [Support Engineer Europe](https://jobs.ashbyhq.com/sardine/cd94c5a4-6ad8-469a-b4cd-6ac5368800bd) | Europe (Remote) | **72/100** | Not specified | [Resume](outputs/resumes/Sardine_Support_Engineer_Europe_resume.pdf) · [Email](outputs/emails/Sardine_Support_Engineer_Europe_cold_email.md) |
+| 2026-10-28 | **Elevenlabs** | [IT Support Engineer](https://jobs.ashbyhq.com/elevenlabs/750a8325-7ce1-45ea-b0b1-61dab78a456e) | New York (Remote) | **69/100** | Not specified | [Resume](outputs/resumes/Elevenlabs_IT_Support_Engineer_resume.pdf) · [Email](outputs/emails/Elevenlabs_IT_Support_Engineer_cold_email.md) |
+| 2026-10-28 | **Tailscale** | [Senior Solutions Engineer, Enterprise](https://job-boards.greenhouse.io/tailscale/jobs/4741470005) | Remote (United States) | **69/100** | $250,000 — $300,000 USD | [Resume](outputs/resumes/Tailscale_Senior_Solutions_Engineer_Enterprise_resume.pdf) · [Email](outputs/emails/Tailscale_Senior_Solutions_Engineer_Enterprise_cold_email.md) |
+| 2026-10-28 | **Zscaler** | [Senior Enterprise Platforms & AI Systems Engineer](https://job-boards.greenhouse.io/zscaler/jobs/5167475007) | Denver, Colorado, USA; San Jose, California, USA | **69/100** | $124,000 — $155,000 USD | [Resume](outputs/resumes/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_cold_email.md) |
+| 2026-10-28 | **Langchain** | [Senior Technical Support Engineer](https://jobs.ashbyhq.com/langchain/8aa63e71-b431-49d7-ab4a-bf4b3630d8e6) | San Francisco, CA (Remote) | **68/100** | $130,000 - $195,000 USD | [Resume](outputs/resumes/Langchain_Senior_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Langchain_Senior_Technical_Support_Engineer_cold_email.md) |
+| 2026-10-28 | **ExtraHop** | [Sr Solutions Architect](https://remoteOK.com/remote-jobs/remote-sr-solutions-architect-extrahop-1137394) | Remote | **68/100** | Not specified | [Resume](outputs/resumes/ExtraHop_Sr_Solutions_Architect_resume.pdf) · [Email](outputs/emails/ExtraHop_Sr_Solutions_Architect_cold_email.md) |
+| 2026-10-28 | **Databricks** | [Specialist Solutions Architect - Azure Infrastructure & AI Platform](https://databricks.com/company/careers/open-positions/job?gh_jid=8739507002) | United States | **68/100** | $180,000 — $247,500 USD | [Resume](outputs/resumes/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_resume.pdf) · [Email](outputs/emails/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_cold_email.md) |
+| 2026-10-28 | **Databricks** | [Specialist Solutions Architect - AWS Infrastructure & AI Platform](https://databricks.com/company/careers/open-positions/job?gh_jid=8739506002) | United States | **68/100** | $180,000 — $247,500 USD | [Resume](outputs/resumes/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_resume.pdf) · [Email](outputs/emails/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_cold_email.md) |
 | 2026-10-27 | **Applied Intuition** | [Field Integration Engineer](https://jobicy.com/jobs/157314-field-integration-engineer) | USA | **95/100** | Not specified | [Resume](outputs/resumes/Applied_Intuition_Field_Integration_Engineer_resume.pdf) · [Email](outputs/emails/Applied_Intuition_Field_Integration_Engineer_cold_email.md) |
 | 2026-10-27 | **Sardine** | [Solutions Architect, Integrations - Public Sector (US/CA)](https://jobs.ashbyhq.com/sardine/ed4eb772-6485-4125-895b-f3dca08cbcdd) | Washington, DC | **93/100** | Not specified | [Resume](outputs/resumes/Sardine_Solutions_Architect_Integrations_Public_Sector_USCA_resume.pdf) · [Email](outputs/emails/Sardine_Solutions_Architect_Integrations_Public_Sector_USCA_cold_email.md) |
 | 2026-10-27 | **Upsun** | [Senior IT Systems Engineer](https://weworkremotely.com/remote-jobs/upsun-senior-it-systems-engineer) | Remote (US) | **86/100** | Not specified | [Resume](outputs/resumes/Upsun_Senior_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Upsun_Senior_IT_Systems_Engineer_cold_email.md) |
