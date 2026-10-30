@@ -291,9 +291,9 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
         domain_score += pts
         match_reasons.append(f"Imaging/PACS Keywords ({', '.join(extracted['imaging_pacs'][:4])}) (+{int(pts)})")
 
-    # Integration, API & Data Pipelines (Up to +20 pts)
+    # Integration, API & Data Pipelines (Up to +10 pts)
     if "integration_data_pipeline" in extracted:
-        pts = min(20.0, len(extracted["integration_data_pipeline"]) * 5.0)
+        pts = min(10.0, len(extracted["integration_data_pipeline"]) * 5.0)
         domain_score += pts
         match_reasons.append(f"Integration & Data Pipelines ({', '.join(extracted['integration_data_pipeline'][:4])}) (+{int(pts)})")
 
@@ -303,9 +303,9 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
         domain_score += pts
         match_reasons.append(f"Tier 2/3 RCA & Diagnostics ({', '.join(extracted['escalations_diagnostics'][:4])}) (+{int(pts)})")
 
-    # Field Service & Implementation (up to +25 pts)
+    # Field Service & Implementation (up to +10 pts)
     if "field_implementation" in extracted:
-        pts = min(25.0, len(extracted["field_implementation"]) * 8.0)
+        pts = min(10.0, len(extracted["field_implementation"]) * 8.0)
         domain_score += pts
         match_reasons.append(f"Field Service & Implementation ({', '.join(extracted['field_implementation'][:3])}) (+{int(pts)})")
 
@@ -321,15 +321,15 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
         domain_score += pts
         match_reasons.append(f"Networking Protocols ({', '.join(extracted['networking'][:3])}) (+{int(pts)})")
 
-    # Identity / IAM (up to +12 pts)
+    # Identity / IAM (up to +20 pts)
     if "identity_iam" in extracted:
-        pts = min(12.0, len(extracted["identity_iam"]) * 4.0)
+        pts = min(20.0, len(extracted["identity_iam"]) * 4.0)
         domain_score += pts
         match_reasons.append(f"Active Directory / SSO / IAM ({', '.join(extracted['identity_iam'][:3])}) (+{int(pts)})")
 
-    # Automation & Scripting (up to +12 pts)
+    # Automation & Scripting (up to +25 pts)
     if "scripting_automation" in extracted:
-        pts = min(12.0, len(extracted["scripting_automation"]) * 4.0)
+        pts = min(25.0, len(extracted["scripting_automation"]) * 4.0)
         domain_score += pts
         match_reasons.append(f"Scripting & Automation ({', '.join(extracted['scripting_automation'][:3])}) (+{int(pts)})")
 
