@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-30 12:31:46  
+**Generated:** 2026-10-30 18:35:09  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -140,7 +140,6 @@
 | 2026-10-27 | **Applied Intuition** | [Field Integration Engineer](https://jobicy.com/jobs/157314-field-integration-engineer) | USA | **95/100** | Not specified | [Resume](outputs/resumes/Applied_Intuition_Field_Integration_Engineer_resume.pdf) · [Email](outputs/emails/Applied_Intuition_Field_Integration_Engineer_cold_email.md) |
 | 2026-10-27 | **Baseten** | [IT Systems Engineer](https://jobs.ashbyhq.com/baseten/64bdba5c-8cf6-473f-814c-1e86c8c66681) | Remote | **84/100** | Not specified | [Resume](outputs/resumes/Baseten_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Baseten_IT_Systems_Engineer_cold_email.md) |
 | 2026-10-27 | **Sardine** | [Solutions Architect, Integrations - Public Sector (US/CA)](https://jobs.ashbyhq.com/sardine/ed4eb772-6485-4125-895b-f3dca08cbcdd) | Washington, DC | **77/100** | Not specified | [Resume](outputs/resumes/Sardine_Solutions_Architect_Integrations_Public_Sector_USCA_resume.pdf) · [Email](outputs/emails/Sardine_Solutions_Architect_Integrations_Public_Sector_USCA_cold_email.md) |
-| 2026-10-27 | **Pagerduty** | [Forward Deployed Engineer (SDEV)](https://job-boards.greenhouse.io/pagerduty/jobs/6216870004) | Remote (USA - New York City, NY) | **74/100** | Not specified | [Resume](outputs/resumes/Pagerduty_Forward_Deployed_Engineer_SDEV_resume.pdf) · [Email](outputs/emails/Pagerduty_Forward_Deployed_Engineer_SDEV_cold_email.md) |
 | 2026-10-27 | **Socket** | [Technical Account Manager, Enterprise](https://jobicy.com/jobs/157384-technical-account-manager-enterprise) | Canada,  USA | **72/100** | Not specified | [Resume](outputs/resumes/Socket_Technical_Account_Manager_Enterprise_resume.pdf) · [Email](outputs/emails/Socket_Technical_Account_Manager_Enterprise_cold_email.md) |
 | 2026-10-27 | **Socket** | [Technical Account Manager, Commercial](https://jobicy.com/jobs/157387-technical-account-manager-commercial) | Canada,  USA | **72/100** | Not specified | [Resume](outputs/resumes/Socket_Technical_Account_Manager_Commercial_resume.pdf) · [Email](outputs/emails/Socket_Technical_Account_Manager_Commercial_cold_email.md) |
 | 2026-10-27 | **Posthog** | [Site Reliability Engineer (US - Pacific time)](https://jobs.ashbyhq.com/posthog/1464036f-94d5-4dbd-aef8-fe99246a26d4) | San Francisco, CA | **72/100** | Not specified | [Resume](outputs/resumes/Posthog_Site_Reliability_Engineer_US_Pacific_time_resume.pdf) · [Email](outputs/emails/Posthog_Site_Reliability_Engineer_US_Pacific_time_cold_email.md) |
