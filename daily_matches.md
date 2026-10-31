@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-10-30 18:35:09  
+**Generated:** 2026-10-31 17:42:25  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,110 +10,110 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Carrot** | [Sr. IT Systems Engineer](https://weworkremotely.com/remote-jobs/carrot-sr-it-systems-engineer) | Remote (US) | **68/100** | $150,000 – $175,000 | [Tailored PDF Resume](outputs/resumes/Carrot_Sr_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Carrot_Sr_IT_Systems_Engineer_cold_email.md) |
-| 2 | **Baseten** | [IT Support / Operations Engineer](https://jobs.ashbyhq.com/baseten/c07eb44f-b5fa-4808-90b7-03b265d97836) | San Francisco (Remote) | **64/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Baseten_IT_Support_Operations_Engineer_resume.pdf) · [Cold Email](outputs/emails/Baseten_IT_Support_Operations_Engineer_cold_email.md) |
-| 3 | **Baseten** | [IT Support / Operations Engineer (NY)](https://jobs.ashbyhq.com/baseten/4dcdf587-38f3-4363-8033-a453f54b38b0) | New York (Remote) | **64/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Baseten_IT_Support_Operations_Engineer_NY_resume.pdf) · [Cold Email](outputs/emails/Baseten_IT_Support_Operations_Engineer_NY_cold_email.md) |
-| 4 | **ClickUp** | [Senior Technical Account Manager - Strategic Services](https://jobicy.com/jobs/157903-senior-technical-account-manager-strategic-services-2) | USA | **63/100** | Not specified | [Tailored PDF Resume](outputs/resumes/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_resume.pdf) · [Cold Email](outputs/emails/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_cold_email.md) |
-| 5 | **Middesk** | [Solutions Engineer, Enterprise](https://jobs.ashbyhq.com/middesk/6f90b4b1-c122-4f56-bb16-1773802bf148) | New York (Remote) | **63/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Middesk_Solutions_Engineer_Enterprise_resume.pdf) · [Cold Email](outputs/emails/Middesk_Solutions_Engineer_Enterprise_cold_email.md) |
-| 6 | **Netskope** | [Sr. Solutions Engineer](https://www.netskope.com/company/careers/open-positions/?gh_jid=7942319) | California, United States | **63/100** | $177,500 — $182,000 USD | [Tailored PDF Resume](outputs/resumes/Netskope_Sr_Solutions_Engineer_resume.pdf) · [Cold Email](outputs/emails/Netskope_Sr_Solutions_Engineer_cold_email.md) |
-| 7 | **Stripe** | [Specialist Solutions Architect, Data](https://stripe.com/jobs/search?gh_jid=8144262) | SF, NY, Remote | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Stripe_Specialist_Solutions_Architect_Data_resume.pdf) · [Cold Email](outputs/emails/Stripe_Specialist_Solutions_Architect_Data_cold_email.md) |
-| 8 | **Cohere** | [Forward Deployed Engineer, Inference](https://jobs.ashbyhq.com/cohere/8df498e9-aba8-487f-80ba-362b492bad09) | United States | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Cohere_Forward_Deployed_Engineer_Inference_resume.pdf) · [Cold Email](outputs/emails/Cohere_Forward_Deployed_Engineer_Inference_cold_email.md) |
-| 9 | **Cohere** | [Forward Deployed Engineer, Agentic Platform (Europe)](https://jobs.ashbyhq.com/cohere/2d256112-b336-4539-8133-a0bf7f6698f0) | Europe (Remote) | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_resume.pdf) · [Cold Email](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_cold_email.md) |
-| 10 | **Sardine** | [Forward Deployed AI Engineer](https://jobs.ashbyhq.com/sardine/4ff32b5d-13c6-4024-826c-04ed2881d688) | North America (Remote) | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Sardine_Forward_Deployed_AI_Engineer_resume.pdf) · [Cold Email](outputs/emails/Sardine_Forward_Deployed_AI_Engineer_cold_email.md) |
+| 1 | **Flexport** | [Senior IT Systems Engineer](https://job-boards.greenhouse.io/flexport/jobs/8337256) | U.S. Remote | **87/100** | $130,000 — $172,000 USD | [Tailored PDF Resume](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf) · [Cold Email](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md) |
+| 2 | **Alloy** | [Technical Support Engineer, Triage & Discovery](https://weworkremotely.com/remote-jobs/alloy-technical-support-engineer-triage-discovery) | Remote (US) | **72/100** | $75,000 to $95,000 | [Tailored PDF Resume](outputs/resumes/Alloy_Technical_Support_Engineer_Triage_Discovery_resume.pdf) · [Cold Email](outputs/emails/Alloy_Technical_Support_Engineer_Triage_Discovery_cold_email.md) |
+| 3 | **Instructure** | [L1 Support Engineer - Spanish Bilingual](https://jobicy.com/jobs/158194-l1-support-engineer-spanish-bilingual) | USA | **66/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Instructure_L1_Support_Engineer_Spanish_Bilingual_resume.pdf) · [Cold Email](outputs/emails/Instructure_L1_Support_Engineer_Spanish_Bilingual_cold_email.md) |
+| 4 | **Cohere** | [Forward Deployed Engineer, Agentic Platform](https://jobs.ashbyhq.com/cohere/b0bcef37-1d20-414f-aade-c54942d63df9) | United States (Remote) | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_resume.pdf) · [Cold Email](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_cold_email.md) |
+| 5 | **Cohere** | [Forward Deployed Engineer, Agentic Platform](https://jobs.ashbyhq.com/cohere/75c0032c-7200-48bf-9d6d-355880dd93d9) | Middle East (Remote) | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_resume.pdf) · [Cold Email](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_cold_email.md) |
+| 6 | **Gitlab** | [Senior Solutions Architect Operations Manager](https://job-boards.greenhouse.io/gitlab/jobs/8770661002) | Remote, Canada; Remote, United States | **62/100** | $115,200 — $194,400 USD | [Tailored PDF Resume](outputs/resumes/Gitlab_Senior_Solutions_Architect_Operations_Manager_resume.pdf) · [Cold Email](outputs/emails/Gitlab_Senior_Solutions_Architect_Operations_Manager_cold_email.md) |
+| 7 | **Baseten** | [Technical Program Manager, Forward Deployed Engineering](https://jobs.ashbyhq.com/baseten/976f89ef-1065-45a7-8b51-31fecd1ef1e6) | San Francisco (Remote) | **62/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Baseten_Technical_Program_Manager_Forward_Deployed_Engineering_resume.pdf) · [Cold Email](outputs/emails/Baseten_Technical_Program_Manager_Forward_Deployed_Engineering_cold_email.md) |
+| 8 | **Rubrik** | [Global Solutions Architect](https://www.rubrik.com/company/careers/departments/job.8140609?gh_jid=8140609) | USA , Remote | **62/100** | $231,200 — $324,000 USD | [Tailored PDF Resume](outputs/resumes/Rubrik_Global_Solutions_Architect_resume.pdf) · [Cold Email](outputs/emails/Rubrik_Global_Solutions_Architect_cold_email.md) |
+| 9 | **Middesk** | [Forward Deployed Engineer](https://jobs.ashbyhq.com/middesk/a72b1048-1001-49b1-92bd-9c44574f939b) | San Francisco (Remote) | **61/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Middesk_Forward_Deployed_Engineer_resume.pdf) · [Cold Email](outputs/emails/Middesk_Forward_Deployed_Engineer_cold_email.md) |
+| 10 | **Anthropic** | [IT Systems Engineer, Client Platform Engineer, macOS](https://job-boards.greenhouse.io/anthropic/jobs/5445625008) | Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC | **60/100** | $285,000 — $325,000 USD | [Tailored PDF Resume](outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_macOS_resume.pdf) · [Cold Email](outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_macOS_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
 
-### 1. Sr. IT Systems Engineer – Carrot
-- **Direct Application URL:** [https://weworkremotely.com/remote-jobs/carrot-sr-it-systems-engineer](https://weworkremotely.com/remote-jobs/carrot-sr-it-systems-engineer)
+### 1. Senior IT Systems Engineer – Flexport
+- **Direct Application URL:** [https://job-boards.greenhouse.io/flexport/jobs/8337256](https://job-boards.greenhouse.io/flexport/jobs/8337256)
+- **Location:** U.S. Remote
+- **Compensation:** $130,000 — $172,000 USD
+- **ATS Relevance Score:** **87 / 100**
+- **Match Justification:** Direct Title Match: 'It Systems Engineer' (+25) | Tier 2/3 RCA & Diagnostics (tier 3, escalation) (+15) | Field Service & Implementation (deployment) (+8) | Active Directory / SSO / IAM (iam) (+4) | Scripting & Automation (powershell, python, scripting) (+16) | ITSM Platforms (jira) (+4) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band ($172,000)
+- **Tailored PDF Resume:** [outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md)
+
+### 2. Technical Support Engineer, Triage & Discovery – Alloy
+- **Direct Application URL:** [https://weworkremotely.com/remote-jobs/alloy-technical-support-engineer-triage-discovery](https://weworkremotely.com/remote-jobs/alloy-technical-support-engineer-triage-discovery)
 - **Location:** Remote (US)
-- **Compensation:** $150,000 – $175,000
-- **ATS Relevance Score:** **68 / 100**
-- **Match Justification:** Direct Title Match: 'It Systems Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation, root cause, root cause analysis) (+22) | Field Service & Implementation (deployment, rollout) (+10) | Active Directory / SSO / IAM (sso) (+4) | Scripting & Automation (powershell, python, scripting) (+16) | Remote Target Location (+15) | Culture Red-Flag Penalty: High-burnout / Call center cliches (Call center environment) (-25)
-- **Tailored PDF Resume:** [outputs/resumes/Carrot_Sr_IT_Systems_Engineer_resume.pdf](outputs/resumes/Carrot_Sr_IT_Systems_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Carrot_Sr_IT_Systems_Engineer_cold_email.md](outputs/emails/Carrot_Sr_IT_Systems_Engineer_cold_email.md)
+- **Compensation:** $75,000 to $95,000
+- **ATS Relevance Score:** **72 / 100**
+- **Match Justification:** Direct Title Match: 'Technical Support Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (onboarding) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (scripting) (+4) | ITSM Platforms (zendesk, ticketing) (+8) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Alloy_Technical_Support_Engineer_Triage_Discovery_resume.pdf](outputs/resumes/Alloy_Technical_Support_Engineer_Triage_Discovery_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Alloy_Technical_Support_Engineer_Triage_Discovery_cold_email.md](outputs/emails/Alloy_Technical_Support_Engineer_Triage_Discovery_cold_email.md)
 
-### 2. IT Support / Operations Engineer – Baseten
-- **Direct Application URL:** [https://jobs.ashbyhq.com/baseten/c07eb44f-b5fa-4808-90b7-03b265d97836](https://jobs.ashbyhq.com/baseten/c07eb44f-b5fa-4808-90b7-03b265d97836)
-- **Location:** San Francisco (Remote)
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **64 / 100**
-- **Match Justification:** Direct Title Match: 'Operations Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (onboarding) (+8) | Active Directory / SSO / IAM (sso) (+4) | Scripting & Automation (automation) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Baseten_IT_Support_Operations_Engineer_resume.pdf](outputs/resumes/Baseten_IT_Support_Operations_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Baseten_IT_Support_Operations_Engineer_cold_email.md](outputs/emails/Baseten_IT_Support_Operations_Engineer_cold_email.md)
-
-### 3. IT Support / Operations Engineer (NY) – Baseten
-- **Direct Application URL:** [https://jobs.ashbyhq.com/baseten/4dcdf587-38f3-4363-8033-a453f54b38b0](https://jobs.ashbyhq.com/baseten/4dcdf587-38f3-4363-8033-a453f54b38b0)
-- **Location:** New York (Remote)
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **64 / 100**
-- **Match Justification:** Direct Title Match: 'Operations Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (onboarding) (+8) | Active Directory / SSO / IAM (sso) (+4) | Scripting & Automation (automation) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Baseten_IT_Support_Operations_Engineer_NY_resume.pdf](outputs/resumes/Baseten_IT_Support_Operations_Engineer_NY_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Baseten_IT_Support_Operations_Engineer_NY_cold_email.md](outputs/emails/Baseten_IT_Support_Operations_Engineer_NY_cold_email.md)
-
-### 4. Senior Technical Account Manager - Strategic Services – ClickUp
-- **Direct Application URL:** [https://jobicy.com/jobs/157903-senior-technical-account-manager-strategic-services-2](https://jobicy.com/jobs/157903-senior-technical-account-manager-strategic-services-2)
+### 3. L1 Support Engineer - Spanish Bilingual – Instructure
+- **Direct Application URL:** [https://jobicy.com/jobs/158194-l1-support-engineer-spanish-bilingual](https://jobicy.com/jobs/158194-l1-support-engineer-spanish-bilingual)
 - **Location:** USA
 - **Compensation:** Not specified
-- **ATS Relevance Score:** **63 / 100**
-- **Match Justification:** Direct Title Match: 'Technical Account Manager' (+25) | Integration & Data Pipelines (agentic) (+5) | Field Service & Implementation (deployment, onboarding) (+10) | Scripting & Automation (automation) (+4) | ITSM Platforms (jira) (+4) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band
-- **Tailored PDF Resume:** [outputs/resumes/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_resume.pdf](outputs/resumes/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_cold_email.md](outputs/emails/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_cold_email.md)
+- **ATS Relevance Score:** **66 / 100**
+- **Match Justification:** Direct Title Match: 'Support Engineer' (+25) | Tier 2/3 RCA & Diagnostics (tier 2, l2, escalation) (+22) | ITSM Platforms (ticketing) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Instructure_L1_Support_Engineer_Spanish_Bilingual_resume.pdf](outputs/resumes/Instructure_L1_Support_Engineer_Spanish_Bilingual_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Instructure_L1_Support_Engineer_Spanish_Bilingual_cold_email.md](outputs/emails/Instructure_L1_Support_Engineer_Spanish_Bilingual_cold_email.md)
 
-### 5. Solutions Engineer, Enterprise – Middesk
-- **Direct Application URL:** [https://jobs.ashbyhq.com/middesk/6f90b4b1-c122-4f56-bb16-1773802bf148](https://jobs.ashbyhq.com/middesk/6f90b4b1-c122-4f56-bb16-1773802bf148)
-- **Location:** New York (Remote)
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **63 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (webhook, webhooks) (+10) | Field Service & Implementation (onboarding) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Middesk_Solutions_Engineer_Enterprise_resume.pdf](outputs/resumes/Middesk_Solutions_Engineer_Enterprise_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Middesk_Solutions_Engineer_Enterprise_cold_email.md](outputs/emails/Middesk_Solutions_Engineer_Enterprise_cold_email.md)
-
-### 6. Sr. Solutions Engineer – Netskope
-- **Direct Application URL:** [https://www.netskope.com/company/careers/open-positions/?gh_jid=7942319](https://www.netskope.com/company/careers/open-positions/?gh_jid=7942319)
-- **Location:** California, United States
-- **Compensation:** $177,500 — $182,000 USD
-- **ATS Relevance Score:** **63 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (rest api) (+5) | Networking Protocols (vpn) (+5) | Active Directory / SSO / IAM (active directory, azure ad, sso) (+16) | Scripting & Automation (python, scripting, rest api) (+12) | Remote Target Location (+15) | Pre-Sales Quota Penalty: Requires direct sales quota / targets (exceed our sales targets) (-15)
-- **Tailored PDF Resume:** [outputs/resumes/Netskope_Sr_Solutions_Engineer_resume.pdf](outputs/resumes/Netskope_Sr_Solutions_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Netskope_Sr_Solutions_Engineer_cold_email.md](outputs/emails/Netskope_Sr_Solutions_Engineer_cold_email.md)
-
-### 7. Specialist Solutions Architect, Data – Stripe
-- **Direct Application URL:** [https://stripe.com/jobs/search?gh_jid=8144262](https://stripe.com/jobs/search?gh_jid=8144262)
-- **Location:** SF, NY, Remote
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **62 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (restful, etl) (+10) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Database/SQL Server Diagnostics (sql) (+5) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Stripe_Specialist_Solutions_Architect_Data_resume.pdf](outputs/resumes/Stripe_Specialist_Solutions_Architect_Data_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Stripe_Specialist_Solutions_Architect_Data_cold_email.md](outputs/emails/Stripe_Specialist_Solutions_Architect_Data_cold_email.md)
-
-### 8. Forward Deployed Engineer, Inference – Cohere
-- **Direct Application URL:** [https://jobs.ashbyhq.com/cohere/8df498e9-aba8-487f-80ba-362b492bad09](https://jobs.ashbyhq.com/cohere/8df498e9-aba8-487f-80ba-362b492bad09)
-- **Location:** United States
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **62 / 100**
-- **Match Justification:** Direct Title Match: 'Forward Deployed Engineer' (+25) | Integration & Data Pipelines (llm) (+5) | Field Service & Implementation (deployment) (+8) | Networking Protocols (routing) (+5) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Cohere_Forward_Deployed_Engineer_Inference_resume.pdf](outputs/resumes/Cohere_Forward_Deployed_Engineer_Inference_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Cohere_Forward_Deployed_Engineer_Inference_cold_email.md](outputs/emails/Cohere_Forward_Deployed_Engineer_Inference_cold_email.md)
-
-### 9. Forward Deployed Engineer, Agentic Platform (Europe) – Cohere
-- **Direct Application URL:** [https://jobs.ashbyhq.com/cohere/2d256112-b336-4539-8133-a0bf7f6698f0](https://jobs.ashbyhq.com/cohere/2d256112-b336-4539-8133-a0bf7f6698f0)
-- **Location:** Europe (Remote)
+### 4. Forward Deployed Engineer, Agentic Platform – Cohere
+- **Direct Application URL:** [https://jobs.ashbyhq.com/cohere/b0bcef37-1d20-414f-aade-c54942d63df9](https://jobs.ashbyhq.com/cohere/b0bcef37-1d20-414f-aade-c54942d63df9)
+- **Location:** United States (Remote)
 - **Compensation:** Not specified
 - **ATS Relevance Score:** **62 / 100**
 - **Match Justification:** Direct Title Match: 'Forward Deployed Engineer' (+25) | Integration & Data Pipelines (llm, agentic) (+10) | Field Service & Implementation (deployment) (+8) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_resume.pdf](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_cold_email.md](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_cold_email.md)
+- **Tailored PDF Resume:** [outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_resume.pdf](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_cold_email.md](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_cold_email.md)
 
-### 10. Forward Deployed AI Engineer – Sardine
-- **Direct Application URL:** [https://jobs.ashbyhq.com/sardine/4ff32b5d-13c6-4024-826c-04ed2881d688](https://jobs.ashbyhq.com/sardine/4ff32b5d-13c6-4024-826c-04ed2881d688)
-- **Location:** North America (Remote)
+### 5. Forward Deployed Engineer, Agentic Platform – Cohere
+- **Direct Application URL:** [https://jobs.ashbyhq.com/cohere/75c0032c-7200-48bf-9d6d-355880dd93d9](https://jobs.ashbyhq.com/cohere/75c0032c-7200-48bf-9d6d-355880dd93d9)
+- **Location:** Middle East (Remote)
 - **Compensation:** Not specified
 - **ATS Relevance Score:** **62 / 100**
-- **Match Justification:** Direct Title Match: 'Forward Deployed' (+25) | Integration & Data Pipelines (agentic) (+5) | Field Service & Implementation (deployment) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Sardine_Forward_Deployed_AI_Engineer_resume.pdf](outputs/resumes/Sardine_Forward_Deployed_AI_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Sardine_Forward_Deployed_AI_Engineer_cold_email.md](outputs/emails/Sardine_Forward_Deployed_AI_Engineer_cold_email.md)
+- **Match Justification:** Direct Title Match: 'Forward Deployed Engineer' (+25) | Integration & Data Pipelines (llm, agentic) (+10) | Field Service & Implementation (deployment) (+8) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_resume.pdf](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_cold_email.md](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_cold_email.md)
+
+### 6. Senior Solutions Architect Operations Manager – Gitlab
+- **Direct Application URL:** [https://job-boards.greenhouse.io/gitlab/jobs/8770661002](https://job-boards.greenhouse.io/gitlab/jobs/8770661002)
+- **Location:** Remote, Canada; Remote, United States
+- **Compensation:** $115,200 — $194,400 USD
+- **ATS Relevance Score:** **62 / 100**
+- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Field Service & Implementation (rollout) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Networking Protocols (routing) (+5) | Scripting & Automation (automation) (+4) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band ($194,400)
+- **Tailored PDF Resume:** [outputs/resumes/Gitlab_Senior_Solutions_Architect_Operations_Manager_resume.pdf](outputs/resumes/Gitlab_Senior_Solutions_Architect_Operations_Manager_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Gitlab_Senior_Solutions_Architect_Operations_Manager_cold_email.md](outputs/emails/Gitlab_Senior_Solutions_Architect_Operations_Manager_cold_email.md)
+
+### 7. Technical Program Manager, Forward Deployed Engineering – Baseten
+- **Direct Application URL:** [https://jobs.ashbyhq.com/baseten/976f89ef-1065-45a7-8b51-31fecd1ef1e6](https://jobs.ashbyhq.com/baseten/976f89ef-1065-45a7-8b51-31fecd1ef1e6)
+- **Location:** San Francisco (Remote)
+- **Compensation:** Not specified
+- **ATS Relevance Score:** **62 / 100**
+- **Match Justification:** Direct Title Match: 'Forward Deployed' (+25) | Integration & Data Pipelines (llm) (+5) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Networking Protocols (routing) (+5) | ITSM Platforms (sla) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Baseten_Technical_Program_Manager_Forward_Deployed_Engineering_resume.pdf](outputs/resumes/Baseten_Technical_Program_Manager_Forward_Deployed_Engineering_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Baseten_Technical_Program_Manager_Forward_Deployed_Engineering_cold_email.md](outputs/emails/Baseten_Technical_Program_Manager_Forward_Deployed_Engineering_cold_email.md)
+
+### 8. Global Solutions Architect – Rubrik
+- **Direct Application URL:** [https://www.rubrik.com/company/careers/departments/job.8140609?gh_jid=8140609](https://www.rubrik.com/company/careers/departments/job.8140609?gh_jid=8140609)
+- **Location:** USA , Remote
+- **Compensation:** $231,200 — $324,000 USD
+- **ATS Relevance Score:** **62 / 100**
+- **Match Justification:** Direct Title Match: 'Solutions Architect' (+25) | Integration & Data Pipelines (agentic) (+5) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (deployment) (+8) | Scripting & Automation (powershell, python, scripting) (+16) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($324,000) (-15)
+- **Tailored PDF Resume:** [outputs/resumes/Rubrik_Global_Solutions_Architect_resume.pdf](outputs/resumes/Rubrik_Global_Solutions_Architect_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Rubrik_Global_Solutions_Architect_cold_email.md](outputs/emails/Rubrik_Global_Solutions_Architect_cold_email.md)
+
+### 9. Forward Deployed Engineer – Middesk
+- **Direct Application URL:** [https://jobs.ashbyhq.com/middesk/a72b1048-1001-49b1-92bd-9c44574f939b](https://jobs.ashbyhq.com/middesk/a72b1048-1001-49b1-92bd-9c44574f939b)
+- **Location:** San Francisco (Remote)
+- **Compensation:** Not specified
+- **ATS Relevance Score:** **61 / 100**
+- **Match Justification:** Direct Title Match: 'Forward Deployed Engineer' (+25) | Integration & Data Pipelines (llm) (+5) | Field Service & Implementation (rollout) (+8) | Scripting & Automation (python, automation) (+8) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Middesk_Forward_Deployed_Engineer_resume.pdf](outputs/resumes/Middesk_Forward_Deployed_Engineer_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Middesk_Forward_Deployed_Engineer_cold_email.md](outputs/emails/Middesk_Forward_Deployed_Engineer_cold_email.md)
+
+### 10. IT Systems Engineer, Client Platform Engineer, macOS – Anthropic
+- **Direct Application URL:** [https://job-boards.greenhouse.io/anthropic/jobs/5445625008](https://job-boards.greenhouse.io/anthropic/jobs/5445625008)
+- **Location:** Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC
+- **Compensation:** $285,000 — $325,000 USD
+- **ATS Relevance Score:** **60 / 100**
+- **Match Justification:** Direct Title Match: 'It Systems Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation, telemetry) (+15) | Field Service & Implementation (rollout) (+8) | Scripting & Automation (python, automation, telemetry) (+12) | Remote Target Location (+15) | Seniority Cap Penalty: Salary ceiling exceeds $195k ($325,000) (-15)
+- **Tailored PDF Resume:** [outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_macOS_resume.pdf](outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_macOS_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_macOS_cold_email.md](outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_macOS_cold_email.md)
 
 ---
 
@@ -121,6 +121,16 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-10-30 | **Carrot** | [Sr. IT Systems Engineer](https://weworkremotely.com/remote-jobs/carrot-sr-it-systems-engineer) | Remote (US) | **68/100** | $150,000 – $175,000 | [Resume](outputs/resumes/Carrot_Sr_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Carrot_Sr_IT_Systems_Engineer_cold_email.md) |
+| 2026-10-30 | **Baseten** | [IT Support / Operations Engineer (NY)](https://jobs.ashbyhq.com/baseten/4dcdf587-38f3-4363-8033-a453f54b38b0) | New York (Remote) | **64/100** | Not specified | [Resume](outputs/resumes/Baseten_IT_Support_Operations_Engineer_NY_resume.pdf) · [Email](outputs/emails/Baseten_IT_Support_Operations_Engineer_NY_cold_email.md) |
+| 2026-10-30 | **Baseten** | [IT Support / Operations Engineer](https://jobs.ashbyhq.com/baseten/c07eb44f-b5fa-4808-90b7-03b265d97836) | San Francisco (Remote) | **64/100** | Not specified | [Resume](outputs/resumes/Baseten_IT_Support_Operations_Engineer_resume.pdf) · [Email](outputs/emails/Baseten_IT_Support_Operations_Engineer_cold_email.md) |
+| 2026-10-30 | **ClickUp** | [Senior Technical Account Manager - Strategic Services](https://jobicy.com/jobs/157903-senior-technical-account-manager-strategic-services-2) | USA | **63/100** | Not specified | [Resume](outputs/resumes/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_resume.pdf) · [Email](outputs/emails/ClickUp_Senior_Technical_Account_Manager_Strategic_Services_cold_email.md) |
+| 2026-10-30 | **Middesk** | [Solutions Engineer, Enterprise](https://jobs.ashbyhq.com/middesk/6f90b4b1-c122-4f56-bb16-1773802bf148) | New York (Remote) | **63/100** | Not specified | [Resume](outputs/resumes/Middesk_Solutions_Engineer_Enterprise_resume.pdf) · [Email](outputs/emails/Middesk_Solutions_Engineer_Enterprise_cold_email.md) |
+| 2026-10-30 | **Netskope** | [Sr. Solutions Engineer](https://www.netskope.com/company/careers/open-positions/?gh_jid=7942319) | California, United States | **63/100** | $177,500 — $182,000 USD | [Resume](outputs/resumes/Netskope_Sr_Solutions_Engineer_resume.pdf) · [Email](outputs/emails/Netskope_Sr_Solutions_Engineer_cold_email.md) |
+| 2026-10-30 | **Stripe** | [Specialist Solutions Architect, Data](https://stripe.com/jobs/search?gh_jid=8144262) | SF, NY, Remote | **62/100** | Not specified | [Resume](outputs/resumes/Stripe_Specialist_Solutions_Architect_Data_resume.pdf) · [Email](outputs/emails/Stripe_Specialist_Solutions_Architect_Data_cold_email.md) |
+| 2026-10-30 | **Cohere** | [Forward Deployed Engineer, Inference](https://jobs.ashbyhq.com/cohere/8df498e9-aba8-487f-80ba-362b492bad09) | United States | **62/100** | Not specified | [Resume](outputs/resumes/Cohere_Forward_Deployed_Engineer_Inference_resume.pdf) · [Email](outputs/emails/Cohere_Forward_Deployed_Engineer_Inference_cold_email.md) |
+| 2026-10-30 | **Sardine** | [Forward Deployed AI Engineer](https://jobs.ashbyhq.com/sardine/4ff32b5d-13c6-4024-826c-04ed2881d688) | North America (Remote) | **62/100** | Not specified | [Resume](outputs/resumes/Sardine_Forward_Deployed_AI_Engineer_resume.pdf) · [Email](outputs/emails/Sardine_Forward_Deployed_AI_Engineer_cold_email.md) |
+| 2026-10-30 | **Cohere** | [Forward Deployed Engineer, Agentic Platform (Europe)](https://jobs.ashbyhq.com/cohere/2d256112-b336-4539-8133-a0bf7f6698f0) | Europe (Remote) | **62/100** | Not specified | [Resume](outputs/resumes/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_resume.pdf) · [Email](outputs/emails/Cohere_Forward_Deployed_Engineer_Agentic_Platform_Europe_cold_email.md) |
 | 2026-10-29 | **Fivetran** | [Customer Solutions Architect (NYC)](https://www.fivetran.com/careers/job?gh_jid=8047340003) | USA - New York (dbt) | **77/100** | $165,000 — $190,000 USD | [Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_NYC_resume.pdf) · [Email](outputs/emails/Fivetran_Customer_Solutions_Architect_NYC_cold_email.md) |
 | 2026-10-29 | **Gitlab** | [Support Engineer, U.S. Government Support (SHIFT)](https://job-boards.greenhouse.io/gitlab/jobs/8859063002) | Remote, United States | **72/100** | $95,200 — $160,800 USD | [Resume](outputs/resumes/Gitlab_Support_Engineer_US_Government_Support_SHIFT_resume.pdf) · [Email](outputs/emails/Gitlab_Support_Engineer_US_Government_Support_SHIFT_cold_email.md) |
 | 2026-10-29 | **Cloudflare** | [Senior Customer Engineer, Named - Cincinnati, OH](https://boards.greenhouse.io/cloudflare/jobs/7954702?gh_jid=7954702) | Distributed | **72/100** | Not specified | [Resume](outputs/resumes/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_resume.pdf) · [Email](outputs/emails/Cloudflare_Senior_Customer_Engineer_Named_Cincinnati_OH_cold_email.md) |
@@ -156,4 +166,3 @@
 | 2026-10-26 | **Roboflow** | [Named Technical Support Engineer](https://jobicy.com/jobs/153634-named-technical-support-engineer) | USA | **76/100** | $4000/yr | [Resume](outputs/resumes/Roboflow_Named_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Roboflow_Named_Technical_Support_Engineer_cold_email.md) |
 | 2026-10-26 | **Harvey** | [Sr. Systems Engineer, Client Engineering](https://jobs.ashbyhq.com/harvey/d926b184-364b-49f5-a269-bef158c1c408) | San Francisco (Remote) | **68/100** | $153,000 - $210,500 USD | [Resume](outputs/resumes/Harvey_Sr_Systems_Engineer_Client_Engineering_resume.pdf) · [Email](outputs/emails/Harvey_Sr_Systems_Engineer_Client_Engineering_cold_email.md) |
 | 2026-10-26 | **Harvey** | [Sr. Systems Engineer, Client Engineering](https://jobs.ashbyhq.com/harvey/02005c77-4871-4100-8030-27aa08ed7aa7) | New York (Remote) | **68/100** | $153,000 - $210,500 USD | [Resume](outputs/resumes/Harvey_Sr_Systems_Engineer_Client_Engineering_resume.pdf) · [Email](outputs/emails/Harvey_Sr_Systems_Engineer_Client_Engineering_cold_email.md) |
-| 2026-10-23 | **Exeon Analytics** | [Systems Engineer](https://www.arbeitnow.ch/jobs/companies/exeon-analytics/remote-systems-engineer-zurich-94036) | Remote job | **68/100** | Not specified | [Resume](outputs/resumes/Exeon_Analytics_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Exeon_Analytics_Systems_Engineer_cold_email.md) |
