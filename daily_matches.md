@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-11-01 18:25:38  
+**Generated:** 2026-11-02 22:19:06  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,30 +10,20 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Roboflow** | [IT Operations Engineer](https://jobicy.com/jobs/158282-it-operations-engineer) | USA | **84/100** | $4000/yr | [Tailored PDF Resume](outputs/resumes/Roboflow_IT_Operations_Engineer_resume.pdf) · [Cold Email](outputs/emails/Roboflow_IT_Operations_Engineer_cold_email.md) |
-| 2 | **Veeva** | [Senior Implementation Consultant - Marketing & Medical Software (Remote)](https://jobs.lever.co/veeva/66f08a1a-4ce8-4b26-b978-e2872e24c401) | Hungary - Budapest | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_resume.pdf) · [Cold Email](outputs/emails/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_cold_email.md) |
+| 1 | **Natera** | [Forward Deployed AI Solutions Engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer) | USA | **71/100** | $105,700-$132,100 | [Tailored PDF Resume](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf) · [Cold Email](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
 
-### 1. IT Operations Engineer – Roboflow
-- **Direct Application URL:** [https://jobicy.com/jobs/158282-it-operations-engineer](https://jobicy.com/jobs/158282-it-operations-engineer)
+### 1. Forward Deployed AI Solutions Engineer – Natera
+- **Direct Application URL:** [https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer)
 - **Location:** USA
-- **Compensation:** $4000/yr
-- **ATS Relevance Score:** **84 / 100**
-- **Match Justification:** Direct Title Match: 'Operations Engineer' (+25) | Tier 2/3 RCA & Diagnostics (escalation) (+7) | Field Service & Implementation (onboarding) (+8) | Active Directory / SSO / IAM (entra id, sso, mfa) (+16) | Scripting & Automation (python, scripting, automation) (+12) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Roboflow_IT_Operations_Engineer_resume.pdf](outputs/resumes/Roboflow_IT_Operations_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Roboflow_IT_Operations_Engineer_cold_email.md](outputs/emails/Roboflow_IT_Operations_Engineer_cold_email.md)
-
-### 2. Senior Implementation Consultant - Marketing & Medical Software (Remote) – Veeva
-- **Direct Application URL:** [https://jobs.lever.co/veeva/66f08a1a-4ce8-4b26-b978-e2872e24c401](https://jobs.lever.co/veeva/66f08a1a-4ce8-4b26-b978-e2872e24c401)
-- **Location:** Hungary - Budapest
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **60 / 100**
-- **Match Justification:** Direct Title Match: 'Implementation Consultant' (+25) | Imaging/PACS Keywords (medical software) (+12) | Field Service & Implementation (implementation consultant) (+8) | Remote Target Location (+15) | Seniority Cap Exemption: Senior/III/IV technical role within band
-- **Tailored PDF Resume:** [outputs/resumes/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_resume.pdf](outputs/resumes/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_cold_email.md](outputs/emails/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_cold_email.md)
+- **Compensation:** $105,700-$132,100
+- **ATS Relevance Score:** **71 / 100**
+- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (webhooks, llm, agentic) (+10) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (python, scripting, automation) (+12) | ITSM Platforms (ticketing) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md)
 
 ---
 
@@ -41,6 +31,8 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-11-01 | **Roboflow** | [IT Operations Engineer](https://jobicy.com/jobs/158282-it-operations-engineer) | USA | **84/100** | $4000/yr | [Resume](outputs/resumes/Roboflow_IT_Operations_Engineer_resume.pdf) · [Email](outputs/emails/Roboflow_IT_Operations_Engineer_cold_email.md) |
+| 2026-11-01 | **Veeva** | [Senior Implementation Consultant - Marketing & Medical Software (Remote)](https://jobs.lever.co/veeva/66f08a1a-4ce8-4b26-b978-e2872e24c401) | Hungary - Budapest | **60/100** | Not specified | [Resume](outputs/resumes/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_resume.pdf) · [Email](outputs/emails/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_cold_email.md) |
 | 2026-10-31 | **Flexport** | [Senior IT Systems Engineer](https://job-boards.greenhouse.io/flexport/jobs/8337256) | U.S. Remote | **87/100** | $130,000 — $172,000 USD | [Resume](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md) |
 | 2026-10-31 | **Alloy** | [Technical Support Engineer, Triage & Discovery](https://weworkremotely.com/remote-jobs/alloy-technical-support-engineer-triage-discovery) | Remote (US) | **72/100** | $75,000 to $95,000 | [Resume](outputs/resumes/Alloy_Technical_Support_Engineer_Triage_Discovery_resume.pdf) · [Email](outputs/emails/Alloy_Technical_Support_Engineer_Triage_Discovery_cold_email.md) |
 | 2026-10-31 | **Instructure** | [L1 Support Engineer - Spanish Bilingual](https://jobicy.com/jobs/158194-l1-support-engineer-spanish-bilingual) | USA | **66/100** | Not specified | [Resume](outputs/resumes/Instructure_L1_Support_Engineer_Spanish_Bilingual_resume.pdf) · [Email](outputs/emails/Instructure_L1_Support_Engineer_Spanish_Bilingual_cold_email.md) |
