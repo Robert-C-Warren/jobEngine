@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-11-02 22:19:06  
+**Generated:** 2026-11-03 20:06:29  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,20 +10,20 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Natera** | [Forward Deployed AI Solutions Engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer) | USA | **71/100** | $105,700-$132,100 | [Tailored PDF Resume](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf) · [Cold Email](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md) |
+| 1 | **TITAN** | [Forward Deployed Engineer - Managed AI](https://jobicy.com/jobs/158746-forward-deployed-engineer-managed-ai) | USA | **69/100** | $150,000 | [Tailored PDF Resume](outputs/resumes/TITAN_Forward_Deployed_Engineer_Managed_AI_resume.pdf) · [Cold Email](outputs/emails/TITAN_Forward_Deployed_Engineer_Managed_AI_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
 
-### 1. Forward Deployed AI Solutions Engineer – Natera
-- **Direct Application URL:** [https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer)
+### 1. Forward Deployed Engineer - Managed AI – TITAN
+- **Direct Application URL:** [https://jobicy.com/jobs/158746-forward-deployed-engineer-managed-ai](https://jobicy.com/jobs/158746-forward-deployed-engineer-managed-ai)
 - **Location:** USA
-- **Compensation:** $105,700-$132,100
-- **ATS Relevance Score:** **71 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (webhooks, llm, agentic) (+10) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (python, scripting, automation) (+12) | ITSM Platforms (ticketing) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md)
+- **Compensation:** $150,000
+- **ATS Relevance Score:** **69 / 100**
+- **Match Justification:** Direct Title Match: 'Forward Deployed Engineer' (+25) | Imaging/PACS Keywords (medical device) (+12) | Integration & Data Pipelines (llm) (+5) | Field Service & Implementation (deployment) (+8) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
+- **Tailored PDF Resume:** [outputs/resumes/TITAN_Forward_Deployed_Engineer_Managed_AI_resume.pdf](outputs/resumes/TITAN_Forward_Deployed_Engineer_Managed_AI_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/TITAN_Forward_Deployed_Engineer_Managed_AI_cold_email.md](outputs/emails/TITAN_Forward_Deployed_Engineer_Managed_AI_cold_email.md)
 
 ---
 
@@ -31,6 +31,7 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-11-02 | **Natera** | [Forward Deployed AI Solutions Engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer) | USA | **71/100** | $105,700-$132,100 | [Resume](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf) · [Email](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md) |
 | 2026-11-01 | **Roboflow** | [IT Operations Engineer](https://jobicy.com/jobs/158282-it-operations-engineer) | USA | **84/100** | $4000/yr | [Resume](outputs/resumes/Roboflow_IT_Operations_Engineer_resume.pdf) · [Email](outputs/emails/Roboflow_IT_Operations_Engineer_cold_email.md) |
 | 2026-11-01 | **Veeva** | [Senior Implementation Consultant - Marketing & Medical Software (Remote)](https://jobs.lever.co/veeva/66f08a1a-4ce8-4b26-b978-e2872e24c401) | Hungary - Budapest | **60/100** | Not specified | [Resume](outputs/resumes/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_resume.pdf) · [Email](outputs/emails/Veeva_Senior_Implementation_Consultant_Marketing_Medical_Software_Remote_cold_email.md) |
 | 2026-10-31 | **Flexport** | [Senior IT Systems Engineer](https://job-boards.greenhouse.io/flexport/jobs/8337256) | U.S. Remote | **87/100** | $130,000 — $172,000 USD | [Resume](outputs/resumes/Flexport_Senior_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Flexport_Senior_IT_Systems_Engineer_cold_email.md) |
@@ -78,13 +79,3 @@
 | 2026-10-27 | **Upsun** | [Senior IT Systems Engineer](https://weworkremotely.com/remote-jobs/upsun-senior-it-systems-engineer) | Remote (US) | **72/100** | Not specified | [Resume](outputs/resumes/Upsun_Senior_IT_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Upsun_Senior_IT_Systems_Engineer_cold_email.md) |
 | 2026-10-27 | **Sardine** | [Support Engineer](https://jobs.ashbyhq.com/sardine/9755bee1-3e57-4de0-905d-c6f2c144ca57) | United Arab Emirates (Remote) | **67/100** | Not specified | [Resume](outputs/resumes/Sardine_Support_Engineer_resume.pdf) · [Email](outputs/emails/Sardine_Support_Engineer_cold_email.md) |
 | 2026-10-27 | **Fivetran** | [Senior  Staff Systems Engineer, Data & Integrations](https://www.fivetran.com/careers/job?gh_jid=8004964003) | Oakland, California, United States, AMER | **67/100** | $202,787 — $253,483.50 USD | [Resume](outputs/resumes/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_resume.pdf) · [Email](outputs/emails/Fivetran_Senior_Staff_Systems_Engineer_Data_Integrations_cold_email.md) |
-| 2026-10-26 | **Sardine** | [Forward Deployed Engineer, Integrations](https://jobs.ashbyhq.com/sardine/5a6411d4-455f-48d5-a282-7bec2bec3494) | United States / Canada | **81/100** | Not specified | [Resume](outputs/resumes/Sardine_Forward_Deployed_Engineer_Integrations_resume.pdf) · [Email](outputs/emails/Sardine_Forward_Deployed_Engineer_Integrations_cold_email.md) |
-| 2026-10-26 | **Ramp** | [Systems Engineer, Corporate Security](https://jobs.ashbyhq.com/ramp/b3b0875d-cbf2-41ed-bda3-2714c82c4b57) | New York, NY (HQ) (Remote) | **80/100** | $10,000 per year | [Resume](outputs/resumes/Ramp_Systems_Engineer_Corporate_Security_resume.pdf) · [Email](outputs/emails/Ramp_Systems_Engineer_Corporate_Security_cold_email.md) |
-| 2026-10-26 | **Databricks** | [Solutions Architect - Digital Native Business (Healthtech)](https://databricks.com/company/careers/open-positions/job?gh_jid=8782711002) | Remote - California; San Francisco, California | **80/100** | $180,000 — $247,500 USD | [Resume](outputs/resumes/Databricks_Solutions_Architect_Digital_Native_Business_Healthtech_resume.pdf) · [Email](outputs/emails/Databricks_Solutions_Architect_Digital_Native_Business_Healthtech_cold_email.md) |
-| 2026-10-26 | **Sardine** | [Solutions Architect, Integrations (US/CA)](https://jobs.ashbyhq.com/sardine/aabf9a4b-18ef-4932-ac20-4ed07eacd6ca) | North America (Remote) | **77/100** | Not specified | [Resume](outputs/resumes/Sardine_Solutions_Architect_Integrations_USCA_resume.pdf) · [Email](outputs/emails/Sardine_Solutions_Architect_Integrations_USCA_cold_email.md) |
-| 2026-10-26 | **Fivetran** | [Customer Solutions Architect](https://www.fivetran.com/careers/job?gh_jid=7796439003) | USA - Austin (dbt) | **77/100** | $155,000 — $175,000 USD | [Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_resume.pdf) · [Email](outputs/emails/Fivetran_Customer_Solutions_Architect_cold_email.md) |
-| 2026-10-26 | **Supabase** | [Technical Account Management (TAM) Leader](https://jobs.ashbyhq.com/supabase/f52fd120-5fbe-4e0d-949d-01e217ec77d6) | Remote, Global | **76/100** | Not specified | [Resume](outputs/resumes/Supabase_Technical_Account_Management_TAM_Leader_resume.pdf) · [Email](outputs/emails/Supabase_Technical_Account_Management_TAM_Leader_cold_email.md) |
-| 2026-10-26 | **Databricks** | [Solutions Architect - Digital Native Business (Fintech)](https://databricks.com/company/careers/open-positions/job?gh_jid=8862137002) | New Jersey; Remote - Illinois; Remote - Massachusetts; Remote - New York; Remote - North Carolina; Remote - Pennsylvania; Remote - Texas | **76/100** | $180,000 — $247,500 USD | [Resume](outputs/resumes/Databricks_Solutions_Architect_Digital_Native_Business_Fintech_resume.pdf) · [Email](outputs/emails/Databricks_Solutions_Architect_Digital_Native_Business_Fintech_cold_email.md) |
-| 2026-10-26 | **Roboflow** | [Named Technical Support Engineer](https://jobicy.com/jobs/153634-named-technical-support-engineer) | USA | **76/100** | $4000/yr | [Resume](outputs/resumes/Roboflow_Named_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Roboflow_Named_Technical_Support_Engineer_cold_email.md) |
-| 2026-10-26 | **Harvey** | [Sr. Systems Engineer, Client Engineering](https://jobs.ashbyhq.com/harvey/d926b184-364b-49f5-a269-bef158c1c408) | San Francisco (Remote) | **68/100** | $153,000 - $210,500 USD | [Resume](outputs/resumes/Harvey_Sr_Systems_Engineer_Client_Engineering_resume.pdf) · [Email](outputs/emails/Harvey_Sr_Systems_Engineer_Client_Engineering_cold_email.md) |
-| 2026-10-26 | **Harvey** | [Sr. Systems Engineer, Client Engineering](https://jobs.ashbyhq.com/harvey/02005c77-4871-4100-8030-27aa08ed7aa7) | New York (Remote) | **68/100** | $153,000 - $210,500 USD | [Resume](outputs/resumes/Harvey_Sr_Systems_Engineer_Client_Engineering_resume.pdf) · [Email](outputs/emails/Harvey_Sr_Systems_Engineer_Client_Engineering_cold_email.md) |
