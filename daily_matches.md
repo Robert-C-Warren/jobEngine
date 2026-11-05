@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-11-04 20:26:03  
+**Generated:** 2026-11-05 20:39:32  
 **Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  
 **Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,40 +10,11 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **Kustomer** | [Technical Support Engineer](https://jobicy.com/jobs/158090-technical-support-engineer-5) | USA | **95/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Kustomer_Technical_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/Kustomer_Technical_Support_Engineer_cold_email.md) |
-| 2 | **Fivetran** | [Solutions Engineer, Commercial (Austin)](https://www.fivetran.com/careers/job?gh_jid=7792166003) | USA - Austin (dbt) | **67/100** | $160,000 — $190,000 USD | [Tailored PDF Resume](outputs/resumes/Fivetran_Solutions_Engineer_Commercial_Austin_resume.pdf) · [Cold Email](outputs/emails/Fivetran_Solutions_Engineer_Commercial_Austin_cold_email.md) |
-| 3 | **Tanium** | [Field Customer Engineer](https://job-boards.greenhouse.io/tanium/jobs/8346883) | Remote, US | **61/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Tanium_Field_Customer_Engineer_resume.pdf) · [Cold Email](outputs/emails/Tanium_Field_Customer_Engineer_cold_email.md) |
+| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
-
-### 1. Technical Support Engineer – Kustomer
-- **Direct Application URL:** [https://jobicy.com/jobs/158090-technical-support-engineer-5](https://jobicy.com/jobs/158090-technical-support-engineer-5)
-- **Location:** USA
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **95 / 100**
-- **Match Justification:** Direct Title Match: 'Technical Support Engineer' (+25) | Integration & Data Pipelines (rest api, webhooks, json, postman) (+10) | Tier 2/3 RCA & Diagnostics (tier 2, escalation, root cause) (+22) | Field Service & Implementation (runbook) (+8) | Database/SQL Server Diagnostics (sql) (+5) | Scripting & Automation (python, automation, rest api) (+16) | ITSM Platforms (zendesk) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Kustomer_Technical_Support_Engineer_resume.pdf](outputs/resumes/Kustomer_Technical_Support_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Kustomer_Technical_Support_Engineer_cold_email.md](outputs/emails/Kustomer_Technical_Support_Engineer_cold_email.md)
-
-### 2. Solutions Engineer, Commercial (Austin) – Fivetran
-- **Direct Application URL:** [https://www.fivetran.com/careers/job?gh_jid=7792166003](https://www.fivetran.com/careers/job?gh_jid=7792166003)
-- **Location:** USA - Austin (dbt)
-- **Compensation:** $160,000 — $190,000 USD
-- **ATS Relevance Score:** **67 / 100**
-- **Match Justification:** Direct Title Match: 'Solutions Engineer' (+25) | Integration & Data Pipelines (etl) (+5) | Field Service & Implementation (deployment) (+8) | Database/SQL Server Diagnostics (sql server, sql) (+10) | Scripting & Automation (python) (+4) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Fivetran_Solutions_Engineer_Commercial_Austin_resume.pdf](outputs/resumes/Fivetran_Solutions_Engineer_Commercial_Austin_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Fivetran_Solutions_Engineer_Commercial_Austin_cold_email.md](outputs/emails/Fivetran_Solutions_Engineer_Commercial_Austin_cold_email.md)
-
-### 3. Field Customer Engineer – Tanium
-- **Direct Application URL:** [https://job-boards.greenhouse.io/tanium/jobs/8346883](https://job-boards.greenhouse.io/tanium/jobs/8346883)
-- **Location:** Remote, US
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **61 / 100**
-- **Match Justification:** Direct Title Match: 'Customer Engineer' (+25) | Integration & Data Pipelines (agentic) (+5) | Field Service & Implementation (deployment) (+8) | Scripting & Automation (scripting, automation) (+8) | Remote Target Location (+15)
-- **Tailored PDF Resume:** [outputs/resumes/Tanium_Field_Customer_Engineer_resume.pdf](outputs/resumes/Tanium_Field_Customer_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Tanium_Field_Customer_Engineer_cold_email.md](outputs/emails/Tanium_Field_Customer_Engineer_cold_email.md)
 
 ---
 
@@ -51,6 +22,9 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-11-04 | **Kustomer** | [Technical Support Engineer](https://jobicy.com/jobs/158090-technical-support-engineer-5) | USA | **95/100** | Not specified | [Resume](outputs/resumes/Kustomer_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Kustomer_Technical_Support_Engineer_cold_email.md) |
+| 2026-11-04 | **Fivetran** | [Solutions Engineer, Commercial (Austin)](https://www.fivetran.com/careers/job?gh_jid=7792166003) | USA - Austin (dbt) | **67/100** | $160,000 — $190,000 USD | [Resume](outputs/resumes/Fivetran_Solutions_Engineer_Commercial_Austin_resume.pdf) · [Email](outputs/emails/Fivetran_Solutions_Engineer_Commercial_Austin_cold_email.md) |
+| 2026-11-04 | **Tanium** | [Field Customer Engineer](https://job-boards.greenhouse.io/tanium/jobs/8346883) | Remote, US | **61/100** | Not specified | [Resume](outputs/resumes/Tanium_Field_Customer_Engineer_resume.pdf) · [Email](outputs/emails/Tanium_Field_Customer_Engineer_cold_email.md) |
 | 2026-11-03 | **TITAN** | [Forward Deployed Engineer - Managed AI](https://jobicy.com/jobs/158746-forward-deployed-engineer-managed-ai) | USA | **69/100** | $150,000 | [Resume](outputs/resumes/TITAN_Forward_Deployed_Engineer_Managed_AI_resume.pdf) · [Email](outputs/emails/TITAN_Forward_Deployed_Engineer_Managed_AI_cold_email.md) |
 | 2026-11-02 | **Natera** | [Forward Deployed AI Solutions Engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer) | USA | **71/100** | $105,700-$132,100 | [Resume](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf) · [Email](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md) |
 | 2026-11-01 | **Roboflow** | [IT Operations Engineer](https://jobicy.com/jobs/158282-it-operations-engineer) | USA | **84/100** | $4000/yr | [Resume](outputs/resumes/Roboflow_IT_Operations_Engineer_resume.pdf) · [Email](outputs/emails/Roboflow_IT_Operations_Engineer_cold_email.md) |
@@ -81,13 +55,3 @@
 | 2026-10-29 | **Zocdoc** | [Senior Site Reliability Engineer](https://job-boards.greenhouse.io/zocdoc/jobs/8227742) | New York, NY; USA Remote | **68/100** | $180,000 — $220,000 USD | [Resume](outputs/resumes/Zocdoc_Senior_Site_Reliability_Engineer_resume.pdf) · [Email](outputs/emails/Zocdoc_Senior_Site_Reliability_Engineer_cold_email.md) |
 | 2026-10-29 | **Anthropic** | [IT Systems Engineer, Client Platform Engineer, ChromeOS](https://job-boards.greenhouse.io/anthropic/jobs/5456018008) | Boston, MA; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY; Washington, DC | **65/100** | $325,000 — $360,000 USD | [Resume](outputs/resumes/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_resume.pdf) · [Email](outputs/emails/Anthropic_IT_Systems_Engineer_Client_Platform_Engineer_ChromeOS_cold_email.md) |
 | 2026-10-29 | **New Law Business Model** | [Solutions Engineer - Customer Success](https://weworkremotely.com/remote-jobs/new-law-business-model-solutions-engineer-customer-success) | Remote (US) | **63/100** | $40.87–$45.67 | [Resume](outputs/resumes/New_Law_Business_Model_Solutions_Engineer_Customer_Success_resume.pdf) · [Email](outputs/emails/New_Law_Business_Model_Solutions_Engineer_Customer_Success_cold_email.md) |
-| 2026-10-28 | **Fivetran** | [Customer Solutions Architect (Denver)](https://www.fivetran.com/careers/job?gh_jid=8047327003) | Denver, Colorado, United States, AMER | **77/100** | $155,000 — $175,000 USD | [Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_Denver_resume.pdf) · [Email](outputs/emails/Fivetran_Customer_Solutions_Architect_Denver_cold_email.md) |
-| 2026-10-28 | **Fivetran** | [Customer Solutions Architect (Austin)](https://www.fivetran.com/careers/job?gh_jid=7796439003) | USA - Austin (dbt) | **77/100** | $155,000 — $175,000 USD | [Resume](outputs/resumes/Fivetran_Customer_Solutions_Architect_Austin_resume.pdf) · [Email](outputs/emails/Fivetran_Customer_Solutions_Architect_Austin_cold_email.md) |
-| 2026-10-28 | **Tailscale** | [Senior Solutions Engineer, Enterprise](https://job-boards.greenhouse.io/tailscale/jobs/4741470005) | Remote (United States) | **73/100** | $250,000 — $300,000 USD | [Resume](outputs/resumes/Tailscale_Senior_Solutions_Engineer_Enterprise_resume.pdf) · [Email](outputs/emails/Tailscale_Senior_Solutions_Engineer_Enterprise_cold_email.md) |
-| 2026-10-28 | **Elevenlabs** | [IT Support Engineer](https://jobs.ashbyhq.com/elevenlabs/750a8325-7ce1-45ea-b0b1-61dab78a456e) | New York (Remote) | **69/100** | Not specified | [Resume](outputs/resumes/Elevenlabs_IT_Support_Engineer_resume.pdf) · [Email](outputs/emails/Elevenlabs_IT_Support_Engineer_cold_email.md) |
-| 2026-10-28 | **Zscaler** | [Senior Enterprise Platforms & AI Systems Engineer](https://job-boards.greenhouse.io/zscaler/jobs/5167475007) | Denver, Colorado, USA; San Jose, California, USA | **69/100** | $124,000 — $155,000 USD | [Resume](outputs/resumes/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_resume.pdf) · [Email](outputs/emails/Zscaler_Senior_Enterprise_Platforms_AI_Systems_Engineer_cold_email.md) |
-| 2026-10-28 | **Langchain** | [Senior Technical Support Engineer](https://jobs.ashbyhq.com/langchain/8aa63e71-b431-49d7-ab4a-bf4b3630d8e6) | San Francisco, CA (Remote) | **68/100** | $130,000 - $195,000 USD | [Resume](outputs/resumes/Langchain_Senior_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Langchain_Senior_Technical_Support_Engineer_cold_email.md) |
-| 2026-10-28 | **ExtraHop** | [Sr Solutions Architect](https://remoteOK.com/remote-jobs/remote-sr-solutions-architect-extrahop-1137394) | Remote | **68/100** | Not specified | [Resume](outputs/resumes/ExtraHop_Sr_Solutions_Architect_resume.pdf) · [Email](outputs/emails/ExtraHop_Sr_Solutions_Architect_cold_email.md) |
-| 2026-10-28 | **Databricks** | [Specialist Solutions Architect - Azure Infrastructure & AI Platform](https://databricks.com/company/careers/open-positions/job?gh_jid=8739507002) | United States | **68/100** | $180,000 — $247,500 USD | [Resume](outputs/resumes/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_resume.pdf) · [Email](outputs/emails/Databricks_Specialist_Solutions_Architect_Azure_Infrastructure_AI_Platform_cold_email.md) |
-| 2026-10-28 | **Databricks** | [Specialist Solutions Architect - AWS Infrastructure & AI Platform](https://databricks.com/company/careers/open-positions/job?gh_jid=8739506002) | United States | **68/100** | $180,000 — $247,500 USD | [Resume](outputs/resumes/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_resume.pdf) · [Email](outputs/emails/Databricks_Specialist_Solutions_Architect_AWS_Infrastructure_AI_Platform_cold_email.md) |
-| 2026-10-28 | **Sardine** | [Support Engineer Europe](https://jobs.ashbyhq.com/sardine/cd94c5a4-6ad8-469a-b4cd-6ac5368800bd) | Europe (Remote) | **67/100** | Not specified | [Resume](outputs/resumes/Sardine_Support_Engineer_Europe_resume.pdf) · [Email](outputs/emails/Sardine_Support_Engineer_Europe_cold_email.md) |
