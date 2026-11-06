@@ -4,17 +4,16 @@
 ---
 
 ## Professional Summary
-High-performing Systems & Technical Support Specialist with deep experience resolving complex Tier 2 / Tier 3 infrastructure, medical/dental diagnostic imaging equipment, and software escalations. Proven ability in log-driven root cause analysis (RCA), SQL Server database diagnostics, Windows OS internals, networking fundamentals, and clinical/hardware workflow troubleshooting. Skilled in developing automation scripts (PowerShell, Python) to streamline technical operations, accelerate issue resolution, and bridge field operations with software/hardware engineering teams.
+High-performing Technical & Application Support Specialist with deep experience resolving complex Tier 2 / Tier 3 software, database, and enterprise system escalations. Proven ability in log-driven root cause analysis (RCA) using Windows Event Viewer, Procmon, CBS logs, and SQL Server logs to isolate complex bugs and data integrity issues. Skilled in reproducing defects, partnering directly with engineering and QA teams on escalations, and developing automation scripts (PowerShell, Python) to streamline technical operations.
 
 ---
 
 ## Core Competencies & Technical Skills
-- **Imaging & Medical Devices:** Digital Imaging Systems, PACS & DICOM workflows, sensor calibration, medical/dental diagnostic software, peripheral hardware integration (USB/serial/IP devices), driver stack triage (libusbK, WinUSB).
-- **Operating Systems & Low-Level Diagnostics:** Windows Server, Windows 10/11, Sysinternals Suite (Process Explorer, Procmon), Windows Event Viewer, Crash Dump Analysis, peripheral enumeration, registry tracing, hardware/software fault isolation.
-- **Data Layers & Database Diagnostics:** SQL Server (Runtime Triage, Query Profiling, Execution Log Analysis, index checks, deadlock troubleshooting), REST API Debugging, Payload Validation, Schema Integrity.
-- **Networking & Identity / Access:** TCP/IP, DNS, DHCP, VPN configurations, corporate routing fundamentals, Wireshark packet analysis, Active Directory, Azure AD / Entra ID, SSO/SAML, MFA provisioning.
-- **Systems Scripting & Tooling:** PowerShell, Python, Go, SQL, TypeScript, Node.js, Bash, ServiceNow, Oracle Ticketing, Git, Postman.
-- **Field & Implementation Support:** Customer site escalation management, deployment blueprints, technical runbooks, client onboarding, root cause analysis (RCA) reporting, hardware replacement and firmware diagnostics.
+- **Root-Cause Analysis & Log Diagnostics:** Windows Event Viewer, Sysinternals Suite (Procmon, Process Explorer), CBS Logs (Component-Based Servicing / installer & update diagnostics), Application & Crash Dump Analysis, Registry & File-System Tracing, Bug Reproduction.
+- **Database & Data Integrity Troubleshooting:** SQL Server (SQL Error Logs, Runtime Triage, Query Profiling, Execution Log Analysis, Deadlock & Timeout Troubleshooting), Relational Database Querying, Batch Data Synchronization, Schema Integrity.
+- **APIs, Integrations & Technical Stack:** REST APIs, JSON Payload Validation, Postman, Webhooks, Client-Server Architecture, DICOM/PACS Data Flow, TCP/IP, DNS, DHCP, VPNs.
+- **Engineering Escalation & Support Operations:** Tier 2 / Tier 3 Defect Triage, Engineering & QA Bug Escalation, Technical Runbooks, SOP Authoring, Client Onboarding, ServiceNow, Jira, Oracle Ticketing.
+- **Scripting & Development:** PowerShell, Python, SQL, Go, TypeScript, Node.js, Bash, Git.
 
 ---
 
@@ -22,13 +21,13 @@ High-performing Systems & Technical Support Specialist with deep experience reso
 
 ### Midmark Corporation | Versailles, OH
 **Associate Technical Service Specialist** | *Jun 2024 – Sep 2026*
-- Managed high-severity Tier 2/Tier 3 technical escalations for clinical and diagnostic imaging software, isolating application crashes, driver conflicts, and OS faults using Sysinternals and Windows Event Viewer.
-- Supported healthcare and dental imaging hardware/software ecosystems, troubleshooting digital sensor communication, peripheral connectivity (USB/IP), and DICOM/PACS data flow integrity.
-- Conducted root-cause investigations into SQL Server runtime issues, resolving query timeouts, database connectivity drops, and batch data synchronization failures across distributed client-server environments.
-- Handled identity and access management incidents across Active Directory and Entra ID (Azure AD), troubleshooting SAML/SSO token handshakes, security groups, and MFA configurations.
-- Engineered custom PowerShell and Python automation scripts to collect diagnostic logs, parse telemetry outputs, and deploy configuration patches, cutting recurring incident resolution times by 35%.
-- Partnered with software and hardware engineering teams to escalate reproducible bugs with complete crash dumps, network traces, and SQL execution plans to expedite patch releases.
-- Authored standardized deployment blueprints, technical runbooks, and internal SOPs to document complex environment workarounds, reducing escalation cycle times across the team.
+- Managed high-severity Tier 2/Tier 3 software escalations for clinical and enterprise imaging applications, isolating complex application crashes, installer failures, and OS-level faults using Windows Event Viewer, Procmon, and CBS logs.
+- Conducted deep root-cause investigations into SQL Server runtime issues, analyzing SQL logs to resolve query timeouts, database connectivity drops, and data integrity/synchronization failures across client-server environments.
+- Traced file-system mutations, registry keys, and background process activity with Sysinternals Procmon to reproduce elusive software defects and configuration conflicts.
+- Partnered directly with software engineering and QA teams to escalate verified Tier 2/Tier 3 bugs with complete reproduction steps, Event Viewer/CBS log bundles, Procmon traces, and SQL execution logs to expedite patch releases.
+- Engineered custom PowerShell and Python automation scripts to collect diagnostic logs, parse telemetry outputs, and deploy configuration fixes, cutting recurring incident resolution times by 35%.
+- Troubleshot application data workflows and DICOM/PACS integration pipelines, ensuring reliable data transmission and schema integrity across connected clinical software platforms.
+- Authored standardized technical runbooks and internal SOPs documenting complex log-triage workflows and workarounds, reducing escalation cycle times across the support organization.
 
 ### Quality Boat Salvage | Pasadena, CA
 **Data & Operations Systems Specialist** | *Mar 2023 – Jun 2024*

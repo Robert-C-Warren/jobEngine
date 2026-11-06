@@ -1,16 +1,25 @@
 """
 match_and_tailor.py - ATS Resume Matching, Scoring & Asset Generation Engine.
 
-Reads master_resume.md, evaluates unauthenticated scraped job listings in jobs.db,
-extracts key technical requirements, computes ATS match scores (0-100),
-filters roles, reorders resume bullets without fabricating experience,
-generates tailored resumes and 3-paragraph cold outreach emails for roles >= 60,
-outputs a terminal summary table, and writes daily_matches.md.
+Evaluates job listings in jobs.db using the Solutions Engineering Bridge rubric:
+- 5 REQUIRED DNA pillars (+20 points each):
+  1. B2B SaaS / Enterprise Software Environment
+  2. Root-Cause Analysis (investigating complex bugs, reading logs: Event Viewer, CBS logs, Procmon, stack traces, reproducing issues)
+  3. Database Interaction (SQL, SQL logs, database querying, data integrity troubleshooting)
+  4. Engineering Escalation (working directly with QA, developers, or product teams on Tier 2/3 issues)
+  5. Technical Stack (APIs, JSON, webhooks, cloud infrastructure, or client-server diagnostics)
+- TRAP JOB PENALTIES (-50 points each; immediate rejection/0 if two or more are found):
+  - Tier 1 IT Helpdesk or internal corporate IT support
+  - Hardware troubleshooting, printer repair, or desktop provisioning
+  - Active Directory administration or basic Office 365 password resets
+  - High-volume inbound call center metrics
+  - Pure SWE/SRE/DevOps or senior quota-carrying Pre-Sales roles
 """
 
 import sys
 import os
 import re
+import json
 import time
 import sqlite3
 from pathlib import Path
@@ -25,6 +34,7 @@ from db import (
 )
 from resume_exporter import export_resume_pdf
 from fetch_jobs import parse_and_validate_salary, is_valid_location
+from evaluator import evaluate_job_description
 
 MASTER_RESUME_FILE = ROOT_DIR / "master_resume.md"
 RESUMES_DIR = ROOT_DIR / "outputs" / "resumes"
@@ -35,130 +45,153 @@ DAILY_MATCHES_FILE = ROOT_DIR / "daily_matches.md"
 RESUMES_DIR.mkdir(parents=True, exist_ok=True)
 EMAILS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Keyword taxonomies with priority weights (Strict word boundaries)
-PRIORITY_KEYWORDS = {
-    # Tier 1: PACS, DICOM, Imaging & Medical Device Hardware (Top Priority)
-    "imaging_pacs": {
-        "weight": 35,
+# ---------------------------------------------------------------------------
+# REQUIRED DNA TAXONOMY (+20 points per pillar, max 100 points)
+# ---------------------------------------------------------------------------
+DNA_PILLARS = {
+    "b2b_saas": {
+        "label": "DNA 1: B2B SaaS / Enterprise Software",
+        "points": 20.0,
         "terms": [
-            "pacs", "dicom", "imaging", "diagnostic imaging", "ultrasound",
-            "modality", "sensor", "calibration", "medical device", "clinical systems",
-            "radiology", "hl7", "healthtech", "biomedical", "medical software"
+            "saas", "b2b", "software platform", "enterprise software", "cloud platform",
+            "web application", "enterprise platform", "multi-tenant", "software product",
+            "application platform", "clinical software", "diagnostic software", "data platform"
         ]
     },
-    # Tier 2: Tier 2/3 Escalations, Root Cause Analysis & Low-Level Diagnostics
-    "escalations_diagnostics": {
-        "weight": 30,
+    "root_cause_analysis": {
+        "label": "DNA 2: Root-Cause Analysis & Log Triage",
+        "points": 20.0,
         "terms": [
-            "tier 2", "tier 3", "tier ii", "tier iii", "l2", "l3", "escalation",
-            "root cause", "root cause analysis", "rca", "sysinternals", "process explorer",
-            "procmon", "event viewer", "windows event", "crash dump", "memory dump",
-            "fault isolation", "hardware diagnostics", "peripheral", "device driver",
-            "drivers", "firmware", "usb", "libusbk", "registry tracing", "defect triage",
-            "bug reproduction", "telemetry"
+            "root cause", "root-cause", "rca", "event viewer", "windows event",
+            "procmon", "process monitor", "sysinternals", "cbs log", "cbs logs",
+            "log analysis", "reading logs", "analyze logs", "system logs", "application logs",
+            "server logs", "error logs", "diagnostic logs", "stack trace", "stack traces",
+            "crash dump", "memory dump", "reproduce", "reproducing", "bug reproduction",
+            "complex bugs", "defect triage", "fault isolation", "registry tracing", "troubleshooting"
         ]
     },
-    # Tier 3: Field Service, Implementation & Client Engineering
-    "field_implementation": {
-        "weight": 25,
+    "database_interaction": {
+        "label": "DNA 3: Database & SQL Interaction",
+        "points": 20.0,
         "terms": [
-            "field service", "field engineer", "implementation specialist",
-            "implementation consultant", "deployment", "rollout", "onboarding",
-            "runbook", "sop", "client onboarding", "site deployment", "integration engineer",
-            "solutions integration", "technical service"
+            "sql", "sql server", "postgresql", "postgres", "mysql", "database querying",
+            "sql logs", "query", "queries", "data integrity", "relational database",
+            "database diagnostics", "schema", "deadlock", "query timeout", "data sync",
+            "data synchronization", "stored procedure", "database troubleshooting"
         ]
     },
-    # Tier 4: Database Diagnostics & Data Integrity
-    "database_sql": {
-        "weight": 15,
+    "engineering_escalation": {
+        "label": "DNA 4: Engineering & QA Escalation (Tier 2/3)",
+        "points": 20.0,
         "terms": [
-            "sql server", "sql", "query profiling", "deadlock", "timeout",
-            "database diagnostics", "stored procedure", "execution log",
-            "relational database", "schema integrity", "data pipeline"
+            "tier 2", "tier 3", "tier ii", "tier iii", "l2", "l3", "escalation", "escalations",
+            "engineering team", "development team", "developers", "qa", "quality assurance",
+            "product team", "product teams", "r&d", "bug report", "bug reports", "defect escalation",
+            "jira", "escalate bugs", "escalating issues"
         ]
     },
-    # Tier 5: Networking & Infrastructure
-    "networking": {
-        "weight": 15,
+    "technical_stack": {
+        "label": "DNA 5: Technical Stack (APIs, JSON, Webhooks, Cloud)",
+        "points": 20.0,
         "terms": [
-            "tcp/ip", "dns", "dhcp", "vpn", "routing", "wireshark",
-            "network trace", "packet analysis", "firewall", "lan/wan", "subnet"
-        ]
-    },
-    # Tier 6: Identity, Access & IAM
-    "identity_iam": {
-        "weight": 12,
-        "terms": [
-            "active directory", "azure ad", "entra id", "sso", "saml",
-            "mfa", "identity management", "iam", "access control", "user provisioning"
-        ]
-    },
-    # Tier 7: Scripting, Automation & APIs
-    "scripting_automation": {
-        "weight": 12,
-        "terms": [
-            "powershell", "python", "scripting", "automation", "rest api",
-            "api debugging", "postman", "telemetry", "payload validation", "log parsing"
-        ]
-    },
-    # Tier 8: ITSM & Support Platforms
-    "itsm_tooling": {
-        "weight": 8,
-        "terms": [
-            "servicenow", "jira", "zendesk", "oracle ticketing", "ticketing",
-            "incident resolution", "sla", "csat"
-        ]
-    },
-    # Tier 9: Integration, APIs & Data Pipelines (FDE / Integration Primitives)
-    "integration_data_pipeline": {
-        "weight": 20,
-        "terms": [
-            "rest api", "restful", "webhook", "webhooks", "json", "data mapping",
-            "data pipeline", "etl", "hl7", "fhir", "dicom", "pacs", "sftp",
-            "postman", "workato", "mulesoft", "ipaas", "sdk", "llm", "agentic"
+            "api", "apis", "rest api", "restful", "json", "webhook", "webhooks",
+            "postman", "sdk", "aws", "azure", "gcp", "cloud infrastructure", "python",
+            "powershell", "hl7", "dicom", "pacs", "sftp", "etl", "data pipeline", "graphql"
         ]
     }
 }
 
-# Compile keywords with strict word boundaries
-COMPILED_PRIORITY_KEYWORDS = {
-    cat_name: {
-        "weight": cat_data["weight"],
+COMPILED_DNA_PILLARS = {
+    pillar_key: {
+        "label": pillar_data["label"],
+        "points": pillar_data["points"],
         "patterns": [
             (term, re.compile(r"\b" + re.escape(term) + r"\b", re.IGNORECASE))
-            for term in cat_data["terms"]
+            for term in pillar_data["terms"]
         ]
     }
-    for cat_name, cat_data in PRIORITY_KEYWORDS.items()
+    for pillar_key, pillar_data in DNA_PILLARS.items()
 }
 
-TARGET_TITLES_ALIGNMENT = [
-    "forward deployed engineer", "forward deployed", "fde",
-    "deployment engineer", "deployment strategist",
-    "solutions integration engineer", "solutions integration",
-    "solutions engineer", "solutions architect", "solutions consultant", "solutions specialist",
-    "integration engineer", "integrations engineer", "integration specialist",
-    "implementation engineer", "implementation specialist", "implementation consultant",
-    "technical account manager", "tam", "customer engineer", "partner engineer",
-    "technical support specialist", "technical support engineer", "technical support",
-    "support engineer", "support specialist", "application support specialist", "application support",
-    "systems support specialist", "systems support", "systems engineer", "it systems engineer",
-    "it support specialist", "it support analyst", "it support engineer", "desktop support",
-    "technical escalations engineer", "technical escalation", "escalations engineer", "escalation engineer",
-    "tier 2", "tier 3", "tier ii", "tier iii", "l2 support", "l3 support",
-    "pacs support analyst", "pacs", "imaging support specialist", "imaging support",
-    "clinical support", "clinical systems",
-    "field service engineer", "field service", "field engineer", "field technician", "service engineer",
-    "technical operations", "operations engineer", "site reliability engineer", "site reliability", "sre",
-    "onboarding engineer", "technical onboarding",
-    "customer support engineer", "customer support specialist", "client support engineer", "client support specialist"
+# ---------------------------------------------------------------------------
+# TRAP JOB PENALTIES (-50 points each; reject immediately if >= 2 found)
+# ---------------------------------------------------------------------------
+TRAP_RULES = [
+    (
+        "Tier 1 IT Helpdesk / Internal Corporate IT",
+        [
+            r"\btier\s*1\s+(?:it|help\s*desk|support)\b",
+            r"\bl1\s+(?:it|help\s*desk)\b",
+            r"\bhelp\s*desk\b",
+            r"\binternal\s+it\b",
+            r"\bcorporate\s+it\b",
+            r"\bit\s+support\s+(?:specialist|engineer|analyst|technician)\b",
+            r"\bit\s+systems\s+engineer\b",
+            r"\bworkplace\s+technology\b",
+            r"\bemployee\s+onboarding\s+and\s+offboarding\b"
+        ]
+    ),
+    (
+        "Hardware Troubleshooting / Printer Repair / Desktop Provisioning",
+        [
+            r"\bprinter\s+repair\b",
+            r"\bprinters?\s+and\s+(?:copiers?|scanners?|peripherals?)\b",
+            r"\bdesktop\s+provisioning\b",
+            r"\blaptop\s+provisioning\b",
+            r"\bdesktop\s+support\b",
+            r"\bimaging\s+laptops\b",
+            r"\bworkstation\s+setup\b",
+            r"\bconference\s+room\s+av\b",
+            r"\ba/v\s+equipment\b",
+            r"\bbreak/fix\b"
+        ]
+    ),
+    (
+        "Active Directory Administration / Basic O365 Password Resets",
+        [
+            r"\bactive\s+directory\s+administration\b",
+            r"\bpassword\s+resets?\b",
+            r"\boffice\s*365\s+admin(?:istration)?\b",
+            r"\bo365\s+admin(?:istration)?\b",
+            r"\bgoogle\s+workspace\s+admin(?:istration)?\b",
+            r"\baccount\s+lockouts?\b",
+            r"\buser\s+provisioning\s+and\s+deprovisioning\b"
+        ]
+    ),
+    (
+        "High-Volume Inbound Call Center Metrics",
+        [
+            r"\bcall\s+center\b",
+            r"\bsmile\s+on\s+the\s+phone\b",
+            r"\bhigh-volume\s+inbound\s+calls?\b",
+            r"\binbound\s+call\s+center\b",
+            r"\baverage\s+handle\s+time\b",
+            r"\bthis\s+is\s+not\s+your\s+role\b"
+        ]
+    ),
+    (
+        "Overshot Seniority / Pure DevOps-SRE / Quota-Carrying Pre-Sales",
+        [
+            r"\bsite\s+reliability\s+engineer\b",
+            r"\bdevops\s+engineer\b",
+            r"\bquota-carrying\b",
+            r"\bcarry(?:ing)?\s+(?:a\s+)?(?:direct\s+)?(?:sales\s+)?quota\b",
+            r"\bdirect\s+sales\s+quota\b",
+            r"\bexceed\s+(?:our\s+)?sales\s+targets\b",
+            r"\bmeet\s+or\s+exceed\s+(?:our\s+)?sales\s+(?:targets|quotas?)\b"
+        ]
+    )
 ]
 
-# Sort titles by length descending so longer phrases match first, compiled with word boundaries
-SORTED_TARGET_TITLES = sorted(TARGET_TITLES_ALIGNMENT, key=len, reverse=True)
-COMPILED_TARGET_TITLES = [
-    (target, re.compile(r"\b" + re.escape(target) + r"\b", re.IGNORECASE))
-    for target in SORTED_TARGET_TITLES
+COMPILED_TRAP_RULES = [
+    (trap_name, [re.compile(pat, re.IGNORECASE) for pat in patterns])
+    for trap_name, patterns in TRAP_RULES
+]
+
+# Title-level disqualifiers for immediate rejection
+DISQUALIFIED_TITLE_PATTERNS = [
+    re.compile(r"\b(help\s*desk|desktop\s+support|it\s+support|it\s+systems\s+engineer|corporate\s+it|internal\s+it|workplace\s+tech|endpoint\s+engineer|site\s+reliability|sre|devops|field\s+service)\b", re.IGNORECASE),
+    re.compile(r"\b(principal|staff|director|vp|vice\s+president|head\s+of|chief)\b", re.IGNORECASE)
 ]
 
 EXCLUSION_TERMS = [
@@ -167,36 +200,8 @@ EXCLUSION_TERMS = [
     "usajobs", "military clearance", "cleared professional", "clearance required"
 ]
 
-# Culture red-flags for customer-service burnout / call-center cliches (-25 pts)
-CULTURE_RED_FLAGS = [
-    (re.compile(r"\bnot\s+(?:at\s+)?customer\s+relations\s+this\s+is\s+not\s+your\s+role\b", re.IGNORECASE), "Not customer relations / not your role"),
-    (re.compile(r"\bthis\s+is\s+not\s+your\s+role\b", re.IGNORECASE), "This is not your role"),
-    (re.compile(r"\bsmile\s+on\s+the\s+phone\b", re.IGNORECASE), "Smile on the phone"),
-    (re.compile(r"\bcall\s+center\s+environment\b", re.IGNORECASE), "Call center environment"),
-    (re.compile(r"\bcall\s+center\b", re.IGNORECASE), "Call center environment")
-]
-
-# Strict Ohio target locations (+20 pts)
 OHIO_TARGET_TERMS = ["dayton", "columbus", "cincinnati", "mason", "fairfield", "cleveland", "ohio"]
 
-# Explicit Remote target terms (+15 pts)
-REMOTE_TARGET_TERMS = ["remote", "anywhere", "work from home", "virtual", "distributed"]
-
-# Seniority cap patterns (-15 pts for executive/staff level or > $195k salary ceiling)
-EXECUTIVE_SENIORITY_PATTERN = re.compile(r"\b(principal|staff|director|vp|head\s+of)\b", re.IGNORECASE)
-
-# Pre-sales vs. Technical Implementation patterns (-20 pts)
-STRONG_PRESALES_PATTERNS = [
-    (re.compile(r"\bpre-sales\b", re.IGNORECASE), "pre-sales"),
-    (re.compile(r"\bpresales\b", re.IGNORECASE), "presales"),
-    (re.compile(r"\baccount\s+executives?\b", re.IGNORECASE), "account executive"),
-    (re.compile(r"\bsales\s+cycles?\b", re.IGNORECASE), "sales cycle"),
-    (re.compile(r"\brfps?\b", re.IGNORECASE), "RFP")
-]
-GENERIC_PRESALES_PATTERNS = [
-    (re.compile(r"\bquotas?\b", re.IGNORECASE), "quota"),
-    (re.compile(r"\bcommissions?\b", re.IGNORECASE), "commission")
-]
 BOILERPLATE_PRESALES_PATTERNS = [
     re.compile(r"\(for quota-based roles\)", re.IGNORECASE),
     re.compile(r"bonus or commission", re.IGNORECASE),
@@ -204,6 +209,7 @@ BOILERPLATE_PRESALES_PATTERNS = [
     re.compile(r"base salary and target commission", re.IGNORECASE),
     re.compile(r"equal employment opportunity", re.IGNORECASE)
 ]
+
 
 def parse_max_salary_for_scoring(salary_str: str) -> float:
     """Extract maximum annual salary from salary_range string, normalizing hourly rates to annual."""
@@ -215,13 +221,13 @@ def parse_max_salary_for_scoring(salary_str: str) -> float:
         clean_n = n.replace(",", "")
         try:
             val = float(clean_n)
-            # If hourly (< 500), convert to annual based on 2080 hours
             if val < 500:
                 val = val * 2080
             vals.append(val)
         except ValueError:
             pass
     return max(vals) if vals else 0.0
+
 
 def load_master_resume(resume_path: Path = MASTER_RESUME_FILE) -> str:
     """Load text of master resume."""
@@ -232,121 +238,26 @@ def load_master_resume(resume_path: Path = MASTER_RESUME_FILE) -> str:
         raise FileNotFoundError(f"Resume file not found at {resume_path}")
     return resume_path.read_text(encoding="utf-8")
 
-def extract_job_keywords(text: str) -> Dict[str, List[str]]:
-    """Extract matching technical keywords grouped by category from job text using strict word boundaries."""
-    matched_categories = {}
-    for cat_name, cat_data in COMPILED_PRIORITY_KEYWORDS.items():
-        found = []
-        for term, pattern in cat_data["patterns"]:
-            if pattern.search(text):
-                found.append(term)
-        if found:
-            matched_categories[cat_name] = found
-    return matched_categories
 
-def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
-    """
-    Compute ATS match score from 0 to 100 based on technical keyword overlap.
-    Returns (score, list_of_matching_reasons).
-    """
-    title = job.get("title", "")
-    description = job.get("description", "")
-    combined_text = f"{title} {description}"
+def parse_stored_evaluation(eval_raw: Any) -> Optional[Dict[str, Any]]:
+    """Parse stored Gemini evaluation JSON if it uses the new recruiter schema."""
+    if not eval_raw:
+        return None
+    try:
+        data = json.loads(eval_raw) if isinstance(eval_raw, str) else eval_raw
+        if isinstance(data, dict) and "score" in data and "reasoning" in data:
+            return data
+    except Exception:
+        pass
+    return None
 
-    # Strict Exclusion Check
-    for ex in EXCLUSION_TERMS:
-        if re.search(r"\b" + re.escape(ex) + r"\b", combined_text, re.IGNORECASE):
-            return (0.0, [f"Disqualified: Security clearance / government restriction ({ex})"])
 
-    location = job.get("location", "")
-    salary_str = job.get("salary_range", "")
+def check_location_eligibility(location: str, title: str, description: str, salary_str: str) -> Tuple[bool, str]:
+    """Verify job is either in Ohio or US Remote (and not onsite-only out of state)."""
     if not is_valid_location(location, title, description, salary_str):
-        return (0.0, ["Disqualified: Non-US, Versailles, or offshore location without US presence"])
+        return (False, "Disqualified: Non-US, Versailles, or offshore location without US presence")
 
-    match_reasons = []
-    total_score = 0.0
-
-    # 1. Target Title Alignment (Max 25 pts) - strict word boundaries
-    title_points = 0.0
-    for target, pat in COMPILED_TARGET_TITLES:
-        if pat.search(title):
-            title_points = 25.0
-            match_reasons.append(f"Direct Title Match: '{target.title()}' (+25)")
-            break
-    if title_points == 0:
-        # Partial title match using strict word boundaries
-        partial_words = ["support", "specialist", "service", "implementation", "integration", "solutions", "deployment", "engineer", "analyst", "onboarding"]
-        if any(re.search(r"\b" + w + r"\b", title, re.IGNORECASE) for w in partial_words):
-            title_points = 15.0
-            match_reasons.append("Partial Title Alignment (+15)")
-    total_score += title_points
-
-    # 2. Domain & Technical Keyword Overlap (Max 55 pts) - strict word boundaries
-    extracted = extract_job_keywords(combined_text)
-    domain_score = 0.0
-
-    # Imaging & PACS (Top Priority, up to +35 pts)
-    if "imaging_pacs" in extracted:
-        pts = min(35.0, len(extracted["imaging_pacs"]) * 12.0)
-        domain_score += pts
-        match_reasons.append(f"Imaging/PACS Keywords ({', '.join(extracted['imaging_pacs'][:4])}) (+{int(pts)})")
-
-    # Integration, API & Data Pipelines (Up to +10 pts)
-    if "integration_data_pipeline" in extracted:
-        pts = min(10.0, len(extracted["integration_data_pipeline"]) * 5.0)
-        domain_score += pts
-        match_reasons.append(f"Integration & Data Pipelines ({', '.join(extracted['integration_data_pipeline'][:4])}) (+{int(pts)})")
-
-    # Tier 2/3 Escalations & Diagnostics (up to +30 pts)
-    if "escalations_diagnostics" in extracted:
-        pts = min(30.0, len(extracted["escalations_diagnostics"]) * 7.5)
-        domain_score += pts
-        match_reasons.append(f"Tier 2/3 RCA & Diagnostics ({', '.join(extracted['escalations_diagnostics'][:4])}) (+{int(pts)})")
-
-    # Field Service & Implementation (up to +10 pts)
-    if "field_implementation" in extracted:
-        pts = min(10.0, len(extracted["field_implementation"]) * 8.0)
-        domain_score += pts
-        match_reasons.append(f"Field Service & Implementation ({', '.join(extracted['field_implementation'][:3])}) (+{int(pts)})")
-
-    # Database & SQL (up to +15 pts)
-    if "database_sql" in extracted:
-        pts = min(15.0, len(extracted["database_sql"]) * 5.0)
-        domain_score += pts
-        match_reasons.append(f"Database/SQL Server Diagnostics ({', '.join(extracted['database_sql'][:3])}) (+{int(pts)})")
-
-    # Networking (up to +15 pts)
-    if "networking" in extracted:
-        pts = min(15.0, len(extracted["networking"]) * 5.0)
-        domain_score += pts
-        match_reasons.append(f"Networking Protocols ({', '.join(extracted['networking'][:3])}) (+{int(pts)})")
-
-    # Identity / IAM (up to +20 pts)
-    if "identity_iam" in extracted:
-        pts = min(20.0, len(extracted["identity_iam"]) * 4.0)
-        domain_score += pts
-        match_reasons.append(f"Active Directory / SSO / IAM ({', '.join(extracted['identity_iam'][:3])}) (+{int(pts)})")
-
-    # Automation & Scripting (up to +25 pts)
-    if "scripting_automation" in extracted:
-        pts = min(25.0, len(extracted["scripting_automation"]) * 4.0)
-        domain_score += pts
-        match_reasons.append(f"Scripting & Automation ({', '.join(extracted['scripting_automation'][:3])}) (+{int(pts)})")
-
-    # ITSM (up to +8 pts)
-    if "itsm_tooling" in extracted:
-        pts = min(8.0, len(extracted["itsm_tooling"]) * 4.0)
-        domain_score += pts
-        match_reasons.append(f"ITSM Platforms ({', '.join(extracted['itsm_tooling'][:2])}) (+{int(pts)})")
-
-    # Cap domain score at 55
-    total_score += min(55.0, domain_score)
-
-    # 3. Location Alignment (Max 20 pts)
-    # Strict Location Rule:
-    # - +20 ONLY if explicitly contains Ohio targets (Dayton, Columbus, Cincinnati, Mason, Fairfield, OH, Ohio)
-    # - +15 ONLY if explicitly contains remote indicators in location or description (and not excluding OH)
-    # - Before applying Non-Local On-Site Penalty, inspect location AND description for remote indicators.
+    combined_text = f"{title} {description}"
     loc_lower = location.lower()
     title_lower = title.lower()
     desc_lower = description.lower()
@@ -373,7 +284,6 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
         or any(re.search(pat, title_lower) for pat in remote_indicators_loc)
         or any(re.search(pat, desc_lower) for pat in remote_indicators_desc)
     )
-    # If the role explicitly requires on-site presence without a remote option, do not treat as remote
     if is_remote and not any(re.search(pat, loc_lower) for pat in [r"\bremote\b", r"\bvirtual\b", r"\bwork from home\b"]):
         if re.search(r"\b(?:onsite\s+\d+\s+days|onsite\s+three\s+days|hybrid\s+role\s+\(onsite|must\s+be\s+onsite|in-office\s+(?:tuesday|monday|wednesday|\d+\s+days))\b", desc_lower):
             if not re.search(r"\b(or\s+remote|remote\s+option|eligible\s+for\s+remote)\b", desc_lower):
@@ -382,93 +292,139 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
     excludes_ohio = bool(re.search(r"\b(?:except|excluding|excludes|not eligible in|not open to)\b[^\.\n]*(?:ohio|\boh\b)", combined_text, re.IGNORECASE))
 
     if is_ohio:
-        total_score += 20.0
-        match_reasons.append("Local Ohio Target Market (Dayton/Columbus/Cincinnati/Mason/Fairfield/OH) (+20)")
-    elif is_remote and not excludes_ohio:
-        total_score += 15.0
-        match_reasons.append("Remote Target Location (+15)")
-    else:
-        # 0 location points and -25 Non-Local On-Site Penalty
-        total_score = max(0.0, total_score - 25.0)
-        match_reasons.append("Non-Local On-Site Penalty: Out-of-state role with no remote option (-25)")
+        return (True, "Ohio Target Market")
+    if is_remote and not excludes_ohio:
+        return (True, "US Remote Eligible")
+    return (False, "Disqualified: Out-of-state onsite/hybrid role without Ohio or US Remote option")
 
-    # 4. Seniority Cap (-15 pts)
-    # Salary ceiling increased to $195,000 to accommodate CA/NYC upper pay bands.
-    # Only trigger title-based seniority penalties on Principal, Staff, Director, VP, or Head of.
-    # Do NOT penalize III, IV, or Senior on Support/Implementation/Integration/Solutions roles.
-    max_sal = parse_max_salary_for_scoring(job.get("salary_range", ""))
-    if EXECUTIVE_SENIORITY_PATTERN.search(title):
-        total_score = max(0.0, total_score - 15.0)
-        sal_note = f" (${int(max_sal):,})" if max_sal else ""
-        match_reasons.append(f"Seniority Cap Penalty: Principal/Staff/Director/VP/Head of role{sal_note} (-15)")
-    elif max_sal > 195000:
-        total_score = max(0.0, total_score - 15.0)
-        match_reasons.append(f"Seniority Cap Penalty: Salary ceiling exceeds $195k (${int(max_sal):,}) (-15)")
-    elif re.search(r"\b(senior|iii|iv)\b", title, re.IGNORECASE):
-        sal_str = f" (${int(max_sal):,})" if max_sal else ""
-        match_reasons.append(f"Seniority Cap Exemption: Senior/III/IV technical role within band{sal_str}")
 
-    # 5. Pre-Sales Quota-Carrying Penalty (-15 pts)
-    # Only apply if description explicitly requires carrying a direct sales quota,
-    # "exceed our sales targets", or "quota-carrying".
-    # Do NOT penalize simply because text mentions "account executive" (e.g. post-sales handoff).
-    quota_patterns = [
-        re.compile(r"\bquota-carrying\b", re.IGNORECASE),
-        re.compile(r"\bcarry(?:ing)?\s+(?:a\s+)?(?:direct\s+)?(?:sales\s+)?quota\b", re.IGNORECASE),
-        re.compile(r"\bdirect\s+sales\s+quota\b", re.IGNORECASE),
-        re.compile(r"\bassigned\s+(?:sales\s+)?quota\b", re.IGNORECASE),
-        re.compile(r"\bexceed\s+(?:our\s+)?sales\s+targets\b", re.IGNORECASE),
-        re.compile(r"\bmeet\s+or\s+exceed\s+(?:our\s+)?sales\s+(?:targets|quotas?)\b", re.IGNORECASE)
-    ]
-    has_quota_penalty = False
-    quota_reason = ""
-    if re.search(r"\b(pre-sales|presales)\b", title, re.IGNORECASE):
-        has_quota_penalty = True
-        quota_reason = "Title Pre-Sales"
-    else:
-        cleaned_desc = description
-        for bp in BOILERPLATE_PRESALES_PATTERNS:
-            cleaned_desc = bp.sub("", cleaned_desc)
-        for q_pat in quota_patterns:
-            m = q_pat.search(cleaned_desc)
+def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
+    """
+    Compute job match score (0 to 100) using the 5 REQUIRED DNA (+20 each)
+    and TRAP JOB PENALTIES (-50 each; immediate 0 if 2+ traps found).
+    Uses stored Gemini evaluation when available, with deterministic DNA + Trap validation.
+    """
+    title = job.get("title", "")
+    description = job.get("description", "")
+    location = job.get("location", "")
+    salary_str = job.get("salary_range", "")
+    combined_text = f"{title} {description}"
+
+    # 1. Hard Exclusions (Security Clearance / Government)
+    for ex in EXCLUSION_TERMS:
+        if re.search(r"\b" + re.escape(ex) + r"\b", combined_text, re.IGNORECASE):
+            return (0.0, [f"Disqualified: Security clearance / government restriction ({ex})"])
+
+    # 2. Hard Title Disqualifiers (Internal IT, Helpdesk, Desktop Support, SRE, Executive/Principal)
+    for pat in DISQUALIFIED_TITLE_PATTERNS:
+        m = pat.search(title)
+        if m:
+            return (0.0, [f"Trap Title Rejected: '{m.group(0)}' in job title"])
+
+    # 3. Location Eligibility (Ohio or US Remote)
+    loc_ok, loc_reason = check_location_eligibility(location, title, description, salary_str)
+    if not loc_ok:
+        return (0.0, [loc_reason])
+
+    # 4. Salary Ceiling Guard (> $195k indicates overshot Principal/Enterprise Quota/Staff role)
+    max_sal = parse_max_salary_for_scoring(salary_str)
+
+    # Clean boilerplate commission disclaimers before trap scanning
+    cleaned_desc = description
+    for bp in BOILERPLATE_PRESALES_PATTERNS:
+        cleaned_desc = bp.sub("", cleaned_desc)
+    scan_text = f"{title} {cleaned_desc}"
+
+    # 5. Deterministic Trap Detection (-50 pts each; >= 2 traps = 0)
+    detected_traps: List[str] = []
+    for trap_name, patterns in COMPILED_TRAP_RULES:
+        for pat in patterns:
+            m = pat.search(scan_text)
             if m:
-                has_quota_penalty = True
-                quota_reason = m.group(0)
+                detected_traps.append(f"{trap_name} ('{m.group(0)}')")
                 break
 
-    if has_quota_penalty:
-        total_score = max(0.0, total_score - 15.0)
-        match_reasons.append(f"Pre-Sales Quota Penalty: Requires direct sales quota / targets ({quota_reason}) (-15)")
+    if max_sal > 195000:
+        detected_traps.append(f"Salary ceiling exceeds $195k (${int(max_sal):,})")
 
-    # 6. Culture Red-Flag Penalty (-25 pts)
-    for flag_pat, flag_desc in CULTURE_RED_FLAGS:
-        if flag_pat.search(combined_text):
-            match_reasons.append(f"Culture Red-Flag Penalty: High-burnout / Call center cliches ({flag_desc}) (-25)")
-            total_score = max(0.0, total_score - 25.0)
-            break
+    if len(detected_traps) >= 2:
+        return (0.0, [f"Rejected (2+ Trap Flags): {', '.join(detected_traps)}"])
 
-    # Normalize to 0-100 range
-    final_score = min(100.0, round(total_score, 1))
+    # 6. Check if a new-schema Gemini evaluation is stored on the job
+    stored_eval = parse_stored_evaluation(job.get("evaluation"))
+    if stored_eval is not None:
+        llm_score = float(stored_eval.get("score", 0))
+        llm_reasoning = stored_eval.get("reasoning", "").strip()
+        llm_traps = stored_eval.get("trap_flags") or []
+        llm_blockers = stored_eval.get("tool_blockers") or []
+
+        # Combine LLM traps with deterministic traps
+        all_traps = list(llm_traps)
+        for dt in detected_traps:
+            if not any(dt.split(" (")[0].lower() in t.lower() for t in all_traps):
+                all_traps.append(dt)
+
+        if len(all_traps) >= 2:
+            return (0.0, [f"Rejected by Trap Filter (2+ Traps): {', '.join(all_traps)}"])
+
+        # Apply deterministic trap penalty if LLM missed a single deterministic trap
+        if len(detected_traps) == 1 and len(llm_traps) == 0:
+            llm_score = max(0.0, llm_score - 50.0)
+
+        final_score = max(0.0, min(100.0, round(llm_score, 1)))
+        reasons = [f"Recruiter Evaluation ({int(final_score)}/100): {llm_reasoning}"]
+        if all_traps:
+            reasons.append(f"Trap Flags (-50): {', '.join(all_traps)}")
+        if llm_blockers:
+            reasons.append(f"Tools / Blockers Required: {', '.join(llm_blockers)}")
+        reasons.append(f"Location: {loc_reason}")
+        return (final_score, reasons)
+
+    # 7. Deterministic 5 REQUIRED DNA Scoring (+20 pts each)
+    total_score = 0.0
+    match_reasons: List[str] = []
+
+    for pillar_key, pillar_data in COMPILED_DNA_PILLARS.items():
+        matched_terms = []
+        for term, pat in pillar_data["patterns"]:
+            if pat.search(combined_text):
+                matched_terms.append(term)
+        if matched_terms:
+            pts = pillar_data["points"]
+            total_score += pts
+            sample_terms = ", ".join(matched_terms[:4])
+            match_reasons.append(f"{pillar_data['label']} ({sample_terms}) (+{int(pts)})")
+
+    # Apply single trap penalty (-50 pts)
+    if len(detected_traps) == 1:
+        total_score = max(0.0, total_score - 50.0)
+        match_reasons.append(f"Trap Penalty: {detected_traps[0]} (-50)")
+
+    match_reasons.append(f"Location: {loc_reason}")
+    final_score = max(0.0, min(100.0, round(total_score, 1)))
     return (final_score, match_reasons)
+
 
 def sanitize_filename(text: str) -> str:
     """Create a safe filesystem filename."""
     clean = re.sub(r"[^\w\s-]", "", text)
     return re.sub(r"[-\s]+", "_", clean).strip("_")
 
+
 BULLET_WEIGHT_TERMS = {
-    "dicom": 10.0, "pacs": 10.0, "imaging": 8.0, "sensor": 6.0,
-    "sysinternals": 7.0, "windows event viewer": 7.0, "crash dump": 7.0,
-    "sql server": 6.0, "root cause": 6.0, "tier 2": 5.0, "tier 3": 5.0,
-    "powershell": 5.0, "python": 5.0, "active directory": 5.0, "sso": 5.0,
-    "vpn": 4.0, "networking": 4.0, "tcp/ip": 4.0, "servicenow": 4.0,
-    "runbooks": 4.0, "sop": 4.0, "defect": 4.0, "hardware": 4.0
+    "event viewer": 9.0, "procmon": 9.0, "cbs": 8.0, "sysinternals": 8.0,
+    "sql": 8.0, "sql server": 8.0, "logs": 7.0, "root cause": 8.0,
+    "reproduce": 7.0, "bug": 6.0, "tier 2": 6.0, "tier 3": 6.0,
+    "escalation": 6.0, "qa": 5.0, "engineering": 5.0, "api": 6.0,
+    "json": 5.0, "webhook": 5.0, "python": 5.0, "powershell": 5.0,
+    "dicom": 6.0, "pacs": 6.0, "runbooks": 4.0, "sop": 4.0
 }
 
 COMPILED_BULLET_WEIGHTS = [
     (term, re.compile(r"\b" + re.escape(term) + r"\b", re.IGNORECASE), w)
     for term, w in BULLET_WEIGHT_TERMS.items()
 ]
+
 
 def score_bullet_relevance(bullet: str, job_text: str) -> float:
     """Calculate overlap score for a bullet point against the job requirements using strict word boundaries."""
@@ -478,9 +434,10 @@ def score_bullet_relevance(bullet: str, job_text: str) -> float:
             score += w
     return score
 
+
 def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) -> Path:
     """
-    Generate an authentic, tailored markdown resume by reordering bullet points
+    Generate an authentic, tailored PDF resume by reordering bullet points
     and customizing the summary and competency focus to match the job listing.
     """
     company = job.get("company", "Company")
@@ -488,15 +445,15 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
     job_desc = job.get("description", "")
     full_job_context = f"{title} {job_desc}"
 
-    # Midmark authentic experience bullets
+    # Midmark authentic software & log-diagnostics experience bullets
     midmark_bullets = [
-        "Managed high-severity Tier 2/Tier 3 technical escalations for clinical and diagnostic imaging software, isolating application crashes, driver conflicts, and OS faults using Sysinternals and Windows Event Viewer.",
-        "Supported healthcare and dental imaging hardware/software ecosystems, troubleshooting digital sensor communication, peripheral connectivity (USB/IP), and DICOM/PACS data flow integrity.",
-        "Conducted root-cause investigations into SQL Server runtime issues, resolving query timeouts, database connectivity drops, and batch data synchronization failures across distributed client-server environments.",
-        "Handled identity and access management incidents across Active Directory and Entra ID (Azure AD), troubleshooting SAML/SSO token handshakes, security groups, and MFA configurations.",
-        "Engineered custom PowerShell and Python automation scripts to collect diagnostic logs, parse telemetry outputs, and deploy configuration patches, cutting recurring incident resolution times by 35%.",
-        "Partnered with software and hardware engineering teams to escalate reproducible bugs with complete crash dumps, network traces, and SQL execution plans to expedite patch releases.",
-        "Authored standardized deployment blueprints, technical runbooks, and internal SOPs to document complex environment workarounds, reducing escalation cycle times across the team."
+        "Managed high-severity Tier 2/Tier 3 software escalations for clinical and enterprise imaging applications, isolating complex application crashes, installer failures, and OS-level faults using Windows Event Viewer, Procmon, and CBS logs.",
+        "Conducted deep root-cause investigations into SQL Server runtime issues, analyzing SQL logs to resolve query timeouts, database connectivity drops, and data integrity/synchronization failures across client-server environments.",
+        "Traced file-system mutations, registry keys, and background process activity with Sysinternals Procmon to reproduce elusive software defects and configuration conflicts.",
+        "Partnered directly with software engineering and QA teams to escalate verified Tier 2/Tier 3 bugs with complete reproduction steps, Event Viewer/CBS log bundles, Procmon traces, and SQL execution logs to expedite patch releases.",
+        "Engineered custom PowerShell and Python automation scripts to collect diagnostic logs, parse telemetry outputs, and deploy configuration fixes, cutting recurring incident resolution times by 35%.",
+        "Troubleshot application data workflows and DICOM/PACS integration pipelines, ensuring reliable data transmission and schema integrity across connected software platforms.",
+        "Authored standardized technical runbooks and internal SOPs documenting complex log-triage workflows and workarounds, reducing escalation cycle times across the support organization."
     ]
 
     # Reorder bullets based on match with the specific job description
@@ -506,12 +463,11 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
 
     # Dynamically prioritize core competencies
     competencies = [
-        ("Imaging & Medical Devices", "Digital Imaging Systems, PACS & DICOM workflows, sensor calibration, medical/dental diagnostic software, peripheral hardware integration (USB/serial/IP devices), driver stack triage (libusbK, WinUSB).", 0.0),
-        ("Operating Systems & Low-Level Diagnostics", "Windows Server, Windows 10/11, Sysinternals Suite (Process Explorer, Procmon), Windows Event Viewer, Crash Dump Analysis, peripheral enumeration, registry tracing, hardware/software fault isolation.", 0.0),
-        ("Data Layers & Database Diagnostics", "SQL Server (Runtime Triage, Query Profiling, Execution Log Analysis, index checks, deadlock troubleshooting), REST API Debugging, Payload Validation, Schema Integrity.", 0.0),
-        ("Networking & Identity / Access", "TCP/IP, DNS, DHCP, VPN configurations, corporate routing fundamentals, Wireshark packet analysis, Active Directory, Azure AD / Entra ID, SSO/SAML, MFA provisioning.", 0.0),
-        ("Systems Scripting & Tooling", "PowerShell, Python, Go, SQL, TypeScript, Node.js, Bash, ServiceNow, Oracle Ticketing, Git, Postman.", 0.0),
-        ("Field & Implementation Support", "Customer site escalation management, deployment blueprints, technical runbooks, client onboarding, root cause analysis (RCA) reporting, hardware replacement and firmware diagnostics.", 0.0)
+        ("Root-Cause Analysis & Log Diagnostics", "Windows Event Viewer, Sysinternals Suite (Procmon, Process Explorer), CBS Logs (Component-Based Servicing / installer & update diagnostics), Application & Crash Dump Analysis, Registry & File-System Tracing, Bug Reproduction.", 0.0),
+        ("Database & Data Integrity Troubleshooting", "SQL Server (SQL Error Logs, Runtime Triage, Query Profiling, Execution Log Analysis, Deadlock & Timeout Troubleshooting), Relational Database Querying, Batch Data Synchronization, Schema Integrity.", 0.0),
+        ("APIs, Integrations & Technical Stack", "REST APIs, JSON Payload Validation, Postman, Webhooks, Client-Server Architecture, DICOM/PACS Data Flow, TCP/IP, DNS, DHCP, VPNs.", 0.0),
+        ("Engineering Escalation & Support Operations", "Tier 2 / Tier 3 Defect Triage, Engineering & QA Bug Escalation, Technical Runbooks, SOP Authoring, Client Onboarding, ServiceNow, Jira, Oracle Ticketing.", 0.0),
+        ("Scripting & Development", "PowerShell, Python, SQL, Go, TypeScript, Node.js, Bash, Git.", 0.0)
     ]
 
     scored_comp = []
@@ -520,19 +476,17 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
         scored_comp.append((cat_name, cat_desc, cat_score))
     scored_comp.sort(key=lambda x: x[2], reverse=True)
 
-    # Tailored Professional Summary focusing on target domain
     summary = (
-        f"High-performing Systems & Technical Support Specialist with proven experience resolving complex Tier 2 / Tier 3 "
-        f"infrastructure, enterprise software, and diagnostic hardware escalations. Deep expertise in log-driven root cause "
-        f"analysis (RCA), SQL Server database diagnostics, Windows OS internals, networking protocols, and system deployment. "
-        f"Averaged 35% reduction in ticket turnaround times through custom PowerShell and Python automation. Positioned to deliver "
-        f"immediate impact for {company}'s {title} role with dependable, high-satisfaction technical support and defect triage."
+        f"High-performing Technical & Application Support Specialist with proven experience resolving complex Tier 2 / Tier 3 "
+        f"software, database, and enterprise platform escalations. Deep expertise in log-driven root cause analysis (RCA) using "
+        f"Windows Event Viewer, Procmon, CBS logs, and SQL Server logs to isolate bugs, verify data integrity, and escalate "
+        f"reproducible defects to engineering teams. Averaged 35% reduction in ticket turnaround times through custom PowerShell "
+        f"and Python automation. Positioned to deliver immediate impact for {company}'s {title} role."
     )
 
     base_name = f"{sanitize_filename(company)}_{sanitize_filename(title)}_resume"
     pdf_filepath = RESUMES_DIR / f"{base_name}.pdf"
 
-    # Export clean, ATS-compliant PDF resume directly using ReportLab
     export_resume_pdf(
         company=company,
         title=title,
@@ -544,6 +498,7 @@ def generate_tailored_resume(job: Dict[str, Any], extracted_reasons: List[str]) 
 
     return pdf_filepath
 
+
 def generate_cold_outreach_email(job: Dict[str, Any], score: float) -> Path:
     """
     Generate a concise, high-impact 3-paragraph cold outreach email
@@ -554,26 +509,26 @@ def generate_cold_outreach_email(job: Dict[str, Any], score: float) -> Path:
     url = job.get("url", "")
     location = job.get("location", "Remote")
 
-    # Tailored proof points based on company and title context
     proof_point = (
-        "In my recent role at Midmark Corporation, I managed complex Tier 2/Tier 3 escalations across clinical hardware, "
-        "diagnostic imaging systems, and distributed client-server applications. I specialized in log-driven root cause analysis "
-        "using Sysinternals and Windows Event Viewer, resolved SQL Server runtime deadlocks and query timeouts, and built "
-        "PowerShell/Python automation scripts that reduced recurring ticket cycle times by 35%."
+        "In my recent role at Midmark Corporation, I managed complex Tier 2/Tier 3 software escalations across distributed "
+        "client-server applications. I specialized in deep log-driven root cause analysis using Windows Event Viewer, Sysinternals "
+        "Procmon, CBS logs, and SQL Server logs—reproducing elusive bugs, resolving database query timeouts and data sync issues, "
+        "partnering directly with engineering/QA on defect escalations, and building PowerShell/Python automation scripts that "
+        "reduced recurring ticket cycle times by 35%."
     )
 
     p1 = (
         f"I am writing to express my strong interest in the **{title}** role at **{company}**. With a proven track record "
-        f"resolving high-tier technical escalations, diagnosing software and peripheral hardware faults, and maintaining "
-        f"enterprise data integrity, I am confident in my ability to immediately add value to your technical support operations."
+        f"resolving high-tier software escalations, conducting log-level root cause analysis, and troubleshooting SQL database "
+        f"and API data integrity, I am confident in my ability to immediately add value to your technical team."
     )
 
     p2 = proof_point
 
     p3 = (
-        f"Given {company}'s focus on high-availability systems and exceptional client outcomes, I would welcome the opportunity "
-        f"to speak for 10–15 minutes about how my background in root-cause diagnostics, systems scripting, and cross-functional "
-        f"defect triage can strengthen your team. My full resume is attached for your review, and I look forward to connecting.\n\n"
+        f"Given {company}'s focus on reliable software delivery and exceptional client outcomes, I would welcome the opportunity "
+        f"to speak for 10–15 minutes about how my background in root-cause diagnostics, SQL/log triage, and cross-functional "
+        f"engineering escalation can strengthen your team. My full resume is attached for your review, and I look forward to connecting.\n\n"
         f"Best regards,\n\n"
         f"**Robert Warren**\n"
         f"Dayton, OH | (626) 872-4171 | robertcwarren1@gmail.com\n"
@@ -603,43 +558,37 @@ Dear {company} Hiring Team,
     filepath.write_text(email_content.strip(), encoding="utf-8")
     return filepath
 
+
 def run_match_and_tailor() -> List[Dict[str, Any]]:
     """
     Main matching and tailoring pipeline:
-    1. Evaluates listings in SQLite, updates scores with word boundaries & culture penalties.
-    2. Builds fresh-only daily leaderboard (reported_date IS NULL).
-    3. Enforces Max 2 Per Company cap on Top 10 slots.
-    4. Generates PDF resume and cold email for Top 10 matches >= 60.
-    5. Marks Top 10 as reported today (YYYY-MM-DD).
-    6. Appends 7-day archive table to daily_matches.md.
+    1. Evaluates listings in SQLite using the 5 REQUIRED DNA & TRAP PENALTY rubric.
+    2. Runs live Gemini Recruiter evaluation on top candidate pool if not yet evaluated with new schema.
+    3. Builds fresh-only daily leaderboard (reported_date IS NULL or today).
+    4. Enforces Max 2 Per Company cap on Top 10 slots.
+    5. Generates PDF resume and cold email for Top 10 matches >= 60.
+    6. Marks Top 10 as reported today (YYYY-MM-DD) and writes daily_matches.md.
     """
     print("\n" + "="*80)
-    print("RESUME MATCHING & ATS TAILORING PIPELINE")
+    print("RESUME MATCHING & SOLUTIONS ENGINEERING BRIDGE PIPELINE")
     print("="*80)
 
-    # Initialize / migrate database schema
     init_db()
 
-    # Verify master resume exists
     master_resume_text = load_master_resume()
     print(f"[*] Loaded Master Resume ({len(master_resume_text)} bytes)")
 
-    # Fetch jobs to process
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM jobs ORDER BY created_at DESC")
         jobs = [dict(r) for r in cursor.fetchall()]
 
-    print(f"[*] Evaluating {len(jobs)} total jobs against Robert Warren's profile...")
+    print(f"[*] Evaluating {len(jobs)} total jobs against Solutions Engineering Bridge rubric...")
 
     evaluated_jobs = []
-    matched_count = 0
-    rejected_count = 0
+    today_str = time.strftime("%Y-%m-%d")
 
     for job in jobs:
-        score, reasons = calculate_match_score(job)
-        reasons_str = " | ".join(reasons)
-
         # Sanitize salary if needed
         clean_sal = parse_and_validate_salary(job.get("description", ""), job.get("salary_range", "Not specified"))
         if clean_sal != job.get("salary_range"):
@@ -649,14 +598,10 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
                 conn.commit()
             job["salary_range"] = clean_sal
 
-        if score < 60.0:
-            status = "rejected"
-            rejected_count += 1
-        else:
-            status = "matched"
-            matched_count += 1
+        score, reasons = calculate_match_score(job)
+        reasons_str = " | ".join(reasons)
+        status = "matched" if score >= 60.0 else "rejected"
 
-        # Update database record
         update_job_match(
             job_id=job["job_id"],
             score=score,
@@ -672,19 +617,76 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         job_copy["match_reasons"] = reasons_str
         evaluated_jobs.append(job_copy)
 
-    today_str = time.strftime("%Y-%m-%d")
-
-    # 1. Fresh-Only Daily Leaderboard Candidates:
-    # Select jobs that have not been reported in past runs (or reported today in re-runs)
-    # Excludes any jobs reported on prior dates (< today_str)
-    fresh_candidates = [
+    # Identify fresh candidate pool (score >= 60, unreported or reported today)
+    fresh_pool = [
         j for j in evaluated_jobs
         if (not j.get("reported_date") or j.get("reported_date") == today_str)
-        and j["score"] >= 60.0 and j["status"] != "rejected"
+        and j["score"] >= 60.0
+    ]
+    fresh_pool.sort(key=lambda x: (x["score"], x.get("created_at", "")), reverse=True)
+
+    # Ensure all candidates that could make the Top 10 are verified by Gemini's Recruiter prompt
+    llm_verified_count = 0
+    verified_top_count = 0
+    verified_comp_counts: Dict[str, int] = {}
+
+    for j in fresh_pool:
+        comp = j["company"].strip()
+        if verified_comp_counts.get(comp, 0) >= 2:
+            continue
+
+        if parse_stored_evaluation(j.get("evaluation")) is None and j.get("description"):
+            try:
+                eval_obj = evaluate_job_description(j["description"])
+                eval_json = eval_obj.model_dump_json()
+                j["evaluation"] = eval_json
+                with get_connection() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute("UPDATE jobs SET evaluation = ? WHERE job_id = ?", (eval_json, j["job_id"]))
+                    conn.commit()
+                # Re-score with Gemini evaluation now attached
+                new_score, new_reasons = calculate_match_score(j)
+                j["score"] = new_score
+                j["status"] = "matched" if new_score >= 60.0 else "rejected"
+                j["match_reasons"] = " | ".join(new_reasons)
+                update_job_match(
+                    job_id=j["job_id"],
+                    score=j["score"],
+                    status=j["status"],
+                    match_reasons=j["match_reasons"],
+                    resume_path=j.get("tailored_resume_path"),
+                    email_path=j.get("cold_email_path")
+                )
+                llm_verified_count += 1
+            except Exception as e:
+                print(f"[!] Gemini verification skipped for '{j.get('title')}' ({j.get('company')}): {e}")
+
+        if j["score"] >= 60.0 and j["status"] != "rejected":
+            verified_comp_counts[comp] = verified_comp_counts.get(comp, 0) + 1
+            verified_top_count += 1
+            if verified_top_count >= 12:
+                break
+
+    if llm_verified_count > 0:
+        print(f"[*] Gemini Recruiter LLM evaluated {llm_verified_count} candidate listings.")
+
+    # Clear today's reported_date before assigning the final Top 10
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE jobs SET reported_date = NULL WHERE reported_date = ?", (today_str,))
+        conn.commit()
+    for j in fresh_pool:
+        if j.get("reported_date") == today_str:
+            j["reported_date"] = None
+
+    # Filter again after LLM verification
+    fresh_candidates = [
+        j for j in fresh_pool
+        if j["score"] >= 60.0 and j["status"] != "rejected"
     ]
     fresh_candidates.sort(key=lambda x: (x["score"], x.get("created_at", "")), reverse=True)
 
-    # 2. Enforce "Max 2 Per Company" Cap:
+    # Enforce "Max 2 Per Company" Cap on Top 10
     top_matches = []
     company_counts: Dict[str, int] = {}
     for j in fresh_candidates:
@@ -696,7 +698,7 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
             if len(top_matches) == 10:
                 break
 
-    # 3. Generate tailored assets and mark as reported for Top 10 matches
+    # Generate tailored assets and mark as reported for Top 10 matches
     for j in top_matches:
         resume_path_str = j.get("tailored_resume_path") or ""
         email_path_str = j.get("cold_email_path") or ""
@@ -713,11 +715,9 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
                 j["tailored_resume_path"] = resume_path_str
                 j["cold_email_path"] = email_path_str
 
-        # Mark as reported today
         mark_job_reported(j["job_id"], today_str)
         j["reported_date"] = today_str
 
-        # Update DB with assets and reported_date
         with get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
@@ -729,36 +729,12 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
             """, (today_str, resume_path_str if resume_path_str else None, email_path_str if email_path_str else None, j["job_id"]))
             conn.commit()
 
-    # 4. Fetch archive jobs (last 7 days from prior dates, excluding today's Top 10)
+    # Fetch archive jobs (last 7 days from prior dates, excluding today's Top 10, only keeping those still >= 60)
     top_job_ids = {j["job_id"] for j in top_matches}
     archived_jobs = [
         j for j in get_recently_reported_jobs(days=7, min_score=60.0)
         if j.get("reported_date") != today_str and j["job_id"] not in top_job_ids
     ]
-
-    # Ensure archived jobs with score >= 60 also have assets generated if previously omitted under old threshold
-    for j in archived_jobs:
-        if j["score"] >= 60.0:
-            resume_path_str = j.get("tailored_resume_path") or ""
-            email_path_str = j.get("cold_email_path") or ""
-            needs_resume = not resume_path_str or not (ROOT_DIR / resume_path_str).exists()
-            needs_email = not email_path_str or not (ROOT_DIR / email_path_str).exists()
-            if needs_resume or needs_email:
-                pdf_path = generate_tailored_resume(j, j["match_reasons"].split(" | "))
-                email_path = generate_cold_outreach_email(j, j["score"])
-                resume_path_str = str(pdf_path.relative_to(ROOT_DIR)).replace("\\", "/")
-                email_path_str = str(email_path.relative_to(ROOT_DIR)).replace("\\", "/")
-                j["tailored_resume_path"] = resume_path_str
-                j["cold_email_path"] = email_path_str
-                with get_connection() as conn:
-                    cursor = conn.cursor()
-                    cursor.execute("""
-                        UPDATE jobs
-                        SET tailored_resume_path = ?,
-                            cold_email_path = ?
-                        WHERE job_id = ?
-                    """, (resume_path_str, email_path_str, j["job_id"]))
-                    conn.commit()
 
     # Terminal Summary Table
     print("\n" + "-"*105)
@@ -774,17 +750,17 @@ def run_match_and_tailor() -> List[Dict[str, Any]]:
         print(f"{idx:<5} | {comp:<18} | {title:<35} | {loc:<18} | {score_str:<5} | {assets}")
     print("-" * 105)
 
-    # Write daily_matches.md
     write_daily_matches_report(top_matches, archived_jobs)
 
     print(f"\n[+] Pipeline run complete:")
     print(f"    - Total Processed: {len(jobs)}")
-    print(f"    - Fresh Unreported Candidates: {len(fresh_candidates)}")
+    print(f"    - Fresh Unreported Candidates (>=60): {len(fresh_candidates)}")
     print(f"    - Top Fresh Matches Selected: {len(top_matches)} (Max 2 per company cap enforced)")
     print(f"    - Previously Reported Archive Roles: {len(archived_jobs)}")
     print(f"    - Output Report: daily_matches.md\n")
 
     return top_matches
+
 
 def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Optional[List[Dict[str, Any]]] = None) -> None:
     """Generate daily_matches.md markdown summary report with fresh Top 10 and 7-day archive."""
@@ -792,8 +768,8 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
     md = [
         "# Daily Job Matches & ATS Tailored Applications",
         f"**Generated:** {today_str}  ",
-        f"**Profile:** Robert Warren | Systems & Technical Support Specialist | Dayton, OH / Remote  ",
-        f"**Filtering:** Free Commercial Sources Only | Zero Security Clearance / Zero Government Roles  ",
+        f"**Profile:** Robert Warren | B2B SaaS Technical Support, Integration & Product Analyst -> Solutions Engineering  ",
+        f"**Filtering:** 5-Pillar DNA Rubric (+20 each) | Anti-Helpdesk / Anti-AD / Anti-Hardware Trap Penalties (-50 each)  ",
         f"**Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  ",
         "",
         "---",
@@ -837,7 +813,6 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
             md.append(f"- **Cold Outreach Email:** [{j['cold_email_path']}]({j['cold_email_path']})")
         md.append("")
 
-    # Archive section
     if archived_jobs:
         md.extend([
             "---",
@@ -858,6 +833,7 @@ def write_daily_matches_report(top_jobs: List[Dict[str, Any]], archived_jobs: Op
         md.append("")
 
     DAILY_MATCHES_FILE.write_text("\n".join(md), encoding="utf-8")
+
 
 if __name__ == "__main__":
     run_match_and_tailor()

@@ -3,10 +3,10 @@ Dayton, OH • (626) 872-4171 • robertcwarren1@gmail.com • linkedin.com/in/r
 Professional Summary
 Systems & Application Support Specialist with deep experience resolving complex Tier 2/Tier 3 infrastructure and software escalations. Proven ability in log-driven root cause analysis (RCA), SQL Server database diagnostics and Windows OS internals. Skilled in developing automation scripts (PowerShell, Python) to streamline system administration and bridge technical operations with software engineering teams.
 Core Competencies
-Operating Systems & Low-Level Diagnostics: Windows Server / 10 / 11, Sysinternals Suite (Process Explorer, Procmon), Windows Event Viewer, Crash Dump Analysis, USB & Driver Stacks (libusbK, peripheral enumeration).
-Application Triage & Data Layers: SQL Server (Runtime Triage, Query Profiling, Execution Log Analysis), REST API Debugging, Payload Validation, Schema Integrity, Application-Layer Debugging.
-Identity, Access & Networking: Active Directory, Azure AD, SSO, MFA, DNS, VPN, TCP/IP, Routing Fundamentals.
-Scripting & Systems Tooling: PowerShell, Python, Go, SQL, TypeScript, Node.js, ServiceNow, Oracle Ticketing.
+Root-Cause Analysis & Log Diagnostics: Windows Event Viewer, Sysinternals Suite (Procmon, Process Explorer), CBS Logs (Component-Based Servicing / installer & update diagnostics), Application & Crash Dump Analysis, Registry & File-System Tracing.
+Database & Data Layers: SQL Server (SQL Error Logs, Runtime Triage, Query Profiling, Execution Log Analysis), REST API Debugging, JSON Payload Validation, Schema Integrity.
+Engineering Escalation & Networking: Tier 2/Tier 3 Defect Triage, Bug Reproduction, QA/Engineering Escalation, DNS, VPN, TCP/IP, Routing Fundamentals.
+Scripting & Systems Tooling: PowerShell, Python, Go, SQL, TypeScript, Node.js, ServiceNow, Jira, Oracle Ticketing.
 Professional Experience
 
 Midmark Corporation
@@ -14,12 +14,12 @@ Versailles, OH
 Associate Technical Service Specialist
 Jun 2024 – Sep 2026
 
-High-Tier Escalations & Root Cause Analysis: Fast-tracked within three months to manage complex Tier 2/Tier 3 software escalations, utilizing Windows Event Viewer, Sysinternals, and registry tracing to isolate and resolve ambiguous application-layer crashes, driver conflicts, and operating system faults.
-Database & Data Integrity Diagnostics: Conducted root-cause investigations into SQL Server runtime issues, troubleshooting query timeouts, database connectivity drops, and batch data synchronization failures across distributed client-server architectures.
-Identity & Access Management (IAM): Resolved authentication and directory service issues across Active Directory and Entra ID (Azure AD), managing security groups, user provisioning, and troubleshooting SAML/SSO token handshakes and MFA configurations.
+High-Tier Escalations & Root Cause Analysis: Fast-tracked within three months to manage complex Tier 2/Tier 3 software escalations, utilizing Windows Event Viewer, Procmon, CBS logs, and registry tracing to isolate and resolve ambiguous application-layer crashes, installer failures, and operating system faults.
+Database & Data Integrity Diagnostics: Conducted root-cause investigations into SQL Server runtime issues, analyzing SQL logs to troubleshoot query timeouts, database connectivity drops, and batch data synchronization failures across distributed client-server architectures.
+Process & System Activity Tracing: Traced file-system mutations, registry keys, and background process activity with Sysinternals Procmon to reproduce elusive software defects and configuration conflicts.
 Operational Scripting & Automation: Developed custom PowerShell and Python scripts to automate log collection, parse telemetry outputs, and execute bulk configuration updates, significantly cutting down resolution times for recurring technical incidents.
-Engineering Liaison & Defect Triage: Collaborated directly with software development teams to escalate verified bugs, providing complete reproduction steps, network traces, crash dumps, and database logs to accelerate patch releases.
-SOPs & Infrastructure Documentation: Authored standardized deployment blueprints, technical runbooks, and internal SOPs to document complex environment workarounds, reducing escalation cycle times across the technical team.
+Engineering Liaison & Defect Triage: Collaborated directly with software development and QA teams to escalate verified bugs, providing complete reproduction steps, Event Viewer/CBS logs, Procmon traces, and SQL logs to accelerate patch releases.
+SOPs & Infrastructure Documentation: Authored standardized technical runbooks and internal SOPs to document complex log-triage workflows and environment workarounds, reducing escalation cycle times across the technical team.
 Quality Boat Salvage
 Pasadena, CA
 Data & Operations Systems Specialist

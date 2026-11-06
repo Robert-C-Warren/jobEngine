@@ -25,22 +25,23 @@ from concurrent.futures import ThreadPoolExecutor
 from db import init_db, insert_job, job_exists, generate_job_id, get_connection
 from evaluator import evaluate_job_description
 
-# Target profile criteria
+# Target profile criteria: B2B SaaS Technical Support, Integration, Implementation, & Product/Technical Analyst bridge roles
 TARGET_TITLE_PATTERNS = [
-    r"\bforward deployed\b", r"\bfde\b", r"\bdeployment engineer\b", r"\bdeployment strategist\b",
-    r"\bsolutions engineer\b", r"\bsolutions architect\b", r"\bsolutions consultant\b",
-    r"\bsolutions integration\b", r"\bsolutions specialist\b",
-    r"\bintegration engineer\b", r"\bintegrations engineer\b", r"\bintegration specialist\b",
-    r"\bimplementation engineer\b", r"\bimplementation specialist\b", r"\bimplementation consultant\b",
+    r"\bsolutions engineer\b", r"\bsolutions consultant\b", r"\bsolutions integration\b",
+    r"\bsolutions specialist\b", r"\bsolutions analyst\b", r"\bsolutions architect\b",
+    r"\bintegration engineer\b", r"\bintegrations engineer\b", r"\bintegration specialist\b", r"\bintegration analyst\b",
+    r"\bimplementation engineer\b", r"\bimplementation specialist\b", r"\bimplementation consultant\b", r"\bimplementation analyst\b",
     r"\btechnical account manager\b", r"\btam\b", r"\bcustomer engineer\b", r"\bpartner engineer\b",
     r"\btechnical support\b", r"\bsupport engineer\b", r"\bapplication support\b",
-    r"\bsystems support\b", r"\bsystems engineer\b", r"\bit systems engineer\b",
-    r"\btechnical escalation\b", r"\bescalation[s]? engineer\b",
+    r"\bproduct support\b", r"\bsoftware support\b", r"\bplatform support\b",
+    r"\bcustomer support engineer\b", r"\bclient support engineer\b",
+    r"\bsystems support\b", r"\btechnical escalation\b", r"\bescalation[s]? engineer\b",
+    r"\bescalation[s]? specialist\b", r"\bescalation[s]? analyst\b",
     r"\btier 2\b", r"\btier 3\b", r"\btier ii\b", r"\btier iii\b", r"\bl2 support\b", r"\bl3 support\b",
+    r"\bproduct analyst\b", r"\btechnical analyst\b", r"\bsupport analyst\b", r"\bapplication analyst\b",
     r"\bpacs\b", r"\bimaging support\b", r"\bclinical support\b", r"\bclinical systems\b",
-    r"\bfield service\b", r"\bfield engineer\b", r"\bservice engineer\b",
-    r"\btechnical operations\b", r"\boperations engineer\b", r"\bsite reliability\b", r"\bsre\b",
-    r"\bonboarding engineer\b", r"\btechnical onboarding\b"
+    r"\bforward deployed\b", r"\bfde\b", r"\bdeployment engineer\b", r"\bdeployment strategist\b",
+    r"\bonboarding engineer\b", r"\btechnical onboarding\b", r"\btechnical operations\b"
 ]
 
 NON_TECH_PATTERNS = [
@@ -48,7 +49,11 @@ NON_TECH_PATTERNS = [
     r"\bproduct designer\b", r"\bpayroll specialist\b", r"\bcontent writer\b",
     r"\blegal counsel\b", r"\bhuman resources\b", r"\bgraphic designer\b",
     r"\bmechanical\b", r"\bstructural\b", r"\bcivil\b", r"\bintern\b", r"\binternship\b",
-    r"\buniversity graduate\b", r"\bnew grad\b"
+    r"\buniversity graduate\b", r"\bnew grad\b",
+    # Exclude Trap Titles (Internal Corporate IT, Helpdesk, Desktop Provisioning, Pure SRE/DevOps)
+    r"\bhelp\s*desk\b", r"\bdesktop support\b", r"\bit support\b", r"\bit systems engineer\b",
+    r"\bcorporate it\b", r"\binternal it\b", r"\bworkplace tech\b", r"\bendpoint engineer\b",
+    r"\bsite reliability\b", r"\bsre\b", r"\bdevops\b", r"\bfield service\b"
 ]
 
 # Strict negative keywords - Zero government or security clearance roles
@@ -77,9 +82,12 @@ NON_US_PATTERNS = [
     r"\bspain\b", r"\bmadrid\b", r"\bbarcelona\b", r"\bcanada\b", r"\btoronto\b", r"\bvancouver\b",
     r"\bmontreal\b", r"\bmexico\b", r"\bcdmx\b", r"\bbrazil\b", r"\bcolombia\b", r"\bbogota\b",
     r"\bpoland\b", r"\bwarsaw\b", r"\bkrakow\b", r"\bnetherlands\b", r"\bcosta rica\b", r"\bportugal\b",
-    r"\bitaly\b", r"\bsweden\b", r"\bswitzerland\b", r"\bestonia\b", r"\btallinn\b", r"\blatvia\b",
-    r"\blithuania\b", r"\bisrael\b", r"\btaiwan\b", r"\bhong kong\b", r"\bdenmark\b", r"\bnorway\b",
-    r"\bfinland\b", r"\baustria\b", r"\bbelgium\b", r"\bchile\b", r"\bargentina\b"
+    r"\bitaly\b", r"\bsweden\b", r"\bstockholm\b", r"\bnordics\b", r"\bswitzerland\b", r"\bzurich\b",
+    r"\bestonia\b", r"\btallinn\b", r"\blatvia\b", r"\blithuania\b", r"\bisrael\b", r"\btaiwan\b",
+    r"\bhong kong\b", r"\bdenmark\b", r"\bcopenhagen\b", r"\bnorway\b", r"\boslo\b", r"\bfinland\b",
+    r"\bhelsinki\b", r"\baustria\b", r"\bvienna\b", r"\bbelgium\b", r"\bbrussels\b", r"\bchile\b",
+    r"\bargentina\b", r"\beurope\b", r"\bemea\b", r"\bapac\b", r"\bunited arab emirates\b", r"\buae\b",
+    r"\bdubai\b", r"\bamsterdam\b", r"\blisbon\b"
 ]
 
 # Curated high-relevance enterprise companies

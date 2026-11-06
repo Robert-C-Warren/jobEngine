@@ -2,21 +2,19 @@
 evaluator.py - Retrieval-Augmented Job Evaluation Layer using Gemini API.
 
 Evaluates raw job descriptions with structured JSON output enforcing the JobEvaluation schema:
-- Screens for hands-on technical vs coordination/delegation roles.
-- Flags people management duties.
-- Extracts core tech stack.
-- Determines actual remote status (Fully Remote, Hybrid, Onsite).
-- Scores red flags and corporate jargon.
-- Produces a ruthless 1-sentence executive summary.
-- Computes pass/fail based on remote work and zero management requirement.
+- Scores roles from 0 to 100 as B2B SaaS Technical Support, Integration, or Product Analyst
+  bridge roles toward Solutions Engineering.
+- Evaluates 5 REQUIRED DNA pillars (+20 points each).
+- Applies TRAP JOB PENALTIES (-50 points each; immediate 0/rejection if 2 or more are found).
+- Returns {"score": int, "reasoning": str, "trap_flags": list, "tool_blockers": list}.
 """
 
 import os
-import sys
+import json
 import time
 import logging
 from pathlib import Path
-from typing import List, Literal, Optional
+from typing import List, Optional
 from pydantic import BaseModel, Field, model_validator
 from dotenv import load_dotenv
 
@@ -26,77 +24,77 @@ load_dotenv(dotenv_path=ENV_PATH)
 
 from google import genai
 from google.genai import types
-from google.genai.errors import ClientError, APIError
+from google.genai.errors import ClientError
 
 logger = logging.getLogger(__name__)
 
 # Model configuration:
 # gemini-2.5-flash is designated for high-speed, low-cost processing.
 # gemini-3.8-flash serves as drop-in fallback if gemini-2.5-flash is unavailable or deprecated.
-DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+_env_model = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+DEFAULT_MODEL = "gemini-3.8-flash" if _env_model == "gemini-2.5-flash" else _env_model
 FALLBACK_MODEL = "gemini-3.8-flash"
 ACTIVE_MODEL: Optional[str] = None
 
 
 class JobEvaluation(BaseModel):
     """
-    Structured evaluation schema for assessing scraped job postings.
+    Structured evaluation schema for scoring B2B SaaS Technical Support, Integration,
+    and Product Analyst bridge roles toward Solutions Engineering.
     """
-    is_hands_on_technical: bool = Field(
-        description="Whether the role involves direct hands-on technical execution (coding, engineering, debugging, systems administration) rather than pure management, coordination, or administrative theater."
-    )
-    requires_people_management: bool = Field(
-        description="Whether the role requires managing people (direct reports, performance reviews, hiring/firing)."
-    )
-    core_tech_stack: List[str] = Field(
-        default_factory=list,
-        description="List of primary technologies, programming languages, frameworks, databases, or systems explicitly required."
-    )
-    actual_remote_status: Literal["Fully Remote", "Hybrid", "Onsite"] = Field(
-        description="Must be 'Fully Remote', 'Hybrid', or 'Onsite'. Flag bait-and-switch where the posting claims remote but text specifies mandatory in-office attendance."
-    )
-    red_flag_score: int = Field(
+    score: int = Field(
         ge=0,
-        le=10,
-        description="Integer score from 0 (clean, direct) to 10 (severe red flags: corporate jargon soup, toxic culture, bait-and-switch, 24/7 on-call abuse, vague responsibilities)."
+        le=100,
+        description="Overall score from 0 to 100 based on REQUIRED DNA (+20 points each) and TRAP JOB PENALTIES (-50 points each; 0 if two or more traps are found)."
     )
-    bullshit_jargon_ratio: Literal["Low", "Medium", "High"] = Field(
-        description="Must be 'Low', 'Medium', or 'High' reflecting the density of corporate filler and empty buzzwords."
+    reasoning: str = Field(
+        description="Brief explanation breaking down the DNA points awarded and any trap penalties applied."
     )
-    executive_summary: str = Field(
-        description="Exactly 1 sentence summarizing the actual day-to-day deliverables and core responsibilities, ruthlessly stripping all corporate filler."
+    trap_flags: List[str] = Field(
+        default_factory=list,
+        description="List of any trap keywords or trap categories found in the job description."
     )
-    pass_fail: bool = Field(
-        description="True if remote (Fully Remote) and no management required (requires_people_management is False), False otherwise."
+    tool_blockers: List[str] = Field(
+        default_factory=list,
+        description="List of specific software tools, proprietary platforms, or niche certifications required (e.g., Jira, Salesforce, Epic, Workday)."
     )
 
     @model_validator(mode="after")
-    def validate_pass_fail(self) -> "JobEvaluation":
-        """Enforces pass_fail rule: True if remote and no management required, False otherwise."""
-        is_remote = self.actual_remote_status == "Fully Remote"
-        no_mgmt = not self.requires_people_management
-        self.pass_fail = bool(is_remote and no_mgmt)
+    def enforce_trap_rejection(self) -> "JobEvaluation":
+        """Reject immediately (score = 0) if two or more trap flags are found, and clamp score to 0-100."""
+        if len(self.trap_flags) >= 2:
+            self.score = 0
+        else:
+            self.score = max(0, min(100, int(self.score)))
         return self
 
 
 SYSTEM_INSTRUCTION = (
-    "You are a ruthless, highly technical technical screener filtering out roles that "
-    "require people management, heavy corporate theater, or onsite attendance. "
-    "Your evaluation must be objective, critical, and strictly grounded in the text. "
-    "Filter out corporate jargon and highlight the actual ground reality of the day-to-day role."
+    "You are an expert technical recruiter evaluating job descriptions. "
+    "Your objective is to find B2B SaaS Technical Support, Integration, or Product Analyst roles "
+    "that serve as a bridge to Solutions Engineering."
 )
 
-PROMPT_TEMPLATE = """Evaluate the following job posting thoroughly.
+PROMPT_TEMPLATE = """You are an expert technical recruiter evaluating job descriptions. Your objective is to find B2B SaaS Technical Support, Integration, or Product Analyst roles that serve as a bridge to Solutions Engineering.
 
-Criteria:
-1. is_hands_on_technical: True if the role requires hands-on technical work (code, diagnostics, infrastructure, low-level support), False if mostly meetings, coordination, or slide decks.
-2. requires_people_management: True if the role involves direct reports, performance reviews, or hiring/firing.
-3. core_tech_stack: Array of specific technologies, languages, tools, frameworks mentioned (e.g. ['Python', 'SQL', 'Docker']).
-4. actual_remote_status: Must be 'Fully Remote', 'Hybrid', or 'Onsite'. Scrutinize the text for any hidden in-office or hybrid requirements.
-5. red_flag_score: 0-10 integer score. High scores for buzzwords, vague duties, on-call abuse, 'fast-paced environment / wear many hats'.
-6. bullshit_jargon_ratio: 'Low', 'Medium', or 'High'.
-7. executive_summary: Exactly 1 concise sentence stating what the hire actually builds or fixes. No fluff.
-8. pass_fail: True if remote and no people management required, False otherwise.
+Evaluate the provided job description and SCORE it from 0 to 100 based on the following criteria:
+
+REQUIRED DNA (+20 points each):
+1. B2B SaaS Environment: Must support a software platform or enterprise product.
+2. Root-Cause Analysis: Explicit mention of investigating complex bugs, reading logs (e.g., application logs, Windows Event Viewer, CBS logs, Procmon, stack traces), or reproducing issues.
+3. Database Interaction: Requires SQL, SQL logs, database querying, or data integrity troubleshooting.
+4. Engineering Escalation: Mentions working directly with QA, developers, or product teams to resolve tier 2/tier 3 issues.
+5. Technical Stack: Mentions APIs, JSON, webhooks, cloud infrastructure, or deep OS/application/client-server software diagnostics.
+
+TRAP JOB PENALTIES (-50 points each. Reject immediately with score 0 if two or more are found):
+- Tier 1 IT Helpdesk or internal corporate IT support.
+- Hardware troubleshooting, printer repair, or desktop provisioning.
+- Active Directory administration or basic Office 365 password resets.
+- High-volume inbound call center metrics.
+- Pure backend/ML Software Engineering, pure DevOps/SRE infrastructure architecture, or senior quota-carrying Pre-Sales Solutions Engineering requiring 5+ years of prior sales quota experience.
+
+Output a JSON object with:
+{{"score": [number], "reasoning": "[brief explanation]", "trap_flags": [list of any trap keywords found], "tool_blockers": [list of specific software tools required, e.g., Jira, Salesforce]}}
 
 Job Description:
 {raw_text}
@@ -122,7 +120,7 @@ def evaluate_job_description(
     """
     Evaluates a raw job description string and returns a structured JobEvaluation object.
 
-    Uses the gemini-2.5-flash model (with fallback to gemini-3.8-flash if deprecated/unavailable),
+    Uses the configured Gemini model (with fallback to gemini-3.8-flash if deprecated/unavailable),
     enforces structured output schema via types.GenerateContentConfig.response_schema,
     and applies exponential backoff for rate limits or transient errors.
     """
@@ -159,7 +157,6 @@ def evaluate_job_description(
 
             # Fallback parsing in case response.text is populated but parsed is not
             if response.text:
-                import json
                 parsed_data = json.loads(response.text)
                 eval_obj = JobEvaluation.model_validate(parsed_data)
                 ACTIVE_MODEL = target_model
@@ -170,14 +167,12 @@ def evaluate_job_description(
         except ClientError as ce:
             last_error = ce
             err_msg = str(ce)
-            # Handle model availability/deprecation (e.g. gemini-2.5-flash 404 falling back to gemini-3.8-flash)
             if ("404" in err_msg or "not available" in err_msg.lower() or "not_found" in err_msg.lower()) and target_model != FALLBACK_MODEL:
                 print(f"[!] Notice: Model '{target_model}' is unavailable/deprecated. Switching to '{FALLBACK_MODEL}'.")
                 target_model = FALLBACK_MODEL
                 ACTIVE_MODEL = FALLBACK_MODEL
                 continue
 
-            # Exponential backoff for rate limits (429) or transient client errors
             if attempt < max_retries:
                 print(f"[!] ClientError on attempt {attempt}/{max_retries}: {ce}. Retrying in {delay:.1f}s...")
                 time.sleep(delay)
@@ -203,22 +198,22 @@ def evaluate_job_description(
 
 if __name__ == "__main__":
     sample_desc = """
-    Senior Python Backend Engineer (100% Remote - US)
-    Acme Software Inc.
+    Tier 3 Application Support Engineer (100% Remote - US)
+    Acme SaaS Platform Inc.
     
-    We are seeking a Senior Python Engineer to design, build, and maintain high-throughput REST APIs
-    and data processing microservices. You will work with FastAPI, PostgreSQL, Redis, and AWS ECS.
+    We are seeking an Application Support Engineer to investigate complex customer escalations
+    for our B2B SaaS platform. You will reproduce software defects, inspect application and SQL logs,
+    validate REST API payloads and webhooks, and partner directly with Engineering and QA on Tier 3 bugs.
     
     Responsibilities:
-    - Write clean, test-driven Python code for backend microservices.
-    - Optimize database queries and handle asynchronous queue workers with Celery.
-    - Troubleshoot production issues and participate in code reviews.
+    - Perform deep root-cause analysis (RCA) using system logs, SQL queries, and diagnostic traces.
+    - Troubleshoot data integrity issues across relational databases and API integrations.
+    - Escalate reproducible defects with full diagnostic logs to software engineering teams.
     
     Requirements:
-    - 5+ years of experience with Python, SQL, and distributed systems.
-    - Strong understanding of Docker, CI/CD, and Linux environments.
-    - No direct reports. Pure hands-on technical execution.
-    - 100% remote within the United States.
+    - 2+ years in B2B SaaS Technical Support, Application Support, or Integration Support.
+    - Strong SQL querying and log analysis skills (Event Viewer, Procmon, or server logs).
+    - Experience with REST APIs, JSON, Postman, and Jira.
     """
     print("Testing evaluate_job_description with sample posting...")
     evaluation = evaluate_job_description(sample_desc)
