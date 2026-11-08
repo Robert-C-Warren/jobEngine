@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-11-07 18:01:45  
+**Generated:** 2026-11-08 18:20:44  
 **Profile:** Robert Warren | B2B SaaS Technical Support, Integration & Product Analyst -> Solutions Engineering  
 **Filtering:** 5-Pillar DNA Rubric (+20 each) | Anti-Helpdesk / Anti-AD / Anti-Hardware Trap Penalties (-50 each)  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,60 +10,30 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| 1 | **NetDocuments** | [Technical Support Engineer](https://jobicy.com/jobs/159499-technical-support-engineer-6) | USA | **80/100** | $55,000 - $65,000 | [Tailored PDF Resume](outputs/resumes/NetDocuments_Technical_Support_Engineer_resume.pdf) · [Cold Email](outputs/emails/NetDocuments_Technical_Support_Engineer_cold_email.md) |
-| 2 | **Supabase** | [Partner Solutions Architect, AI Builder](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0) | Remote, AMER | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf) · [Cold Email](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md) |
-| 3 | **Supabase** | [Partner Solutions Architect , AI Builder](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0) | Remote, AMER | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf) · [Cold Email](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md) |
-| 4 | **Stripe** | [Integration Engineer (Metronome)](https://stripe.com/jobs/search?gh_jid=8175647) | Remote | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf) · [Cold Email](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md) |
-| 5 | **Stripe** | [Integration Engineer, Metronome](https://stripe.com/jobs/search?gh_jid=8080454) | Remote | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf) · [Cold Email](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md) |
+| 1 | **Supabase** | [Support Engineer (AMER)](https://jobs.ashbyhq.com/supabase/e4e3ccb7-7b7d-42a2-be0f-26cbb5ae4abd) | Remote, AMER | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Supabase_Support_Engineer_AMER_resume.pdf) · [Cold Email](outputs/emails/Supabase_Support_Engineer_AMER_cold_email.md) |
+| 2 | **Supabase** | [Support Engineer (AMER - Weekends)](https://jobs.ashbyhq.com/supabase/dcf09dfe-55bc-44ba-b5db-1a2de7f33216) | Remote, AMER | **60/100** | Not specified | [Tailored PDF Resume](outputs/resumes/Supabase_Support_Engineer_AMER_Weekends_resume.pdf) · [Cold Email](outputs/emails/Supabase_Support_Engineer_AMER_Weekends_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
 
-### 1. Technical Support Engineer – NetDocuments
-- **Direct Application URL:** [https://jobicy.com/jobs/159499-technical-support-engineer-6](https://jobicy.com/jobs/159499-technical-support-engineer-6)
-- **Location:** USA
-- **Compensation:** $55,000 - $65,000
-- **ATS Relevance Score:** **80 / 100**
-- **Match Justification:** DNA 1: B2B SaaS / Enterprise Software (b2b) (+20) | DNA 2: Root-Cause Analysis & Log Triage (event viewer, process monitor, troubleshooting) (+20) | DNA 3: Database & SQL Interaction (sql) (+20) | DNA 5: Technical Stack (APIs, JSON, Webhooks, Cloud) (api, rest api) (+20) | Location: US Remote Eligible
-- **Tailored PDF Resume:** [outputs/resumes/NetDocuments_Technical_Support_Engineer_resume.pdf](outputs/resumes/NetDocuments_Technical_Support_Engineer_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/NetDocuments_Technical_Support_Engineer_cold_email.md](outputs/emails/NetDocuments_Technical_Support_Engineer_cold_email.md)
-
-### 2. Partner Solutions Architect, AI Builder – Supabase
-- **Direct Application URL:** [https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0)
+### 1. Support Engineer (AMER) – Supabase
+- **Direct Application URL:** [https://jobs.ashbyhq.com/supabase/e4e3ccb7-7b7d-42a2-be0f-26cbb5ae4abd](https://jobs.ashbyhq.com/supabase/e4e3ccb7-7b7d-42a2-be0f-26cbb5ae4abd)
 - **Location:** Remote, AMER
 - **Compensation:** Not specified
 - **ATS Relevance Score:** **60 / 100**
-- **Match Justification:** Recruiter Evaluation (60/100): Awarded +60 points for B2B SaaS environment (Supabase platform), strong Database Interaction (PostgreSQL foundation), and Technical Stack (APIs, Next.js, LLM frameworks). Lost points for lacking explicit Root-Cause Analysis (no mention of inspecting logs, stack traces, or bug reproduction) and Engineering Escalation (mentions partner feedback loops rather than escalating tier 2/tier 3 customer support issues). While this is an actual Solutions Architect role rather than a bridge role, it does not explicitly require 5+ years of prior sales quota experience, avoiding the full trap penalty. | Location: US Remote Eligible
-- **Tailored PDF Resume:** [outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md)
+- **Match Justification:** DNA 2: Root-Cause Analysis & Log Triage (reproduce) (+20) | DNA 3: Database & SQL Interaction (sql, postgresql, postgres, queries) (+20) | DNA 4: Engineering & QA Escalation (Tier 2/3) (developers) (+20) | Location: US Remote Eligible
+- **Tailored PDF Resume:** [outputs/resumes/Supabase_Support_Engineer_AMER_resume.pdf](outputs/resumes/Supabase_Support_Engineer_AMER_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Supabase_Support_Engineer_AMER_cold_email.md](outputs/emails/Supabase_Support_Engineer_AMER_cold_email.md)
 
-### 3. Partner Solutions Architect , AI Builder – Supabase
-- **Direct Application URL:** [https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0)
+### 2. Support Engineer (AMER - Weekends) – Supabase
+- **Direct Application URL:** [https://jobs.ashbyhq.com/supabase/dcf09dfe-55bc-44ba-b5db-1a2de7f33216](https://jobs.ashbyhq.com/supabase/dcf09dfe-55bc-44ba-b5db-1a2de7f33216)
 - **Location:** Remote, AMER
 - **Compensation:** Not specified
 - **ATS Relevance Score:** **60 / 100**
-- **Match Justification:** Recruiter Evaluation (60/100): The role earns +60 points for B2B SaaS/developer platform environment (+20), deep database requirements centered on PostgreSQL (+20), and modern technical stack including APIs, LLM tooling, and cloud infrastructure (+20). It does not explicitly mention root-cause log/stack-trace analysis or resolving tier 2/tier 3 escalation bugs with engineering, as it is already an established senior Platform Solutions Architect / Partner SE role rather than a support/integration bridge role. | Tools / Blockers Required: PostgreSQL, React, Next.js | Location: US Remote Eligible
-- **Tailored PDF Resume:** [outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md)
-
-### 4. Integration Engineer (Metronome) – Stripe
-- **Direct Application URL:** [https://stripe.com/jobs/search?gh_jid=8175647](https://stripe.com/jobs/search?gh_jid=8175647)
-- **Location:** Remote
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **60 / 100**
-- **Match Justification:** Recruiter Evaluation (60/100): Awarded +20 for B2B SaaS environment (Stripe/Metronome enterprise billing platform), +20 for Technical Stack (designing integrations with Metronome APIs and enterprise platforms), and +20 for Root-Cause Analysis/Testing (testing integrations, identifying technical risks, and experience with logs/metrics). Missed points for explicit Database/SQL querying requirements and formal Tier 2/3 engineering escalations (role focuses on post-sales implementation and hands off to Support). No trap penalties apply as it is a post-sales integration engineering role rather than a quota-carrying pre-sales position. | Tools / Blockers Required: Salesforce, NetSuite, CPQ | Location: US Remote Eligible
-- **Tailored PDF Resume:** [outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md)
-
-### 5. Integration Engineer, Metronome – Stripe
-- **Direct Application URL:** [https://stripe.com/jobs/search?gh_jid=8080454](https://stripe.com/jobs/search?gh_jid=8080454)
-- **Location:** Remote
-- **Compensation:** Not specified
-- **ATS Relevance Score:** **60 / 100**
-- **Match Justification:** Recruiter Evaluation (60/100): The role earns +20 for B2B SaaS, +20 for Technical Stack (APIs, integrations), and +20 for Engineering Escalation (liaison between customers and R&D). It misses points for Database Interaction (no explicit SQL or database querying required) and has minimal root-cause bug troubleshooting depth despite mentioning experience with logs. Note that while this does not carry a sales quota trap, it requires 10+ years of senior experience. | Tools / Blockers Required: Salesforce, NetSuite, CPQ systems | Location: US Remote Eligible
-- **Tailored PDF Resume:** [outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf)
-- **Cold Outreach Email:** [outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md)
+- **Match Justification:** DNA 2: Root-Cause Analysis & Log Triage (reproduce) (+20) | DNA 3: Database & SQL Interaction (sql, postgresql, postgres, queries) (+20) | DNA 4: Engineering & QA Escalation (Tier 2/3) (developers) (+20) | Location: US Remote Eligible
+- **Tailored PDF Resume:** [outputs/resumes/Supabase_Support_Engineer_AMER_Weekends_resume.pdf](outputs/resumes/Supabase_Support_Engineer_AMER_Weekends_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Supabase_Support_Engineer_AMER_Weekends_cold_email.md](outputs/emails/Supabase_Support_Engineer_AMER_Weekends_cold_email.md)
 
 ---
 
@@ -71,6 +41,11 @@
 
 | Date Reported | Company | Title | Location | Score | Compensation | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
+| 2026-11-07 | **NetDocuments** | [Technical Support Engineer](https://jobicy.com/jobs/159499-technical-support-engineer-6) | USA | **80/100** | $55,000 - $65,000 | [Resume](outputs/resumes/NetDocuments_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/NetDocuments_Technical_Support_Engineer_cold_email.md) |
+| 2026-11-07 | **Supabase** | [Partner Solutions Architect, AI Builder](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0) | Remote, AMER | **60/100** | Not specified | [Resume](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf) · [Email](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md) |
+| 2026-11-07 | **Supabase** | [Partner Solutions Architect , AI Builder](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0) | Remote, AMER | **60/100** | Not specified | [Resume](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf) · [Email](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md) |
+| 2026-11-07 | **Stripe** | [Integration Engineer, Metronome](https://stripe.com/jobs/search?gh_jid=8080454) | Remote | **60/100** | Not specified | [Resume](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf) · [Email](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md) |
+| 2026-11-07 | **Stripe** | [Integration Engineer (Metronome)](https://stripe.com/jobs/search?gh_jid=8175647) | Remote | **60/100** | Not specified | [Resume](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf) · [Email](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md) |
 | 2026-11-06 | **Supabase** | [Database Support Engineer (AMER)](https://jobicy.com/jobs/154076-database-support-engineer-amer) | LATAM,  Canada,  USA | **100/100** | Not specified | [Resume](outputs/resumes/Supabase_Database_Support_Engineer_AMER_resume.pdf) · [Email](outputs/emails/Supabase_Database_Support_Engineer_AMER_cold_email.md) |
 | 2026-11-06 | **Supabase** | [Database Support Engineer (AMER)](https://jobs.ashbyhq.com/supabase/f18b1173-51c3-4ff6-bcda-89f8111931f4) | Remote, AMER | **100/100** | Not specified | [Resume](outputs/resumes/Supabase_Database_Support_Engineer_AMER_resume.pdf) · [Email](outputs/emails/Supabase_Database_Support_Engineer_AMER_cold_email.md) |
 | 2026-11-06 | **Linear** | [Product Support Specialist, Eastern/Central Time](https://jobs.ashbyhq.com/linear/b4df9dbe-618e-4a3b-874c-c9abf87ca5c0) | North America (Remote) | **80/100** | $95,000—$135,000 | [Resume](outputs/resumes/Linear_Product_Support_Specialist_EasternCentral_Time_resume.pdf) · [Email](outputs/emails/Linear_Product_Support_Specialist_EasternCentral_Time_cold_email.md) |
@@ -84,4 +59,3 @@
 | 2026-11-04 | **Kustomer** | [Technical Support Engineer](https://jobicy.com/jobs/158090-technical-support-engineer-5) | USA | **100/100** | Not specified | [Resume](outputs/resumes/Kustomer_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Kustomer_Technical_Support_Engineer_cold_email.md) |
 | 2026-11-04 | **Fivetran** | [Solutions Engineer, Commercial (Austin)](https://www.fivetran.com/careers/job?gh_jid=7792166003) | USA - Austin (dbt) | **60/100** | $160,000 — $190,000 USD | [Resume](outputs/resumes/Fivetran_Solutions_Engineer_Commercial_Austin_resume.pdf) · [Email](outputs/emails/Fivetran_Solutions_Engineer_Commercial_Austin_cold_email.md) |
 | 2026-11-02 | **Natera** | [Forward Deployed AI Solutions Engineer](https://jobicy.com/jobs/158492-forward-deployed-ai-solutions-engineer) | USA | **60/100** | $105,700-$132,100 | [Resume](outputs/resumes/Natera_Forward_Deployed_AI_Solutions_Engineer_resume.pdf) · [Email](outputs/emails/Natera_Forward_Deployed_AI_Solutions_Engineer_cold_email.md) |
-| 2026-10-31 | **Alloy** | [Technical Support Engineer, Triage & Discovery](https://weworkremotely.com/remote-jobs/alloy-technical-support-engineer-triage-discovery) | Remote (US) | **100/100** | $75,000 to $95,000 | [Resume](outputs/resumes/Alloy_Technical_Support_Engineer_Triage_Discovery_resume.pdf) · [Email](outputs/emails/Alloy_Technical_Support_Engineer_Triage_Discovery_cold_email.md) |
