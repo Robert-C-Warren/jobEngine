@@ -1,5 +1,5 @@
 # Daily Job Matches & ATS Tailored Applications
-**Generated:** 2026-11-13 20:29:06  
+**Generated:** 2026-11-14 18:44:38  
 **Profile:** Robert Warren | B2B SaaS Technical Support, Integration & Product Analyst -> Solutions Engineering  
 **Filtering:** 5-Pillar DNA Rubric (+20 each) | Anti-Helpdesk / Anti-AD / Anti-Hardware Trap Penalties (-50 each)  
 **Policy:** Fresh Matches Only (Unreported) | Max 2 Roles Per Company Cap  
@@ -10,11 +10,20 @@
 
 | Rank | Company | Title | Location | Score | Salary Range | Tailored Assets |
 | :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| - | *No fresh unreported matches found today (>= 60)* | - | - | - | - | - |
+| 1 | **Unite Us** | [Senior Customer Integration Engineer](https://jobicy.com/jobs/162189-senior-customer-integration-engineer) | USA | **60/100** | $140,000 | [Tailored PDF Resume](outputs/resumes/Unite_Us_Senior_Customer_Integration_Engineer_resume.pdf) · [Cold Email](outputs/emails/Unite_Us_Senior_Customer_Integration_Engineer_cold_email.md) |
 
 ---
 
 ## Detailed Role Breakdowns & Match Justifications
+
+### 1. Senior Customer Integration Engineer – Unite Us
+- **Direct Application URL:** [https://jobicy.com/jobs/162189-senior-customer-integration-engineer](https://jobicy.com/jobs/162189-senior-customer-integration-engineer)
+- **Location:** USA
+- **Compensation:** $140,000
+- **ATS Relevance Score:** **60 / 100**
+- **Match Justification:** DNA 2: Root-Cause Analysis & Log Triage (application logs, troubleshooting) (+20) | DNA 3: Database & SQL Interaction (sql) (+20) | DNA 5: Technical Stack (APIs, JSON, Webhooks, Cloud) (api, apis, aws, python) (+20) | Location: US Remote Eligible
+- **Tailored PDF Resume:** [outputs/resumes/Unite_Us_Senior_Customer_Integration_Engineer_resume.pdf](outputs/resumes/Unite_Us_Senior_Customer_Integration_Engineer_resume.pdf)
+- **Cold Outreach Email:** [outputs/emails/Unite_Us_Senior_Customer_Integration_Engineer_cold_email.md](outputs/emails/Unite_Us_Senior_Customer_Integration_Engineer_cold_email.md)
 
 ---
 
@@ -38,13 +47,3 @@
 | 2026-11-07 | **Supabase** | [Partner Solutions Architect , AI Builder](https://jobs.ashbyhq.com/supabase/282d1dfb-b162-4ce4-a938-c4b2173230e0) | Remote, AMER | **60/100** | Not specified | [Resume](outputs/resumes/Supabase_Partner_Solutions_Architect_AI_Builder_resume.pdf) · [Email](outputs/emails/Supabase_Partner_Solutions_Architect_AI_Builder_cold_email.md) |
 | 2026-11-07 | **Stripe** | [Integration Engineer, Metronome](https://stripe.com/jobs/search?gh_jid=8080454) | Remote | **60/100** | Not specified | [Resume](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf) · [Email](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md) |
 | 2026-11-07 | **Stripe** | [Integration Engineer (Metronome)](https://stripe.com/jobs/search?gh_jid=8175647) | Remote | **60/100** | Not specified | [Resume](outputs/resumes/Stripe_Integration_Engineer_Metronome_resume.pdf) · [Email](outputs/emails/Stripe_Integration_Engineer_Metronome_cold_email.md) |
-| 2026-11-06 | **Supabase** | [Database Support Engineer (AMER)](https://jobicy.com/jobs/154076-database-support-engineer-amer) | LATAM,  Canada,  USA | **100/100** | Not specified | [Resume](outputs/resumes/Supabase_Database_Support_Engineer_AMER_resume.pdf) · [Email](outputs/emails/Supabase_Database_Support_Engineer_AMER_cold_email.md) |
-| 2026-11-06 | **Supabase** | [Database Support Engineer (AMER)](https://jobs.ashbyhq.com/supabase/f18b1173-51c3-4ff6-bcda-89f8111931f4) | Remote, AMER | **100/100** | Not specified | [Resume](outputs/resumes/Supabase_Database_Support_Engineer_AMER_resume.pdf) · [Email](outputs/emails/Supabase_Database_Support_Engineer_AMER_cold_email.md) |
-| 2026-11-06 | **Linear** | [Product Support Specialist, Eastern/Central Time](https://jobs.ashbyhq.com/linear/b4df9dbe-618e-4a3b-874c-c9abf87ca5c0) | North America (Remote) | **80/100** | $95,000—$135,000 | [Resume](outputs/resumes/Linear_Product_Support_Specialist_EasternCentral_Time_resume.pdf) · [Email](outputs/emails/Linear_Product_Support_Specialist_EasternCentral_Time_cold_email.md) |
-| 2026-11-06 | **Linear** | [Product Support Specialist, Pacific/Mountain Time](https://jobs.ashbyhq.com/linear/d062065e-05bb-42ce-a430-ec205695cc2e) | North America (Remote) | **80/100** | $95,000—$135,000 | [Resume](outputs/resumes/Linear_Product_Support_Specialist_PacificMountain_Time_resume.pdf) · [Email](outputs/emails/Linear_Product_Support_Specialist_PacificMountain_Time_cold_email.md) |
-| 2026-11-06 | **Anyscale** | [Customer Engineer, Infrastructure](https://jobs.ashbyhq.com/anyscale/1466478e-9797-4318-bdca-bb1ae5798d52) | San Francisco (Remote) | **80/100** | Not specified | [Resume](outputs/resumes/Anyscale_Customer_Engineer_Infrastructure_resume.pdf) · [Email](outputs/emails/Anyscale_Customer_Engineer_Infrastructure_cold_email.md) |
-| 2026-11-06 | **Gitlab** | [Support Engineer (AMER)](https://job-boards.greenhouse.io/gitlab/jobs/8654230002) | Remote, Canada; Remote, United States | **80/100** | $86,500 — $146,400 USD | [Resume](outputs/resumes/Gitlab_Support_Engineer_AMER_resume.pdf) · [Email](outputs/emails/Gitlab_Support_Engineer_AMER_cold_email.md) |
-| 2026-11-06 | **Vultr** | [Technical Support Engineer](https://jobicy.com/jobs/156329-technical-support-engineer-2) | USA | **80/100** | $30 - $40 per hour | [Resume](outputs/resumes/Vultr_Technical_Support_Engineer_resume.pdf) · [Email](outputs/emails/Vultr_Technical_Support_Engineer_cold_email.md) |
-| 2026-11-06 | **Vultr** | [Technical Support Specialist](https://jobicy.com/jobs/156337-technical-support-specialist) | USA | **80/100** | $25 - $30 per hour | [Resume](outputs/resumes/Vultr_Technical_Support_Specialist_resume.pdf) · [Email](outputs/emails/Vultr_Technical_Support_Specialist_cold_email.md) |
-| 2026-11-06 | **Zscaler** | [Senior Product Support Engineer](https://job-boards.greenhouse.io/zscaler/jobs/5239100007) | Remote - USA | **80/100** | $108,500 — $155,000 USD | [Resume](outputs/resumes/Zscaler_Senior_Product_Support_Engineer_resume.pdf) · [Email](outputs/emails/Zscaler_Senior_Product_Support_Engineer_cold_email.md) |
-| 2026-11-06 | **Middesk** | [Solutions Engineer, Mid Market](https://jobs.ashbyhq.com/middesk/0e5deffb-3e91-4f80-9d22-eb71a19ad9c1) | New York (Remote) | **60/100** | Not specified | [Resume](outputs/resumes/Middesk_Solutions_Engineer_Mid_Market_resume.pdf) · [Email](outputs/emails/Middesk_Solutions_Engineer_Mid_Market_cold_email.md) |
