@@ -2,8 +2,8 @@
 
 **To:** Hiring Manager / Technical Talent Acquisition at Glean  
 **Subject:** Application & Introduction: Robert Warren – Designated Technical Support Engineer - West  
-**Direct Application Link:** [Glean Job Posting](https://remoteOK.com/remote-jobs/remote-designated-technical-support-engineer-west-glean-1137820)  
-**Target Location:** US Only  
+**Direct Application Link:** [Glean Job Posting](https://weworkremotely.com/remote-jobs/glean-designated-technical-support-engineer-west)  
+**Target Location:** Remote (US)  
 **ATS Relevance Match:** 100.0/100  
 
 ---
