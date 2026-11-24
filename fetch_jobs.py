@@ -25,51 +25,59 @@ from concurrent.futures import ThreadPoolExecutor
 from db import init_db, insert_job, job_exists, generate_job_id, get_connection
 from evaluator import evaluate_job_description
 
-# Target profile criteria: B2B SaaS Technical Support, Integration, Implementation, & Product/Technical Analyst bridge roles
+# Target profile: Early-to-Mid-Level (1-4 YoE) Commercial B2B Data Infra, Support, Integration & Ops
 TARGET_TITLE_PATTERNS = [
-    r"\bsolutions engineer\b", r"\bsolutions consultant\b", r"\bsolutions integration\b",
-    r"\bsolutions specialist\b", r"\bsolutions analyst\b", r"\bsolutions architect\b",
-    r"\bintegration engineer\b", r"\bintegrations engineer\b", r"\bintegration specialist\b", r"\bintegration analyst\b",
-    r"\bimplementation engineer\b", r"\bimplementation specialist\b", r"\bimplementation consultant\b", r"\bimplementation analyst\b",
-    r"\btechnical account manager\b", r"\btam\b", r"\bcustomer engineer\b", r"\bpartner engineer\b",
     r"\btechnical support\b", r"\bsupport engineer\b", r"\bapplication support\b",
     r"\bproduct support\b", r"\bsoftware support\b", r"\bplatform support\b",
     r"\bcustomer support engineer\b", r"\bclient support engineer\b",
-    r"\bsystems support\b", r"\btechnical escalation\b", r"\bescalation[s]? engineer\b",
-    r"\bescalation[s]? specialist\b", r"\bescalation[s]? analyst\b",
-    r"\btier 2\b", r"\btier 3\b", r"\btier ii\b", r"\btier iii\b", r"\bl2 support\b", r"\bl3 support\b",
-    r"\bproduct analyst\b", r"\btechnical analyst\b", r"\bsupport analyst\b", r"\bapplication analyst\b",
-    r"\bpacs\b", r"\bimaging support\b", r"\bclinical support\b", r"\bclinical systems\b",
-    r"\bforward deployed\b", r"\bfde\b", r"\bdeployment engineer\b", r"\bdeployment strategist\b",
-    r"\bonboarding engineer\b", r"\btechnical onboarding\b", r"\btechnical operations\b"
+    r"\bsystems support\b", r"\bsupport specialist\b", r"\bsupport analyst\b",
+    r"\bintegration engineer\b", r"\bintegrations engineer\b", r"\bintegration specialist\b", r"\bintegration analyst\b",
+    r"\bimplementation engineer\b", r"\bimplementation specialist\b", r"\bimplementation consultant\b", r"\bimplementation analyst\b",
+    r"\bonboarding engineer\b", r"\btechnical onboarding\b",
+    r"\btechnical operations\b", r"\bdata operations\b", r"\bdata ops\b",
+    r"\bproduct analyst\b", r"\btechnical analyst\b", r"\bapplication analyst\b", r"\bdata product analyst\b",
+    r"\bsolutions engineer\b", r"\bsolutions consultant\b", r"\bsolutions specialist\b", r"\bsolutions analyst\b",
+    r"\bcustomer engineer\b", r"\bpartner engineer\b",
+    r"\btier 2\b", r"\btier 3\b", r"\btier ii\b", r"\btier iii\b", r"\bl2 support\b", r"\bl3 support\b"
 ]
 
 NON_TECH_PATTERNS = [
+    # Seniority & Over-Leveled Title Blocklist
+    r"\bsr\.?\b", r"\bsenior\b", r"\bstaff\b", r"\bprincipal\b", r"\blead\b",
+    r"\barchitect\b", r"\bdirector\b", r"\bhead of\b", r"\bmanager\b", r"\bvp\b",
+    r"\bdesignated\b", r"\bescalation[s]? engineer\b", r"\bforward deployed\b",
+    r"\bdeployment engineer\b", r"\biii\b", r"\biv\b", r"\blevel 3\b", r"\blevel 4\b",
+    # Non-Tech / Entry Trap Blocklist
     r"\baccount executive\b", r"\brecruiter\b", r"\btalent acquisition\b",
     r"\bproduct designer\b", r"\bpayroll specialist\b", r"\bcontent writer\b",
     r"\blegal counsel\b", r"\bhuman resources\b", r"\bgraphic designer\b",
     r"\bmechanical\b", r"\bstructural\b", r"\bcivil\b", r"\bintern\b", r"\binternship\b",
     r"\buniversity graduate\b", r"\bnew grad\b",
-    # Exclude Trap Titles (Internal Corporate IT, Helpdesk, Desktop Provisioning, Pure SRE/DevOps)
+    # Trap IT / Pure Infra / Sector Titles
     r"\bhelp\s*desk\b", r"\bdesktop support\b", r"\bit support\b", r"\bit systems engineer\b",
     r"\bcorporate it\b", r"\binternal it\b", r"\bworkplace tech\b", r"\bendpoint engineer\b",
-    r"\bsite reliability\b", r"\bsre\b", r"\bdevops\b", r"\bfield service\b"
+    r"\bsite reliability\b", r"\bsre\b", r"\bdevops\b", r"\bfield service\b",
+    r"\bpublic sector\b", r"\bfederal\b", r"\bgovernment\b", r"\bclinical\b", r"\bhealthcare\b"
 ]
 
-# Strict negative keywords - Zero government or security clearance roles
+# Zero defense, military, intelligence, clearance, or healthcare/clinical domains
 EXCLUSION_KEYWORDS = [
     "security clearance", "secret clearance", "top secret", "ts/sci", "ts-sci",
     "polygraph", "public trust", "dod", "department of defense", "defense contractor",
-    "usajobs", "military clearance", "cleared professional", "clearance required",
+    "usajobs", "military", "cleared professional", "clearance required", "itar",
     "active secret", "active top secret", "ability to obtain a clearance",
     "us citizen eligible for clearance", "government clearance", "federal government",
-    "air force base", "wright-patterson", "defense intelligence", "defense logistics"
+    "public sector", "air force base", "wright-patterson", "defense intelligence",
+    "defense logistics", "weapons", "battlefield", "warfighter",
+    "hipaa", "clinical workflow", "electronic health record", "ehr", "emr", "patient care"
 ]
 
 EXCLUDED_COMPANIES = [
     "defense", "dod", "department of", "air force", "army", "navy",
     "lockheed", "raytheon", "booz allen", "general dynamics", "leidos",
-    "caci", "saic", "northrop grumman", "brite", "mantech"
+    "caci", "saic", "northrop grumman", "brite", "mantech",
+    "palantir", "anduril", "shield ai", "shieldai", "onebrief", "skydio", "scale ai", "scaleai",
+    "natera", "unite us", "freshpaint", "athenahealth", "epic", "veeva"
 ]
 
 # Non-US location patterns to strictly filter out
@@ -90,40 +98,28 @@ NON_US_PATTERNS = [
     r"\bdubai\b", r"\bamsterdam\b", r"\blisbon\b"
 ]
 
-# Curated high-relevance enterprise companies
+# Commercial Data Infra, Observability, Telemetry, Fintech & B2B SaaS (Zero Defense / Zero Healthcare)
 GREENHOUSE_COMPANIES = [
-    # Clinical Imaging, HealthTech, Diagnostic Systems
-    "butterflynetwork", "tempus", "dexcom", "omadahealth", "zocdoc",
-    "komodohealth", "doximity", "heartflow", "benchling",
-    "flatiron", "hologic", "omnicell", "verily", "goodrx",
-    "healthcatalyst", "medpace", "covermymeds",
-    # Enterprise Hardware, IoT, Physical Security, Sensors, Logistics & Robotics
-    "samsara", "verkada", "toast", "formlabs", "matterport", "skydio",
-    "locusrobotics", "symbotic", "anduril", "flockfreight", "flexport",
-    "purestorage", "tanium",
-    # Enterprise Systems, Database, Infrastructure & Support
-    "cloudflare", "datadog", "tailscale", "1password", "okta", "crowdstrike",
-    "sentinelone", "rubrik", "braze", "plaid", "gusto",
-    "relativity", "elastic", "mongodb", "canonical", "twilio", "stripe",
-    "zscaler", "netskope", "pagerduty", "cockroachlabs", "hashicorp",
-    "sentry", "grafana", "gitlab", "box", "notion", "airtable", "checkr",
-    "ramp", "remote", "deel", "lattice", "rippling", "carta", "clearwave", "subsplash",
-    # Support, Productivity & Developer Tooling
-    "zapier", "automattic", "intercom", "freshworks", "confluent",
-    "snowflake", "fastly",
-    # Ohio-based & Remote Tech Leaders
-    "upstart", "klaviyo", "brex", "asana", "figma", "rootinsurance",
-    # Forward Deployed, Integration & Data Targets
-    "databricks", "palantir", "scaleai", "anthropic", "fivetran", "dbt",
-    "airbyte", "temporal", "launchdarkly", "postman", "workato", "mulesoft",
-    "boomi", "trayio", "segment", "amplitude", "mixpanel", "linear",
-    "redox", "zushealth", "canvasmedical", "iteratively"
+    # Data Infrastructure, Pipelines & Observability
+    "fivetran", "airbyte", "dbt", "databricks", "snowflake", "confluent",
+    "datadog", "grafana", "sentry", "elastic", "mongodb", "cockroachlabs",
+    "timescale", "cribl", "labelbox", "snorkelai", "segment", "amplitude", "mixpanel",
+    "launchdarkly", "temporal", "postman", "workato", "trayio",
+    # Commercial Telemetry, Fleet, Logistics & Industrial IoT
+    "samsara", "geotab", "motive", "flockfreight", "flexport", "project44",
+    "fourkites", "toast", "chargepoint", "formlabs", "matterport", "verkada",
+    # B2B SaaS, Security, Cloud & Developer Tooling
+    "cloudflare", "tailscale", "1password", "okta", "crowdstrike", "sentinelone",
+    "rubrik", "zscaler", "netskope", "pagerduty", "hashicorp", "gitlab",
+    "fastly", "canonical", "twilio", "braze", "klaviyo", "zapier", "intercom",
+    "automattic", "box", "notion", "airtable", "asana", "figma", "linear",
+    # Fintech & Payments Infrastructure
+    "stripe", "plaid", "adyen", "marqeta", "brex", "ramp", "checkr",
+    "gusto", "carta", "deel", "remote", "rippling", "upstart", "rootinsurance"
 ]
 
 LEVER_COMPANIES = [
-    "heartbeathealth", "ro", "modernizingmedicine", "veeva", "shieldai",
-    "athenahealth", "symplr", "scriptdrop",
-    "palantir", "color", "includedhealth", "nominal", "kopperfield"
+    "kopperfield", "dwolla", "cleanlab"
 ]
 
 WWR_FEEDS = [
@@ -403,11 +399,10 @@ def fetch_lever_jobs() -> List[Dict[str, Any]]:
     return listings
 
 ASHBY_COMPANIES = [
-    "cohere", "linear", "vanta", "retool", "posthog", "clay", "elevenlabs",
-    "langchain", "pinecone", "supabase", "modal", "baseten", "anyscale",
-    "replicate", "perplexity", "harvey", "glean", "decagon", "sardine",
-    "middesk", "column", "unit", "merge", "paragon", "workos", "onebrief",
-    "copia", "ramp", "abridge", "hippocraticai", "anterior", "ambiencehealthcare"
+    "supabase", "posthog", "linear", "vanta", "retool", "clay",
+    "pinecone", "modal", "baseten", "anyscale", "replicate", "glean",
+    "decagon", "sardine", "middesk", "column", "unit", "merge",
+    "paragon", "workos", "ramp", "cohere", "montecarlodata"
 ]
 
 def fetch_single_ashby_board(comp: str) -> List[Dict[str, Any]]:

@@ -33,7 +33,10 @@ from db import (
     init_db, mark_job_reported, get_recently_reported_jobs
 )
 from resume_exporter import export_resume_pdf
-from fetch_jobs import parse_and_validate_salary, is_valid_location
+from fetch_jobs import (
+    parse_and_validate_salary, is_valid_location, is_excluded,
+    NON_TECH_PATTERNS
+)
 from evaluator import evaluate_job_description
 
 MASTER_RESUME_FILE = ROOT_DIR / "master_resume.md"
@@ -188,10 +191,11 @@ COMPILED_TRAP_RULES = [
     for trap_name, patterns in TRAP_RULES
 ]
 
-# Title-level disqualifiers for immediate rejection
+# Title-level disqualifiers for immediate rejection (aligned with fetch_jobs.NON_TECH_PATTERNS)
 DISQUALIFIED_TITLE_PATTERNS = [
-    re.compile(r"\b(help\s*desk|desktop\s+support|it\s+support|it\s+systems\s+engineer|corporate\s+it|internal\s+it|workplace\s+tech|endpoint\s+engineer|site\s+reliability|sre|devops|field\s+service)\b", re.IGNORECASE),
-    re.compile(r"\b(principal|staff|director|vp|vice\s+president|head\s+of|chief)\b", re.IGNORECASE)
+    re.compile(pat, re.IGNORECASE) for pat in NON_TECH_PATTERNS
+] + [
+    re.compile(r"\b(vice\s+president|chief)\b", re.IGNORECASE)
 ]
 
 EXCLUSION_TERMS = [
@@ -310,10 +314,9 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
     salary_str = job.get("salary_range", "")
     combined_text = f"{title} {description}"
 
-    # 1. Hard Exclusions (Security Clearance / Government)
-    for ex in EXCLUSION_TERMS:
-        if re.search(r"\b" + re.escape(ex) + r"\b", combined_text, re.IGNORECASE):
-            return (0.0, [f"Disqualified: Security clearance / government restriction ({ex})"])
+    # 1. Hard Exclusions (Defense, Military, Clearance, Public Sector, Healthcare/Clinical, Excluded Companies)
+    if is_excluded(combined_text, job.get("company", "")):
+        return (0.0, ["Disqualified: Excluded defense, government, clearance, or healthcare/clinical domain"])
 
     # 2. Hard Title Disqualifiers (Internal IT, Helpdesk, Desktop Support, SRE, Executive/Principal)
     for pat in DISQUALIFIED_TITLE_PATTERNS:
@@ -344,8 +347,8 @@ def calculate_match_score(job: Dict[str, Any]) -> Tuple[float, List[str]]:
                 detected_traps.append(f"{trap_name} ('{m.group(0)}')")
                 break
 
-    if max_sal > 195000:
-        detected_traps.append(f"Salary ceiling exceeds $195k (${int(max_sal):,})")
+    if max_sal > 135000:
+        detected_traps.append(f"Salary ceiling exceeds $135k (${int(max_sal):,})")
 
     if len(detected_traps) >= 2:
         return (0.0, [f"Rejected (2+ Trap Flags): {', '.join(detected_traps)}"])

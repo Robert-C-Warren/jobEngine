@@ -70,31 +70,34 @@ class JobEvaluation(BaseModel):
 
 
 SYSTEM_INSTRUCTION = (
-    "You are an expert technical recruiter evaluating job descriptions. "
-    "Your objective is to find B2B SaaS Technical Support, Integration, or Product Analyst roles "
-    "that serve as a bridge to Solutions Engineering."
+    "You are a strict technical recruiter evaluating job descriptions for an early-to-mid-level "
+    "candidate (2-4 years experience) targeting commercial B2B SaaS Technical Support, "
+    "Implementation/Integration, Data Operations, or Product Analyst roles. "
+    "You MUST aggressively penalize senior roles (5+ years required), defense/government work, "
+    "healthcare/clinical domains, and roles requiring deep senior distributed-systems engineering."
 )
 
-PROMPT_TEMPLATE = """You are an expert technical recruiter evaluating job descriptions. Your objective is to find B2B SaaS Technical Support, Integration, or Product Analyst roles that serve as a bridge to Solutions Engineering.
+PROMPT_TEMPLATE = """You are a strict technical recruiter evaluating a job description for an early-to-mid-level candidate (2-4 years of hands-on Windows/SQL diagnostics, log triage, API/Python automation, and technical documentation).
 
 Evaluate the provided job description and SCORE it from 0 to 100 based on the following criteria:
 
 REQUIRED DNA (+20 points each):
-1. B2B SaaS Environment: Must support a software platform or enterprise product.
-2. Root-Cause Analysis: Explicit mention of investigating complex bugs, reading logs (e.g., application logs, Windows Event Viewer, CBS logs, Procmon, stack traces), or reproducing issues.
-3. Database Interaction: Requires SQL, SQL logs, database querying, or data integrity troubleshooting.
-4. Engineering Escalation: Mentions working directly with QA, developers, or product teams to resolve tier 2/tier 3 issues.
-5. Technical Stack: Mentions APIs, JSON, webhooks, cloud infrastructure, or deep OS/application/client-server software diagnostics.
+1. Commercial B2B SaaS or Data Platform: Supports a commercial software, data pipeline, observability, telemetry, or B2B API product (NOT healthcare, defense, or government).
+2. Root-Cause Analysis & Log Triage: Investigates software bugs, parses logs (Event Viewer, ProcMon, server/API logs, stack traces), or reproduces issues.
+3. Database & Data Integrity: Requires SQL querying, database troubleshooting, schema/payload validation, or ETL/data pipeline diagnostics.
+4. Engineering & Product Escalation: Partners with QA, engineering, or product teams on Tier 2/3 issues, bug reports, or customer implementations.
+5. Technical Stack Fit: Mentions APIs, JSON, webhooks, Python/scripting, SQL, or OS/client-server diagnostics at an accessible early-to-mid-level depth.
 
-TRAP JOB PENALTIES (-50 points each. Reject immediately with score 0 if two or more are found):
-- Tier 1 IT Helpdesk or internal corporate IT support.
-- Hardware troubleshooting, printer repair, or desktop provisioning.
-- Active Directory administration or basic Office 365 password resets.
-- High-volume inbound call center metrics.
-- Pure backend/ML Software Engineering, pure DevOps/SRE infrastructure architecture, or senior quota-carrying Pre-Sales Solutions Engineering requiring 5+ years of prior sales quota experience.
+TRAP JOB PENALTIES (-50 points each. Reject immediately with score 0 if TWO OR MORE are found):
+- Seniority / Experience Mismatch: Requires 5+ years of experience, OR explicitly targets Senior, Staff, Principal, Lead, Escalation Engineer, or Solutions Architect levels, OR lists base salary above $135,000 USD.
+- Niche Senior Infrastructure Gate: Requires production mastery of Kubernetes/K8s administration, Terraform, ClickHouse/Kafka cluster ops, Airflow orchestration at scale, or 4+ years of pure backend SWE experience.
+- Defense, Military, or Public Sector: Any tie to defense, military AI, intelligence, federal/state government, public sector, ITAR, or security clearances.
+- Healthcare or Clinical Domain: Hospitals, clinical workflows, HIPAA/EHR/EMR, biotech, genomics, or medical devices.
+- Tier 1 Helpdesk / Corporate IT Trap: Internal corporate IT, password resets, Active Directory admin, printer/desktop provisioning, or high-volume consumer call center metrics.
+- Heavy Sales / Live Video Quota: Quota-carrying pre-sales Solutions Engineering or roles primarily centered on live customer video calls/demos.
 
 Output a JSON object with:
-{{"score": [number], "reasoning": "[brief explanation]", "trap_flags": [list of any trap keywords found], "tool_blockers": [list of specific software tools required, e.g., Jira, Salesforce]}}
+{{"score": [number], "reasoning": "[brief explanation]", "trap_flags": [list of any trap keywords/categories found], "tool_blockers": [list of specific required tools/platforms, e.g., Jira, Salesforce, Kubernetes]}}
 
 Job Description:
 {raw_text}
